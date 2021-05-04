@@ -2,25 +2,35 @@ import React, { Component } from "react";
 import { styles } from "./common/styles";
 import NavButtons from "./common/navbuttons";
 import LogOut from "./common/logOut";
+import NotificationBadge from "./common/notificationBadge";
 
 class Navbar extends Component {
   state = {
     currentPage: null,
+    notiCount: 0,
   };
 
   componentDidMount() {
-    this.setState({ currentPage: "Home" });
+    this.setState({ currentPage: "Home", notiCount: 5 });
   }
 
   handleCurrentPage = (page) => {
     this.setState({ currentPage: page });
+    // TODO go to the required page
+  };
+
+  handleNotificationClick = () => {
+    this.setState({ notiCount: 0 });
+    // TODO show notification lists
   };
 
   handleLogOut = () => {
     this.setState({ currentPage: "Home" });
+    // TODO actually log out
   };
 
   render() {
+    const { currentPage, notiCount } = this.state;
     return (
       <nav
         className="navbar navbar-expand-sm navbar-light"
@@ -51,8 +61,12 @@ class Navbar extends Component {
         >
           <NavButtons
             stakeHolder={"manager"}
-            currentPage={this.state.currentPage}
+            currentPage={currentPage}
             onPageChange={this.handleCurrentPage}
+          />
+          <NotificationBadge
+            notiCount={notiCount}
+            onNotiClick={this.handleNotificationClick}
           />
           <LogOut onLogOut={this.handleLogOut} />
         </div>
