@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { styles } from "./common/styles";
 import NavButtons from "./common/navbuttons";
+import LogOut from "./common/logOut";
 
 class Navbar extends Component {
   state = {
@@ -13,6 +14,10 @@ class Navbar extends Component {
 
   handleCurrentPage = (page) => {
     this.setState({ currentPage: page });
+  };
+
+  handleLogOut = () => {
+    this.setState({ currentPage: "Home" });
   };
 
   render() {
@@ -28,7 +33,7 @@ class Navbar extends Component {
         >
           SoccerBoard
         </a>
-        {/* <button
+        <button
           className="navbar-toggler"
           type="button"
           data-toggle="collapse"
@@ -38,10 +43,10 @@ class Navbar extends Component {
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
-        </button> */}
+        </button>
         <div
-          className="collapse navbar-collapse justify-content-md-center"
-          id="navbarSupportedContent"
+          className="collapse navbar-collapse "
+          // id="navbarSupportedContent"
           // style={{ backgroundColor: "#ffbbff" }}
         >
           <NavButtons
@@ -49,6 +54,7 @@ class Navbar extends Component {
             currentPage={this.state.currentPage}
             onPageChange={this.handleCurrentPage}
           />
+          <LogOut onLogOut={this.handleLogOut} />
         </div>
       </nav>
     );
