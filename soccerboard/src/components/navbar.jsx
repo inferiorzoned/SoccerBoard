@@ -11,6 +11,10 @@ class Navbar extends Component {
     this.setState({ currentPage: "Home" });
   }
 
+  handleCurrentPage = (page) => {
+    this.setState({ currentPage: page });
+  };
+
   render() {
     return (
       <nav
@@ -43,6 +47,7 @@ class Navbar extends Component {
           <NavButtons
             stakeHolder={"manager"}
             currentPage={this.state.currentPage}
+            onPageChange={this.handleCurrentPage}
           />
         </div>
       </nav>

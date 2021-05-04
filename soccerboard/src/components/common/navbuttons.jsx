@@ -5,6 +5,7 @@ import NavButton from "./navButton";
 input:
     stakeHolder
     currentPage
+    onPageChange
 */
 class NavButtons extends Component {
   state = {
@@ -27,7 +28,7 @@ class NavButtons extends Component {
 
   render() {
     const { ButtonLabels } = this.state;
-    const { currentPage } = this.props;
+    const { currentPage, onPageChange } = this.props;
 
     return (
       <ul className="navbar-nav mr-auto">
@@ -47,6 +48,7 @@ class NavButtons extends Component {
               <NavButton
                 isActive={currentPage === buttonLabel}
                 buttonLabel={buttonLabel}
+                onPageChange={onPageChange}
               />
             </a>
           </li>

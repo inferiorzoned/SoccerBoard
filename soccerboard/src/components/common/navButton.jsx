@@ -4,12 +4,13 @@ import { styles } from "./styles";
 input:
     isActive
     buttonLabel
+    onPageChange
 */
 
 class NavButton extends Component {
   // state = {  }
   render() {
-    const { isActive, buttonLabel } = this.props;
+    const { isActive, buttonLabel, onPageChange } = this.props;
     return (
       <button
         className="navButton"
@@ -18,6 +19,7 @@ class NavButton extends Component {
             ? { backgroundColor: "#4A0202" }
             : { backgroundColor: "#034732" }
         }
+        onClick={() => onPageChange(buttonLabel)}
       >
         {buttonLabel}
         {/* {splittedHtml} */}
@@ -30,18 +32,3 @@ class NavButton extends Component {
 }
 
 export default NavButton;
-/*
-const NavButton = (props) => {
-  const { isActive, buttonLabel } = props;
-  const buttonLabelSplit = buttonLabel.split(" ");
-
-  return (
-    <button
-      // className="rounded-pill"
-      style={isActive ? styles.navButtonActive : styles.navButton}
-    >
-      {buttonLabel}
-    </button>
-  );
-};
-*/
