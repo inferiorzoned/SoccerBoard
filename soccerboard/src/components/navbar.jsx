@@ -3,6 +3,7 @@ import { styles } from "./common/styles";
 import NavButtons from "./common/navbuttons";
 import LogOut from "./common/logOut";
 import NotificationBadge from "./common/notificationBadge";
+import { NavLink } from "react-router-dom";
 
 class Navbar extends Component {
   state = {
@@ -36,13 +37,13 @@ class Navbar extends Component {
         className="navbar navbar-expand-sm navbar-light"
         style={styles.navBar}
       >
-        <a
+        <NavLink
           className="navbar-brand"
-          href="#"
+          to="/home"
           // style={{ backgroundColor: "#bbffcc", justifyContent: "start" }}
         >
           SoccerBoard
-        </a>
+        </NavLink>
         <button
           className="navbar-toggler"
           type="button"

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { styles } from "./styles";
 import NavButton from "./navButton";
+import { NavLink } from "react-router-dom";
 /*
 input:
     stakeHolder
@@ -34,7 +35,7 @@ class NavButtons extends Component {
       <ul className="navbar-nav mr-auto">
         {ButtonLabels.map((buttonLabel) => (
           <li className="nav-item active" key={buttonLabel}>
-            <a className="nav-link" href="#">
+            <NavLink className="nav-link" to={`/${buttonLabel}`}>
               {/* <button
                 // className="rounded-pill"
                 style={
@@ -50,7 +51,7 @@ class NavButtons extends Component {
                 buttonLabel={buttonLabel}
                 onPageChange={onPageChange}
               />
-            </a>
+            </NavLink>
           </li>
         ))}
       </ul>
