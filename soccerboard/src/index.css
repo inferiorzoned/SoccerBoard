@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
 code {
@@ -49,4 +50,37 @@ code {
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   border-radius: 45px;
   color: #f0925c;
+}
+
+.sideBar {
+  height: 100vh;
+  width: 200px;
+  background-color: #212230;
+}
+
+.sideBarList {
+  height: auto;
+  width: 100%;
+  padding: 0;
+}
+
+.sideBarList .Row {
+  width: auto;
+  list-style-type: none;
+  color: white;
+  padding: 10px 0 10px 0;
+  font-family: "Roboto";
+  transition: all 0.2s ease 0s;
+}
+
+.sideBarList .Row:hover {
+  background-color: rgb(22, 22, 119);
+  text-decoration: none;
+  transform: scale(0.92);
+}
+
+.sideBarLine {
+  color: #359b37;
+  border: 5px solid #359b37;
+  border-radius: 5px;
 }

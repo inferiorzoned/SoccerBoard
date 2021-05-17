@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { styles } from "./common/styles";
-import NavButtons from "./common/navbuttons";
+import NavButtons from "./navbuttons";
 import LogOut from "./common/logOut";
 import NotificationBadge from "./common/notificationBadge";
 import { NavLink } from "react-router-dom";

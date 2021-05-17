@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { styles } from "./styles";
+import { styles } from "./common/styles";
 import NavButton from "./navButton";
 import { NavLink } from "react-router-dom";
 /*

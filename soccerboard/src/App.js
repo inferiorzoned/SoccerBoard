@@ -2,17 +2,17 @@
 import "./App.css";
 import Navbar from "./components/navbar.jsx";
 import { Route, Switch } from "react-router-dom";
-import Home from "./components/home";
-import TrainingSession from "./components/trainingSession";
-import TrainingRepo from "./components/trainingRepo";
-import Recruit from "./components/recruit";
-import Squad from "./components/squad";
+import Home from "./pages/home";
+import TrainingSession from "./pages/trainingSession";
+import TrainingRepo from "./pages/trainingRepo";
+import Recruit from "./pages/recruit";
+import Squad from "./pages/squad";
 
 function App() {
   return (
     <div>
-      <Navbar />
-      <main className="container">
+      <main className="App">
+        <Navbar />
         <Switch>
           <Route path="/home" component={Home}></Route>
           <Route path="/Training Session" component={TrainingSession}></Route>
