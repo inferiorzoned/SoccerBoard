@@ -53,7 +53,7 @@ code {
 }
 
 .sideBar {
-  height: 100vh;
+  height: 100%;
   width: 200px;
   background-color: #212230;
 }
@@ -83,4 +83,46 @@ code {
   color: #359b37;
   border: 5px solid #359b37;
   border-radius: 5px;
+}
+
+.cell {
+  border-radius: 5%;
+  border-color: blue;
+  height: 60px;
+  width: 90px;
+}
+
+.selected0 {
+  border-color: black;
+}
+
+
+.selected1 {
+  border-color: brown;
+}
+
+.selected2 {
+  border-color: green;
+}
+
+.selected3 {
+  border-color: grey;
+}
+
+.selected4 {
+  border-color: orange;
+}
+
+.details {
+  border: 2px yellow;
+  border-radius: 2%;
+  height: 100%;
+  width: 250%;
+}
+
+
+.details {
+  width: "100%";
+  border-radius: 1%;
+  border: 2px solid green;
 }
