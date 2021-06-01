@@ -1,6 +1,6 @@
 import React from "react";
 import SideBar from "../components/sideBar";
-import TrainingCard from "../components/trainingCard";
+import TrainingCards from "../components/trainingCards";
 
 const TrainingRepo = () => {
   return (
@@ -10,7 +10,7 @@ const TrainingRepo = () => {
       </div>
       <div className="col" style={{ backgroundColor: "yellow" }}>
         <h1>Training repo</h1>
-        <TrainingCard />
+        <TrainingCards />
       </div>
       {/* <img src={require("./test.jpg")} /> */}
     </div>
