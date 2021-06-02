@@ -1,6 +1,6 @@
 const navBar = {
   backgroundColor: "#217075",
-
+  position: "sticky",
   // justifyContent: "center",
 };
 

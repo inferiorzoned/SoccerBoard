@@ -19,23 +19,6 @@ class TrainingCard extends Component {
       trainingDescription,
     } = this.props;
     return (
-      //   <>
-      //     <div class="row">
-      //       <div class="col-2" style={{ backgroundColor: "yellow" }}>
-      //         {str}
-      //       </div>
-      //       <div class="col-7" style={{ backgroundColor: "blue" }}>
-      //         {str}
-      //       </div>
-      //       <div class="col-1" style={{ backgroundColor: "yellow" }}>
-      //         {str}
-      //       </div>
-      //       <div class="col-2" style={{ backgroundColor: "blue" }}>
-      //         {str}
-      //       </div>
-      //     </div>
-      //   </>
-
       // <div className="card bg-light mb-3 mb-3" style={{ width: "18rem" }}>
 
       // <div className="card bg-light  mb-3 mb-3">
@@ -64,17 +47,43 @@ class TrainingCard extends Component {
       //     </div>
       //   </div>
       // </div>
+
+      // <div className="card w-100">
+      //   <div className="cardStyle">
+      //     <img className="cardImage" src={trainingImage} />
+      //     <div className="card-body">
+      //       <h5 className="card-title">{trainingTitle}</h5>
+      //       <p className="card-text">
+      //         <small className="text-muted">{trainingDifficulty}</small>
+      //       </p>
+      //       <p className="card-text cardDesc line-clamp">
+      //         {trainingDescription}
+      //       </p>
+      //     </div>
+      //   </div>
+      // </div>
+
       <div className="card w-100">
-        <div className="cardStyle">
-          <img className="cardImage" src={trainingImage} />
-          <div className="card-body">
-            <h5 className="card-title">{trainingTitle}</h5>
-            <p className="card-text">
-              <small className="text-muted">{trainingDifficulty}</small>
-            </p>
-            <p className="card-text cardDesc line-clamp">
-              {trainingDescription}
-            </p>
+        <div className="container-fluid p-0 cardStyle">
+          <div className="row h-50 m-0">
+            <div className="col p-2">
+              <img className="cardImage" src={trainingImage} />
+            </div>
+            <div className="col p-2">
+              <h5 className="card-title ">{trainingTitle}</h5>
+              <p className="card-text ">
+                <small className={`cardDiff ${trainingDifficulty}`}>
+                  {trainingDifficulty}
+                </small>
+              </p>
+            </div>
+          </div>
+          <div className="row m-0">
+            <div className="card-body">
+              <p className="card-text cardDesc line-clamp ">
+                {trainingDescription}
+              </p>
+            </div>
           </div>
         </div>
       </div>

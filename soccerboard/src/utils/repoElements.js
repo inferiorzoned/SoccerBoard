@@ -24,7 +24,7 @@ const trainingRepoCategoryData = {
     {
       trainingImage: pic,
       trainingTitle: "Pass Receiving",
-      trainingDifficulty: "Beginner",
+      trainingDifficulty: "Advanced",
       trainingDescription:
         "Receive from your partner, land it on the upper part of your feet, and control it as smooth as possible",
     },
@@ -46,7 +46,7 @@ const trainingRepoCategoryData = {
     {
       trainingImage: pic,
       trainingTitle: "Pair Passing",
-      trainingDifficulty: "Beginner",
+      trainingDifficulty: "Intermediate",
       trainingDescription: "Passing between two players",
     },
   ],

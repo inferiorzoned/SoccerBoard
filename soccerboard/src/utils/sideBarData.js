@@ -20,7 +20,7 @@ const outerLink = {
 
 const innerLink = {
   trainingRepo: [
-    { label: "Passing", link: "" },
+    { label: "Passing", link: "Training Repo#Attack" },
     { label: "Shooting", link: "" },
     { label: "Attack", link: "" },
     { label: "Defense", link: "" },

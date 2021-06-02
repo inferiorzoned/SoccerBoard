@@ -15,7 +15,10 @@ class CardGroup extends Component {
     );
     return (
       <>
-        <h1 style={{ textAlign: "left" }}>{trainingCategoryName}</h1>
+        <h1 className="text-left pt-5" id={`${trainingCategoryName}`}>
+          {trainingCategoryName}
+        </h1>
+        <hr className="categoryLine" />
         <div className="container-fluid">
           <div className="row ">
             {trainingRepoData.trainingRepoCategoryData[

@@ -9,7 +9,7 @@ class TrainingCards extends Component {
         {trainingRepoData.trainingCategories.map(
           (trainingType, trainingTypeIndex) => (
             <li key={trainingTypeIndex}>
-              <CardGroup trainingCategoryName={trainingType} />;
+              <CardGroup trainingCategoryName={trainingType} />
             </li>
           )
         )}
