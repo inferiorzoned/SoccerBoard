@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { getApplicants } from "../services/applicants";
-import InfoSidebar from "./commons/InfoSidebar";
+import { getApplicants } from "../services/recruitService";
+import InfoSidebar from "./commons/infoSidebar";
 import RecruitTable from "./recruitTable";
 
 class Recruit extends Component {

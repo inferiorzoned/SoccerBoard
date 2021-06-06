@@ -1,6 +1,11 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./commons/form";
+import {
+  getInstitutions,
+  uploadImage,
+  uploadForm,
+} from "../services/applicationService";
 
 class ApplicationForm extends Form {
   state = {
@@ -15,7 +20,7 @@ class ApplicationForm extends Form {
       institution: "",
       prefFoot: "",
       prefPos: "",
-      profileImg: "https://objex.tech/assets/img/faces/placeholder.jpg",
+      avatar: "https://objex.tech/assets/img/faces/placeholder.jpg",
     },
     proLevels: [
       {
@@ -58,6 +63,7 @@ class ApplicationForm extends Form {
       { value: "lw", label: "LW" },
     ],
     staffPositions: [
+      { value: "manager", label: "Manager" },
       { value: "assistant-manager", label: "Assistant Manager" },
       { value: "inventory-manager", label: "Inventory Manager" },
       { value: "nutritionist", label: "Nutritionist" },
@@ -68,9 +74,28 @@ class ApplicationForm extends Form {
     ],
     selectedOption: "player",
     errors: {},
+    schema: {
+      name: Joi.string().required().label("Name"),
+      email: Joi.string().email().label("Email"),
+      mobile: Joi.string()
+        .min(10)
+        .max(14)
+        .regex(/^[0-9]+$/)
+        .required()
+        .label("Mobile"),
+      age: Joi.number().integer().min(0).max(50).required().label("Age"),
+      height: Joi.number().min(0).label("Height"),
+      weight: Joi.number().min(0).label("Weight"),
+      proLevel: Joi.string().required().label("Professional Level"),
+      institution: Joi.string().required().label("Institution/Organization"),
+      prefFoot: Joi.string().required().label("Preferred Foot"),
+      prefPos: Joi.array().min(1).required().label("Preferred Position"),
+      avatar: Joi.any(),
+      imageFile: Joi.any(),
+    },
   };
 
-  schema = {
+  playerSchema = {
     name: Joi.string().required().label("Name"),
     email: Joi.string().email().label("Email"),
     mobile: Joi.string()
@@ -86,24 +111,100 @@ class ApplicationForm extends Form {
     institution: Joi.string().required().label("Institution/Organization"),
     prefFoot: Joi.string().required().label("Preferred Foot"),
     prefPos: Joi.array().min(1).required().label("Preferred Position"),
-    staffPos: Joi.string().required().label("Staff Position"),
+    avatar: Joi.any(),
+    imageFile: Joi.any(),
   };
 
-  doSubmit = () => {
+  staffSchema = {
+    name: Joi.string().required().label("Name"),
+    email: Joi.string().email().label("Email"),
+    mobile: Joi.string()
+      .min(10)
+      .max(14)
+      .regex(/^[0-9]+$/)
+      .required()
+      .label("Mobile"),
+    age: Joi.number().integer().min(0).max(50).required().label("Age"),
+    proLevel: Joi.string().required().label("Professional Level"),
+    institution: Joi.string().required().label("Institution/Organization"),
+    staffPos: Joi.string().required().label("Staff Position"),
+    avatar: Joi.any(),
+    imageFile: Joi.any(),
+  };
+
+  async componentDidMount() {
+    let { institutions } = await getInstitutions();
+    institutions = institutions.map((institution) => ({
+      value: institution,
+      label: institution,
+    }));
+    this.setState({ institutions: institutions });
+  }
+
+  doSubmit = async () => {
+    const { imageFile, ...data } = this.state.data;
     // Call the server
-    console.log("Submitted");
+    const { mediaUrl } = await uploadImage(imageFile);
+    const form = {
+      ...data,
+      avatar: mediaUrl,
+      appType: this.state.selectedOption,
+    };
+    console.log(form);
+    await uploadForm(form);
+  };
+
+  handleOptionChange = (e) => {
+    const schema =
+      e.target.value === "player" ? this.playerSchema : this.staffSchema;
+    const data =
+      e.target.value === "player"
+        ? {
+            name: "",
+            email: "",
+            mobile: "",
+            age: "",
+            height: "",
+            weight: "",
+            proLevel: "",
+            institution: "",
+            prefFoot: "",
+            prefPos: "",
+            avatar: "https://objex.tech/assets/img/faces/placeholder.jpg",
+          }
+        : {
+            name: "",
+            email: "",
+            mobile: "",
+            age: "",
+            proLevel: "",
+            institution: "",
+            staffPos: "",
+            avatar: "https://objex.tech/assets/img/faces/placeholder.jpg",
+          };
+    this.setState({
+      data: { ...data },
+      selectedOption: e.target.value,
+      schema: schema,
+      errors: {},
+    });
   };
 
   handleImage = (e) => {
+    const file = e.target.files[0];
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
         this.setState({
-          data: { ...this.state.data, profileImg: reader.result },
+          data: {
+            ...this.state.data,
+            avatar: reader.result,
+            imageFile: file,
+          },
         });
       }
     };
-    reader.readAsDataURL(e.target.files[0]);
+    reader.readAsDataURL(file);
   };
 
   render() {
@@ -115,6 +216,7 @@ class ApplicationForm extends Form {
       staffPositions,
       selectedOption,
     } = this.state;
+
     return (
       <div className="container-fluid">
         <div className="row">
@@ -130,7 +232,7 @@ class ApplicationForm extends Form {
                   <div className="col-sm-4 text-center">
                     <div className="image-holder m-2">
                       <img
-                        src={this.state.data.profileImg}
+                        src={this.state.data.avatar}
                         alt=""
                         id="img"
                         className="img-thumbnail"
@@ -229,10 +331,20 @@ class ApplicationForm extends Form {
                       )}
                   </div>
                 </div>
-
-                <div className="text-center py-3">
-                  {this.renderButton("APPLY", null)}
-                </div>
+                {selectedOption === "player" && (
+                  <div className="text-center py-3">
+                    {this.renderButton("APPLY", (e) =>
+                      this.handleSubmit(e, this.playerSchema)
+                    )}
+                  </div>
+                )}
+                {selectedOption === "staff" && (
+                  <div className="text-center py-3">
+                    {this.renderButton("APPLY", (e) =>
+                      this.handleSubmit(e, this.staffSchema)
+                    )}
+                  </div>
+                )}
               </form>
             </div>
           </div>
