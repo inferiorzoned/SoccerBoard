@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getEvents } from '../utils/eventServices';
+import { serveEvents } from '../utils/eventServices';
 // import Pagination from './common/pagination';
 // import ListGroup from './common/listGroup';
 // import { paginate } from '../utils/paginate';
@@ -10,20 +10,24 @@ import { Link } from 'react-router-dom';
 //import { toast } from 'react-toastify';
 import _ from 'lodash';
 
-class ManagerHome extends Component {
+class HomeCalendar extends Component {
     state = { 
         events: [],// to get movies from memory
         genres: [],
         pageSize: 4,
+        year: new Date().getFullYear(),
         selectedEvent: null,
         searchQuery: "",
         sortColumn: { path: 'title', order: 'asc'}
     }
 
     async componentDidMount(){
-        const { events, month } = getEvents();
+        const today = new Date();
+        const year = today.getFullYear();
+        const m = today.getMonth();
+        const { events, month } = await serveEvents(m, year);
         console.log(events);
-        this.setState( { events, month } );
+        this.setState( { events, month, year } );
     }
 
     // handlePageChange = (page) => {
@@ -39,11 +43,34 @@ class ManagerHome extends Component {
     }
 
 
-    // handleSort = (sortColumn) => {
-        
-    //     this.setState( { sortColumn });
-    //     //starting ending
-    // }
+    handleMonthIncrease = async () => {
+        //change to next month
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const index = monthNames.indexOf(this.state.month);
+        console.log('index', index, this.state.month);
+        const year = (index === 11) ? this.state.year + 1 : this.state.year;
+        const { events, month } = await serveEvents((index + 1)%12, year);
+        console.log(events);
+        this.setState( { events, month, year } );
+        //starting ending
+    }
+
+    handleMonthDecrease = async () => {
+        //change to prev month
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        let index = monthNames.indexOf(this.state.month);
+
+        const year = (index === 0) ? this.state.year - 1 : this.state.year;
+        index = (index === 0) ? 11 : index-1;
+        const { events, month } = await serveEvents(index, year);
+        console.log(events);
+        this.setState( { events, month, year } );
+        //starting ending
+    }
 
     // handleSearch = (query) => {
         
@@ -103,11 +130,14 @@ class ManagerHome extends Component {
                         cellSelected={selectedEvent}
                         onCellSelected={this.handleEventSelected}
                         month={month}
+                        onIncrease={this.handleMonthIncrease}
+                        onDecrease={this.handleMonthDecrease}
                     />    
                 </div> 
                 <div className="row details">
                     <DetailsBox
                         eventSelected={selectedEvent}
+                        month={month}
                     />
                 </div>
             </div>
@@ -115,5 +145,5 @@ class ManagerHome extends Component {
     }
 }
  
-export default ManagerHome;
+export default HomeCalendar;
 

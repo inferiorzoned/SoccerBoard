@@ -29,13 +29,14 @@ class CalendarBody extends Component {
                     <td key={element._id}
                     >
                         <button
-                            className={cellSelected && cellSelected._id === element._id?'cell':'cell selected'+element.color}
+                            className={cellSelected && cellSelected._id === element._id?'cell selected0':
+                                'cell selected'+element.color}
                             onClick={() => onCellSelected(element)}
                         >
                             {element.date}<br></br>
                             {element.title}
                         </button>
-                    </td>    
+                    </td>
                 )}
                 </tr> )
         }

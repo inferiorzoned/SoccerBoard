@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 0;
+  background-color: #E5E5E5;
 }
 
 code {
@@ -88,8 +89,14 @@ code {
 .cell {
   border-radius: 5%;
   border-color: blue;
-  height: 60px;
-  width: 90px;
+  height: 80px;
+  width: 120px;
+  overflow:hidden ;
+}
+
+.selectedborderless {
+  border: 0px;
+  background-color: white;
 }
 
 .selected0 {
@@ -113,16 +120,39 @@ code {
   border-color: orange;
 }
 
+
 .details {
-  border: 2px yellow;
-  border-radius: 2%;
   height: 100%;
-  width: 250%;
-}
-
-
-.details {
-  width: "100%";
+  width: 270%;
   border-radius: 1%;
   border: 2px solid green;
+}
+
+.tableheader {
+  /* background-color: rgb(197, 196, 196); */
+  border: none;
+}
+
+.tablebody {
+  
+  width: 10%;
+  height: 100%;
+  border: 2px solid rgb(18, 146, 179);
+  border-radius: 10%;
+}
+
+.tablerow {
+  background-color: #ffdbe9;
+}
+
+.tablecolumn {
+  border-radius: 1%;
+  border-left: 1px solid rgb(99, 113, 240); 
+  border-right: 1px solid rgb(99, 113, 240);
+}
+
+.kit {
+  width: 5%;
+  border-radius: 1%;
+  border: 1px solid rgb(99, 3, 3);
 }

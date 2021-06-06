@@ -4,11 +4,6 @@ import Calendar from './common/calendar';
 
 class EventCalendar extends Component {
     columns = [
-        { path: 'sat', label: 'Sat', content: event => (
-        <button>
-            {event.title}
-        </button> 
-    ) },
         { path: 'sun', label: 'Sun', content: event => (
         <button>
             {event.title}
@@ -35,6 +30,11 @@ class EventCalendar extends Component {
         </button> 
     ) },
         { path: 'fri', label: 'Fri', content: event => (
+        <button>
+            {event.title}
+        </button> 
+    ) },
+        { path: 'sat', label: 'Sat', content: event => (
         <button>
             {event.title}
         </button> 
@@ -65,7 +65,7 @@ class EventCalendar extends Component {
     render() { 
         //whenever we click on a column it's the table's responsibility to let us know
         // the sorting path
-        const { events, cellSelected, onCellSelected, month } = this.props;
+        const { events, cellSelected, onCellSelected, month, onIncrease, onDecrease } = this.props;
         return ( 
             <Calendar 
                 columns={this.columns}
@@ -73,6 +73,8 @@ class EventCalendar extends Component {
                 cellSelected={cellSelected}
                 onCellSelected={onCellSelected}
                 month={month}
+                onIncrease={onIncrease}
+                onDecrease={onDecrease}
             />
         );
     }
