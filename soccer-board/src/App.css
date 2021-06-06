@@ -1,0 +1,267 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  font-family: "Comfortaa", "Roboto";
+  font-size: 108px;
+  font-weight: 900;
+  text-align: center;
+  color: #1d4912;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* other formats include: 'woff2', 'truetype, 'opentype', 'embedded-opentype', and 'svg' */
+
+@font-face {
+  font-family: "Comfortaa";
+  src: local("Comfortaa"),
+    url("./fonts/comfortaa/static/Comfortaa-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Passero One";
+  src: local("PasseroOne"),
+    url("./fonts/passero-one/PasseroOne-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.homepage-bgimage {
+  background: url("travel-nomades-JO19K0HDDXI-unsplash.jpg");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login {
+  background-color: #034732;
+  border-radius: 16px;
+  font-family: "Comfortaa", "Roboto";
+  font-weight: normal;
+  font-style: normal;
+  color: #d3e1de;
+}
+
+.btn-maroon {
+  color: #ffffff;
+  background-color: #6a1c1c;
+  border-color: #6a1c1c;
+}
+
+.btn-maroon:hover,
+.btn-maroon:focus,
+.btn-maroon:active,
+.btn-maroon.active,
+.open .dropdown-toggle.btn-maroon {
+  color: #ffffff;
+  background-color: #6a1c1c;
+  border-color: #6a1c1c;
+}
+
+.btn-maroon:active,
+.btn-maroon.active,
+.open .dropdown-toggle.btn-maroon {
+  background-image: none;
+}
+
+.btn-maroon.disabled,
+.btn-maroon[disabled],
+fieldset[disabled] .btn-maroon,
+.btn-maroon.disabled:hover,
+.btn-maroon[disabled]:hover,
+fieldset[disabled] .btn-maroon:hover,
+.btn-maroon.disabled:focus,
+.btn-maroon[disabled]:focus,
+fieldset[disabled] .btn-maroon:focus,
+.btn-maroon.disabled:active,
+.btn-maroon[disabled]:active,
+fieldset[disabled] .btn-maroon:active,
+.btn-maroon.disabled.active,
+.btn-maroon[disabled].active,
+fieldset[disabled] .btn-maroon.active {
+  background-color: #6a1c1c;
+  border-color: #6a1c1c;
+}
+
+.btn-maroon .badge {
+  color: #6a1c1c;
+  background-color: #ffffff;
+}
+
+.btn-green-dark {
+  color: #f3f3f3;
+  background-color: #034732;
+  border-color: #034732;
+}
+
+.btn-green-dark:hover,
+.btn-green-dark:focus,
+.btn-green-dark:active,
+.btn-green-dark.active,
+.open .dropdown-toggle.btn-green-dark {
+  color: #f3f3f3;
+  background-color: #034732;
+  border-color: #034732;
+}
+
+.btn-green-dark:active,
+.btn-green-dark.active,
+.open .dropdown-toggle.btn-green-dark {
+  background-image: none;
+}
+
+.btn-green-dark.disabled,
+.btn-green-dark[disabled],
+fieldset[disabled] .btn-green-dark,
+.btn-green-dark.disabled:hover,
+.btn-green-dark[disabled]:hover,
+fieldset[disabled] .btn-green-dark:hover,
+.btn-green-dark.disabled:focus,
+.btn-green-dark[disabled]:focus,
+fieldset[disabled] .btn-green-dark:focus,
+.btn-green-dark.disabled:active,
+.btn-green-dark[disabled]:active,
+fieldset[disabled] .btn-green-dark:active,
+.btn-green-dark.disabled.active,
+.btn-green-dark[disabled].active,
+fieldset[disabled] .btn-green-dark.active {
+  background-color: #034732;
+  border-color: #034732;
+}
+
+.btn-green-dark .badge {
+  color: #034732;
+  background-color: #f3f3f3;
+}
+
+.form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(0, 200, 83, 0.25);
+}
+
+.img-thumbnail {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  border-color: #6a1c1c;
+}
+
+.form-check-input:checked {
+  background-color: #00c853;
+  border-color: #00c853;
+}
+
+.status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 148px;
+  height: 64px;
+  border: 2px solid #00251a;
+  box-sizing: border-box;
+  border-radius: 20px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: capitalize;
+  color: #000000;
+}
+
+#processing {
+  background-color: #ffff8d;
+}
+
+#accepted {
+  background-color: #48e78a;
+}
+
+#rejected {
+  background-color: #f27b7b;
+}
+
+.label {
+  color: #6d6e78;
+  font-size: 16px;
+}
+
+.value {
+  font-size: 32px;
+}
+
+.squad-table {
+  border-radius: 16px;
+  border-spacing: 0;
+  border-collapse: separate;
+  font: normal 16px "Passero One", Roboto;
+  cursor: pointer;
+}
+
+.squad-table-green {
+  border: 2px solid #034732;
+}
+
+.squad-table-maroon {
+  border: 2px solid #be4e41;
+}
+
+.squad-table thead th {
+  background-color: #ddefef;
+  border: solid 1px #ddeeee;
+  color: #336b6b;
+  padding: 10px;
+  text-align: left;
+  text-shadow: 1px 1px 1px #fff;
+}
+.squad-table tbody td {
+  outline: none;
+  color: #000000;
+  padding: 10px;
+}
+.squad-table-highlight tbody tr:hover {
+  background-color: #00da5b3a;
+}
+.squad-table-horizontal tbody td {
+  border-left: none;
+  border-right: none;
+}
+
+.squad-table th:first-child {
+  border-radius: 16px 0 0 0;
+}
+
+.squad-table th:last-child {
+  border-radius: 0 16px 0 0;
+}
+
+.squad-table tr:last-child {
+  border-top: solid 4px #6a1c1c;
+  border-spacing: 1;
+}
