@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getApplicants } from "../services/applicants";
+import InfoSidebar from "./commons/InfoSidebar";
 import RecruitTable from "./recruitTable";
 
 class Recruit extends Component {
@@ -41,23 +42,6 @@ class Recruit extends Component {
     console.log("Rejected", rejectedIds);
   };
 
-  renderPlayerInfo = () => {
-    const { currentApplicant } = this.state;
-    return this.playerInfo.map((info) => (
-      <div key={info.key} className="row">
-        <div className="col text-start">{info.label}</div>
-        {currentApplicant[info.key] &&
-        currentApplicant[info.key].constructor === Array ? (
-          <div className="col text-start">
-            {currentApplicant[info.key].toString()}
-          </div>
-        ) : (
-          <div className="col text-start">{currentApplicant[info.key]}</div>
-        )}
-      </div>
-    ));
-  };
-
   render() {
     const { applicants, currentApplicant, sortColumn } = this.state;
     return (
@@ -80,16 +64,10 @@ class Recruit extends Component {
             </div>
           </div>
           <div className="vh-100 bg-light sticky-top p-5 align-items-center">
-            <div className="image-holder m-2">
-              <img
-                src={currentApplicant.profileImg}
-                alt=""
-                id="img"
-                className="img-thumbnail"
-              />
-            </div>
-            <div className="text-center py-3">{currentApplicant.name}</div>
-            {this.renderPlayerInfo()}
+            <InfoSidebar
+              infoHeading={this.playerInfo}
+              data={currentApplicant}
+            />
           </div>
         </div>
       </React.Fragment>
