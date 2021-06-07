@@ -268,8 +268,8 @@ fieldset[disabled] .btn-green-dark.active {
 }
 
 .img-training {
-  width: 80%;
-  height: 60%;
+  width: 400px;
+  height: 400px;
   object-fit: cover;
   border-color: #6a1c1c;
 }

@@ -7,6 +7,11 @@ export async function uploadTraining(trainingRepo){
     return data;
 }
 
+export async function getTraining(_id){
+    const { data } = await http.get(apiEndpoint+"/"+_id);
+    return data;
+}
+
 const epUploadImage = "/medias";
 
 export async function uploadImage(file) {

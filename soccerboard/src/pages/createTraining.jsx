@@ -232,7 +232,7 @@ class CreateTraining extends Form {
                 </div> */}
 
                 <div className="text-center py-3">
-                  {this.renderButton("CREATE", null)}
+                  {this.renderButton("CREATE", null, 'btn-primary')}
                 </div>
               </form>
             </div>
