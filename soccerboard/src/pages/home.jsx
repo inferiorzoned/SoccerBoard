@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <>
       <div className="row">
-        <div className="col-1-auto" style={{ backgroundColor: "blue" }}>
+        <div className="col-1-auto" style={{ backgroundColor: "#212230" }}>
           <SideBar page={"home"} />
         </div>
         <div className="col" style={{ backgroundColor: "yellow" }}>

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import pic from "./test.jpg";
 
 /*
 input: 
@@ -10,6 +9,7 @@ input:
 */
 
 class TrainingCard extends Component {
+  async getImage() {}
   render() {
     const str = "hello";
     const {
@@ -18,6 +18,7 @@ class TrainingCard extends Component {
       trainingDifficulty,
       trainingDescription,
     } = this.props;
+
     return (
       // <div className="card bg-light mb-3 mb-3" style={{ width: "18rem" }}>
 
@@ -66,11 +67,11 @@ class TrainingCard extends Component {
       <div className="card w-100">
         <div className="container-fluid p-0 cardStyle">
           <div className="row h-50 m-0">
-            <div className="col p-2">
+            <div className="col pt-2">
               <img className="cardImage" src={trainingImage} />
             </div>
             <div className="col p-2">
-              <h5 className="card-title ">{trainingTitle}</h5>
+              <h6 className="card-title ">{trainingTitle}</h6>
               <p className="card-text ">
                 <small className={`cardDiff ${trainingDifficulty}`}>
                   {trainingDifficulty}

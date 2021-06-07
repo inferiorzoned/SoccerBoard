@@ -7,6 +7,7 @@ import TrainingSession from "./pages/trainingSession";
 import TrainingRepo from "./pages/trainingRepo";
 import Recruit from "./pages/recruit";
 import Squad from "./pages/squad";
+import CreateTraining from "./pages/createTraining";
 
 function App() {
   return (
@@ -18,7 +19,11 @@ function App() {
           <Route path="/Training Session" component={TrainingSession}></Route>
           <Route path="/Squad" component={Squad}></Route>
           <Route path="/Recruit" component={Recruit}></Route>
-          <Route path="/Training Repo" component={TrainingRepo}></Route>
+          <Route path="/Training Repo" exact component={TrainingRepo}></Route>
+          <Route
+            path="/Training Repo/Create Training"
+            component={CreateTraining}
+          ></Route>
         </Switch>
       </main>
     </div>

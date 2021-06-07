@@ -35,8 +35,8 @@ class Navbar extends Component {
     const { currentPage, notiCount } = this.state;
     return (
       <nav
-        className="navbar navbar-expand-sm navbar-light"
-        style={styles.navBar}
+        className="navbar sticky-top navbar-expand-sm navbar-light myNavbarStyle"
+        // style={styles.navBar}
       >
         <NavLink className="navbar-brand" to="/home" style={{ width: "25%" }}>
           SoccerBoard
