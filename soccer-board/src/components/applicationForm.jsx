@@ -1,6 +1,6 @@
 import React from "react";
 import Joi from "joi-browser";
-import _ from "lodash";
+import { toast } from "react-toastify";
 import Form from "./commons/form";
 import {
   getInstitutions,
@@ -160,7 +160,15 @@ class ApplicationForm extends Form {
       appType: this.state.selectedOption,
     };
     // console.log(form);
-    await uploadForm(form);
+    try {
+      const response = await uploadForm(form);
+      if (response) {
+        toast.success("Application Submitted");
+        window.location = "/application-status";
+      }
+    } catch (ex) {
+      toast.error("Something Wrong!");
+    }
   };
 
   handleOptionChange = (e) => {
