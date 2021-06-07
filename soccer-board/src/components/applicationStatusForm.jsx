@@ -1,7 +1,7 @@
 import Joi from "joi-browser";
 import React from "react";
 import { Link } from "react-router-dom";
-import { getApplicantionStatus } from "../services/status";
+import { getApplicantionStatus } from "../services/statusService";
 import Form from "./commons/form";
 import SignupForm from "./signupForm";
 
@@ -9,7 +9,6 @@ class ApplicationStatusForm extends Form {
   state = {
     data: {
       email: "",
-      mobile: "",
     },
     options: [
       { _id: "email", value: "email", label: "Email" },
@@ -18,23 +17,51 @@ class ApplicationStatusForm extends Form {
     selectedOption: "email",
     applicationStatus: {},
     errors: {},
+    schema: {
+      email: Joi.string().email().label("Email"),
+    },
   };
 
-  schema = {
-    email: Joi.string().email().label("Email"),
-    mobile: Joi.string()
-      .min(10)
-      .max(14)
-      .regex(/^[0-9]+$/)
-      .required()
-      .label("Mobile"),
+  handleOptionChange = (e) => {
+    console.log(e.target.value);
+    const schema =
+      e.target.value === "mobile"
+        ? {
+            mobile: Joi.string()
+              .min(10)
+              .max(14)
+              .regex(/^[0-9]+$/)
+              .required()
+              .label("Mobile"),
+          }
+        : { email: Joi.string().email().label("Email") };
+
+    this.setState({
+      data: { [e.target.value]: "", ...this.state.data },
+      selectedOption: e.target.value,
+      schema: schema,
+    });
   };
 
-  fetchStatus = (e) => {
-    this.handleSubmit(e);
+  doSubmit = async () => {
     const { selectedOption, data } = this.state;
     const query = { [selectedOption]: data[selectedOption] };
-    this.setState({ applicationStatus: getApplicantionStatus(query) });
+    try {
+      const status = await getApplicantionStatus(query);
+      this.setState({
+        applicationStatus: { ...status },
+      });
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404) {
+        this.setState({
+          applicationStatus: { appStatus: "not-found" },
+        });
+      } else {
+        this.setState({
+          applicationStatus: {},
+        });
+      }
+    }
   };
 
   renderInputField = () => {
@@ -79,7 +106,7 @@ class ApplicationStatusForm extends Form {
             {error && <div className="invalid-feedback">{error}</div>}
           </div>
           <div className="col-sm-4 p-2">
-            {this.renderButton("CHECK", this.fetchStatus)}
+            {this.renderButton("CHECK", this.handleSubmit)}
           </div>
         </div>
       </div>
@@ -87,9 +114,19 @@ class ApplicationStatusForm extends Form {
   };
 
   renderStatus = () => {
-    const { _id, name, status } = this.state.applicationStatus;
+    const { _id, name, email, appStatus } = this.state.applicationStatus;
 
-    if (!name) return;
+    if (!appStatus) return null;
+
+    if (appStatus === "not-found")
+      return (
+        <div className="col-sm-6">
+          <div className="label p-1">Status</div>
+          <div id={appStatus} className="status p-1">
+            Not Found
+          </div>
+        </div>
+      );
 
     return (
       <div>
@@ -100,23 +137,24 @@ class ApplicationStatusForm extends Form {
           </div>
           <div className="col-sm-6">
             <div className="label p-1">Status</div>
-            <div id={status} className="status p-1">
-              {status}
+            <div id={appStatus} className="status p-1">
+              {appStatus}
             </div>
           </div>
         </div>
-        {(status !== "accepted" || status !== "rejected") && (
+        {/* {(appStatus !== "accepted" || appStatus !== "rejected") && (
           <div className="p-1">
             <Link to={`/application/${_id}`}>Edit Application</Link>
           </div>
+        )} */}
+        {appStatus === "accepted" && (
+          <SignupForm status={{ _id: _id, email: email }} />
         )}
-        {status === "accepted" && <SignupForm />}
       </div>
     );
   };
 
   render() {
-    console.log(this.state);
     return (
       <div className="container">
         {this.renderRadio("statusCheckOptions", true)}

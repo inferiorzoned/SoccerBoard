@@ -1,3 +1,7 @@
+import http from "./httpService";
+
+const epCheckStatus = "/applications/check_status";
+
 const applicants = [
   {
     _id: "5b21ca3eeb7f6fbccd471815",
@@ -29,9 +33,13 @@ const applicants = [
   },
 ];
 
-export function getApplicantionStatus(query) {
-  if (query.email)
-    return applicants.find((applicant) => applicant.email === query.email);
-  if (query.mobile)
-    return applicants.find((applicant) => applicant.mobile === query.mobile);
+export async function getApplicantionStatus(query) {
+  const { data } = await http.post(epCheckStatus, query);
+  return data;
+  // if (query.email) {
+  //   return applicants.find((applicant) => applicant.email === query.email);
+  // }
+  // if (query.mobile) {
+  //   return applicants.find((applicant) => applicant.mobile === query.mobile);
+  // }
 }

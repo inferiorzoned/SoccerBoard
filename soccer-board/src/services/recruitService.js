@@ -1,3 +1,4 @@
+import { getCurrentUser } from "./authService";
 import http from "./httpService";
 
 const applicants = [
@@ -34,9 +35,34 @@ const applicants = [
 ];
 
 const epApplications = "/applications";
+const epAcceptApplicants = "/applications/recruit";
+const epRejectApplicants = "/applications/reject";
+const user = getCurrentUser();
 
-export function getApplicants() {
-  return applicants;
+export async function getApplicants() {
+  try {
+    const { data } = await http.get(
+      epApplications + "/" + user.institution + "/player"
+    );
+    return data;
+  } catch (ex) {
+    return [];
+  }
+}
+
+async function acceptApplicants(acceptedIds) {
+  const body = { _ids: [...acceptedIds] };
+  await http.post(epAcceptApplicants, body);
+}
+
+async function rejectApplicants(rejectedIds) {
+  const body = { _ids: [...rejectedIds] };
+  await http.post(epRejectApplicants, body);
+}
+
+export async function processApplicants(acceptedIds, rejectedIds) {
+  await acceptApplicants(acceptedIds);
+  await rejectApplicants(rejectedIds);
 }
 
 export default {

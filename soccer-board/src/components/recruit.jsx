@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getApplicants } from "../services/recruitService";
+import { getApplicants, processApplicants } from "../services/recruitService";
 import InfoSidebar from "./commons/infoSidebar";
 import RecruitTable from "./recruitTable";
 
@@ -24,8 +24,15 @@ class Recruit extends Component {
     { key: "mobile", label: "Mobile" },
   ];
 
-  componentDidMount() {
-    this.setState({ applicants: [...getApplicants()] });
+  async componentDidMount() {
+    const epMedia = "http://localhost:3900/api/medias/image?mediaUrl=";
+    let applicants = await getApplicants();
+    if (applicants) {
+      applicants.forEach((applicant) => {
+        applicant.avatar = epMedia + applicant.avatar;
+      });
+    }
+    this.setState({ applicants: [...applicants] });
   }
 
   onRowClicked = (applicant) => {
@@ -36,10 +43,11 @@ class Recruit extends Component {
     this.setState({ acceptedIds: acceptedIds, rejectedIds: rejectedIds });
   };
 
-  onSaveClicked = () => {
+  onSaveClicked = async () => {
     const { acceptedIds, rejectedIds } = this.state;
     console.log("Accepted", acceptedIds);
     console.log("Rejected", rejectedIds);
+    await processApplicants(acceptedIds, rejectedIds);
   };
 
   render() {

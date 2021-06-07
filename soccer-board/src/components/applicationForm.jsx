@@ -1,5 +1,6 @@
 import React from "react";
 import Joi from "joi-browser";
+import _ from "lodash";
 import Form from "./commons/form";
 import {
   getInstitutions,
@@ -33,7 +34,7 @@ class ApplicationForm extends Form {
       },
       {
         value: "ameteur",
-        label: "Ameteur",
+        label: "Amateur",
       },
     ],
     institutions: [
@@ -134,23 +135,31 @@ class ApplicationForm extends Form {
 
   async componentDidMount() {
     let { institutions } = await getInstitutions();
-    institutions = institutions.map((institution) => ({
-      value: institution,
-      label: institution,
-    }));
+    if (!institutions) institutions = [...this.state.institutions];
+    // for dummy data
+    else {
+      institutions = institutions.map((institution) => ({
+        value: institution,
+        label: institution,
+      }));
+    }
+    console.log(institutions);
     this.setState({ institutions: institutions });
   }
 
   doSubmit = async () => {
-    const { imageFile, ...data } = this.state.data;
+    const { imageFile, prefPos, ...data } = this.state.data;
+    const positions = prefPos.map((pos) => pos[1].label);
     // Call the server
     const { mediaUrl } = await uploadImage(imageFile);
+    // const mediaUrl = "dummy";
     const form = {
       ...data,
+      prefPosition: positions,
       avatar: mediaUrl,
       appType: this.state.selectedOption,
     };
-    console.log(form);
+    // console.log(form);
     await uploadForm(form);
   };
 

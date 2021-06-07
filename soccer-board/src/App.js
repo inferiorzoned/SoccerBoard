@@ -6,6 +6,7 @@ import ApplicationForm from "./components/applicationForm";
 import ApplicationStatusForm from "./components/applicationStatusForm";
 import Squad from "./components/squad";
 import Recruit from "./components/recruit";
+import Home from "./pages/home";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             path="/application-status"
             component={ApplicationStatusForm}
           ></Route>
+          <Route path="/home" component={Home}></Route>
           <Route path="/application" component={ApplicationForm}></Route>
           <Route path="/squad" component={Squad}></Route>
           <Route path="/recruit" component={Recruit}></Route>
