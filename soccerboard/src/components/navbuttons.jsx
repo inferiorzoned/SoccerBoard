@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { styles } from "./common/styles";
+import { styles } from "./commons/styles";
 import NavButton from "./navButton";
 import { NavLink } from "react-router-dom";
+import auth from "../services/authService";
 /*
 input:
     stakeHolder
@@ -14,7 +15,9 @@ class NavButtons extends Component {
   };
 
   componentDidMount() {
-    if (this.props.stakeHolder === "manager") {
+    const user = auth.getCurrentUser();
+    // console.log(user);
+    if (user.isAdmin) {
       this.setState({
         ButtonLabels: [
           "Training Session",
@@ -23,6 +26,10 @@ class NavButtons extends Component {
           "Recruit",
           "Training Repo",
         ],
+      });
+    } else if (!user.isAdmin) {
+      this.setState({
+        ButtonLabels: ["Training Session", "Squad", "Home", "Training Repo"],
       });
     }
   }

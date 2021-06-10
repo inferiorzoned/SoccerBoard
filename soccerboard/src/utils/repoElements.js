@@ -21,6 +21,7 @@ export async function getTrainingRepoCategoryData() {
   const httpData = await http.get(apiEndpoint);
 
   let trainingRepoCategoryData = {};
+  let epMedia = "http://localhost:3900/api/medias/image?mediaUrl=";
 
   console.log(httpData);
   console.log(httpData["data"]);

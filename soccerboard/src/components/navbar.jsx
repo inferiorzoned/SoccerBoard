@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { styles } from "./common/styles";
+import { styles } from "./commons/styles";
 import NavButtons from "./navbuttons";
-import LogOut from "./common/logOut";
-import NotificationBadge from "./common/notificationBadge";
+import LogOut from "./commons/logOut";
+import NotificationBadge from "./commons/notificationBadge";
 import { NavLink } from "react-router-dom";
 import TrainingCard from "./trainingCard";
 
@@ -28,6 +28,7 @@ class Navbar extends Component {
 
   handleLogOut = () => {
     this.setState({ currentPage: "Home" });
+    window.location = "/";
     // TODO actually log out
   };
 

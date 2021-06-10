@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CardGroup from "./common/cardGroup";
+import CardGroup from "./commons/cardGroup";
 import { squadPositions, getSquadPositionData } from "../utils/squadData";
 import { CircularProgress } from "@material-ui/core";
 

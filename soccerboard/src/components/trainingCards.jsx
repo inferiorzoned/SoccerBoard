@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import CardGroup from "./common/cardGroup";
+import CardGroup from "./commons/cardGroup";
 import {
   trainingCategories,
   getTrainingRepoCategoryData,

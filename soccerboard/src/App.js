@@ -8,14 +8,24 @@ import TrainingRepo from "./pages/trainingRepo";
 import Recruit from "./pages/recruit";
 import Squad from "./pages/squad";
 import CreateTraining from "./pages/createTraining";
+import ApplicationForm from "./components/applicationForm";
+import ApplicationStatusForm from "./components/applicationStatusForm";
+import Login from "./login";
+import Root from "./components/root";
 
 function App() {
   return (
     <div>
       <main className="App">
-        <Navbar />
+        {/* <Navbar /> */}
         <Switch>
-          <Route path="/home" component={Home}></Route>
+          <Route
+            path="/application-status"
+            component={ApplicationStatusForm}
+          ></Route>
+          <Route path="/" exact component={Login}></Route>
+          <Route path="/application" component={ApplicationForm}></Route>
+          {/* <Route path="/home" component={Home}></Route>
           <Route path="/Training Session" component={TrainingSession}></Route>
           <Route path="/Squad" component={Squad}></Route>
           <Route path="/Recruit" component={Recruit}></Route>
@@ -23,7 +33,8 @@ function App() {
           <Route
             path="/Training Repo/Create Training"
             component={CreateTraining}
-          ></Route>
+          ></Route> */}
+          <Root />
         </Switch>
       </main>
     </div>

@@ -25,9 +25,9 @@ function getPositionIndex(pos) {
 
 export async function getSquadPositionData() {
   let epMedia = "http://localhost:3900/api/medias/image?mediaUrl=";
-  epMedia += "/media/hisham/New Volume1/soccerboard_api/uploads/iniesta.jpg";
-  let avatar = await http.get(epMedia);
-  console.log(avatar);
+  // epMedia += "/media/hisham/New Volume1/soccerboard_api/uploads/iniesta.jpg";
+  // let avatar = await http.get(epMedia);
+  // console.log(avatar);
 
   console.log("function er vi");
   const httpData = await http.get(apiEndpoint);
@@ -45,8 +45,8 @@ export async function getSquadPositionData() {
         squadPositions[getPositionIndex(httpData["data"][key]["position"])]
       ) {
         object = {
-          // playerImage: httpData["data"][key]["profile"]["avatar"],
-          playerImage: epMedia,
+          playerImage: epMedia + httpData["data"][key]["profile"]["avatar"],
+          // playerImage: epMedia,
           kit: httpData["data"][key]["kit"],
           position: httpData["data"][key]["position"],
           name: httpData["data"][key]["profile"]["name"],

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import PopupWindow from "./common/popupWindow";
+import PopupWindow from "./commons/popupWindow";
 /*
 input: 
   playerImage

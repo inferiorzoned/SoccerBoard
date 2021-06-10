@@ -45,6 +45,7 @@ class CardGroup extends Component {
                     trainingTitle={trainingInstance.trainingTitle}
                     trainingDifficulty={trainingInstance.trainingDifficulty}
                     trainingDescription={trainingInstance.trainingDescription}
+                    trainingID={trainingInstance._id}
                   />
                 </div>
               )

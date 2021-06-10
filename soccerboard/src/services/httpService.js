@@ -2,6 +2,7 @@ import axios from "axios";
 // import { toast } from 'react-toastify';
 // import logger from './logService';
 import { func } from "prop-types";
+import { toast } from "react-toastify";
 
 // passing common headers. but to removve bidirectional dependency between http and auth
 // service auth should be depended on the http service
