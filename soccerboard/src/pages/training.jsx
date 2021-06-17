@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Joi from "joi-browser";
-import Form from "../components/common/form";
 import { renderMediaUrl } from '../utils/mediaUtils';
 import { getTraining } from '../utils/trainingRepoService';
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { sideBarData } from "../utils/sideBarData";
-import ColoredLine from "./common/coloredLine";
+import ColoredLine from "./commons/coloredLine";
 import SideBarList from "./sideBarList";
 
 class SideBar extends Component {

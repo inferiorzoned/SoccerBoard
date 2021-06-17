@@ -1,6 +1,6 @@
 import React from "react";
 import Joi from "joi-browser";
-import Form from "../components/common/form";
+import Form from "../components/commons/form";
 import { uploadTraining, uploadImage } from '../utils/trainingRepoService';
 
 class CreateTraining extends Form {

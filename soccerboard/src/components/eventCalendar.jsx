@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Calendar from './common/calendar';
+import Calendar from './commons/calendar';
 
 class EventCalendar extends Component {
     columns = [
