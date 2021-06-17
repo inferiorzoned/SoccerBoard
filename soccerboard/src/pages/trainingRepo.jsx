@@ -5,14 +5,14 @@ import TrainingCards from "../components/trainingCards";
 const TrainingRepo = () => {
   return (
     <div className="row">
-      <div className="col-1-auto" style={{ backgroundColor: "#212230" }}>
+      <div className="col-sm-2">
         <SideBar page={"trainingRepo"} />
       </div>
-      <div className="col">
+      <div className="col-sm-10">
         <TrainingCards />
       </div>
     </div>
   );
 };
- 
+
 export default TrainingRepo;

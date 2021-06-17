@@ -1,0 +1,119 @@
+/* other formats include: 'woff2', 'truetype, 'opentype', 'embedded-opentype', and 'svg' */
+@font-face {
+  font-family: "Comfortaa";
+  src: local("Comfortaa"), url("/src/fonts/comfortaa/static/Comfortaa-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Passero One";
+  src: local("PasseroOne"), url("/src/fonts/passero-one/PasseroOne-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+.btn-maroon {
+  color: #ffffff;
+  background-color: #6a1c1c;
+  border-color: #6a1c1c;
+}
+.btn-maroon:hover, .btn-maroon:focus, .btn-maroon:active, .btn-maroon.active,
+.btn-maroon .open .dropdown-toggle.btn-maroon {
+  color: #ffffff;
+  background-color: #6a1c1c;
+  border-color: #6a1c1c;
+}
+.btn-maroon:active, .btn-maroon.active,
+.btn-maroon .open .dropdown-toggle.btn-maroon {
+  background-image: none;
+}
+.btn-maroon.disabled, .btn-maroon[disabled], fieldset[disabled] .btn-maroon, .btn-maroon.disabled:hover, .btn-maroon[disabled]:hover, fieldset[disabled] .btn-maroon:hover, .btn-maroon.disabled:focus, .btn-maroon[disabled]:focus, fieldset[disabled] .btn-maroon:focus, .btn-maroon.disabled:active, .btn-maroon[disabled]:active, fieldset[disabled] .btn-maroon:active, .btn-maroon.disabled.active, .btn-maroon[disabled].active, fieldset[disabled] .btn-maroon.active {
+  background-color: #6a1c1c;
+  border-color: #6a1c1c;
+}
+.btn-maroon .badge {
+  color: #6a1c1c;
+  background-color: #ffffff;
+}
+
+.btn-green-dark {
+  color: #f3f3f3;
+  background-color: #034732;
+  border-color: #034732;
+}
+.btn-green-dark:hover, .btn-green-dark:focus, .btn-green-dark:active, .btn-green-dark.active,
+.btn-green-dark .open .dropdown-toggle.btn-green-dark {
+  color: #f3f3f3;
+  background-color: #034732;
+  border-color: #034732;
+}
+.btn-green-dark:active, .btn-green-dark.active,
+.btn-green-dark .open .dropdown-toggle.btn-green-dark {
+  background-image: none;
+}
+.btn-green-dark.disabled, .btn-green-dark[disabled], fieldset[disabled] .btn-green-dark, .btn-green-dark.disabled:hover, .btn-green-dark[disabled]:hover, fieldset[disabled] .btn-green-dark:hover, .btn-green-dark.disabled:focus, .btn-green-dark[disabled]:focus, fieldset[disabled] .btn-green-dark:focus, .btn-green-dark.disabled:active, .btn-green-dark[disabled]:active, fieldset[disabled] .btn-green-dark:active, .btn-green-dark.disabled.active, .btn-green-dark[disabled].active, fieldset[disabled] .btn-green-dark.active {
+  background-color: #034732;
+  border-color: #034732;
+}
+.btn-green-dark .badge {
+  color: #034732;
+  background-color: #f3f3f3;
+}
+
+.t-card {
+  justify-content: center;
+  height: 240px;
+  width: 360px;
+  border: solid 2px #00251a;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 2px 2px 4px #808080;
+  margin: 2rem;
+  color: black;
+}
+.t-card-text {
+  font-family: "Roboto";
+  font-style: normal;
+  font-size: 1rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.t-card-title {
+  font-family: "Roboto";
+  font-style: bold;
+  font-size: 1.2rem;
+  padding: 0.4rem 0 0.4rem 0;
+}
+
+.t-card-image {
+  border: 2px solid #be4e41;
+  border-radius: 4px;
+  height: 96px;
+  width: 96px;
+  margin: 8px 0 8px 0;
+  object-fit: cover;
+}
+
+.t-difficulty-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 1rem;
+  font-weight: 200;
+  background-color: bisque;
+  text-transform: capitalize;
+}
+.t-difficulty-badge-beginner {
+  background-color: #f8f82c;
+}
+.t-difficulty-badge-professional {
+  background-color: #afff6c;
+}
+.t-difficulty-badge-classic {
+  background-color: #b47c;
+}
+.t-difficulty-badge-amateur {
+  background-color: #6c4ae7cc;
+}

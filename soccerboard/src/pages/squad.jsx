@@ -4,16 +4,16 @@ import SquadCards from "../components/squadCards";
 
 const Squad = () => {
   return (
-    <>
+    <React.Fragment>
       <div className="row">
-        <div className="col-1-auto" style={{ backgroundColor: "#212230" }}>
+        <div className="col-sm-2">
           <SideBar page={"squad"} />
         </div>
-        <div className="col">
+        <div className="col-sm-10">
           <SquadCards />
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

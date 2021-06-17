@@ -1,0 +1,67 @@
+@use "../base/colors" as c;
+
+.t-card {
+  justify-content: center;
+  height: 240px;
+  width: 360px;
+  border: solid 2px c.$green-dark;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 2px 2px 4px #808080;
+  margin: 2rem;
+  color: black;
+
+  &-text {
+    font-family: "Roboto";
+    font-style: normal;
+    font-size: 1rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  &-title {
+    font-family: "Roboto";
+    font-style: bold;
+    font-size: 1.2rem;
+    padding: 0.4rem 0 0.4rem 0;
+  }
+}
+
+.t-card-image {
+  border: 2px solid #be4e41;
+  border-radius: 4px;
+  height: 96px;
+  width: 96px;
+  margin: 8px 0 8px 0;
+  object-fit: cover;
+}
+
+.t-difficulty-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 1rem;
+  //   padding: 0.4rem 0.6rem 0.4rem 0.6rem;
+  font-weight: 200;
+  background-color: bisque;
+  text-transform: capitalize;
+
+  &-beginner {
+    background-color: #f8f82c;
+  }
+
+  &-professional {
+    background-color: #afff6c;
+  }
+
+  &-classic {
+    background-color: #b47c;
+  }
+
+  &-amateur {
+    background-color: #6c4ae7cc;
+  }
+}

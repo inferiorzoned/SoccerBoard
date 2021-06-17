@@ -36,20 +36,18 @@ class CardGroup extends Component {
       groupData = (
         <div className="row ">
           {categoryData[categoryName] &&
-            categoryData[categoryName].map(
-              (trainingInstance, trainingInstanceID) => (
-                <div className="col-xl-3 col-lg-4 col-md-6 d-flex align-items-stretch">
-                  {/* {trainingInstance.trainingDescription} */}
-                  <TrainingCard
-                    trainingImage={trainingInstance.mediaUrl}
-                    trainingTitle={trainingInstance.trainingTitle}
-                    trainingDifficulty={trainingInstance.trainingDifficulty}
-                    trainingDescription={trainingInstance.trainingDescription}
-                    trainingID={trainingInstance._id}
-                  />
-                </div>
-              )
-            )}
+            categoryData[categoryName].map((trainingInstance, index) => (
+              <div className="col-xl-4 col-lg-6 col-md-6 col-sm-6" key={index}>
+                {/* {trainingInstance.trainingDescription} */}
+                <TrainingCard
+                  trainingImage={trainingInstance.mediaUrl}
+                  trainingTitle={trainingInstance.trainingTitle}
+                  trainingDifficulty={trainingInstance.trainingDifficulty}
+                  trainingDescription={trainingInstance.trainingDescription}
+                  trainingID={trainingInstance._id}
+                />
+              </div>
+            ))}
         </div>
       );
     } else if (groupType === "squad") {
@@ -82,7 +80,10 @@ class CardGroup extends Component {
     }
     return (
       <>
-        <h1 className="text-left pt-4" id={`${categoryName}`}>
+        <h1
+          className="text-left pt-4"
+          id={`${categoryName.toLowerCase().replace(" ", "-")}`}
+        >
           {categoryName}
         </h1>
         <hr className="categoryLine" />

@@ -20,11 +20,11 @@ const outerLink = {
 
 const innerLink = {
   trainingRepo: [
-    { label: "Passing", link: "Training Repo#Attack" },
-    { label: "Shooting", link: "" },
-    { label: "Attack", link: "" },
-    { label: "Defense", link: "" },
-    { label: "Set Piece", link: "" },
+    { label: "Passing", link: "Training Repo#passing" },
+    { label: "Shooting", link: "Training Repo#shooting" },
+    { label: "Attack", link: "Training Repo#attack" },
+    { label: "Defense", link: "Training Repo#defense" },
+    { label: "Set Piece", link: "Training Repo#set-piece" },
   ],
   squad: [
     { label: "Goalkeepers", link: "" },

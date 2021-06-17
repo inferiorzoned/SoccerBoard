@@ -1,6 +1,3 @@
-import pic from "../components/test.jpg";
-import pic2 from "../components/demo.jpg";
-// import pic from "../components/long.jpg";
 import http from "../services/httpService";
 // import { trainingRepoData } from './repoElements';
 

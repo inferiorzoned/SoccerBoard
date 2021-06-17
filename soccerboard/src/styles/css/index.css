@@ -49,6 +49,14 @@ code {
   transform: scale(0.92) translateY(-7px);
 }
 
+.logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 0px 20px 0px 20px;
+}
+
 .logout:hover {
   cursor: pointer;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
@@ -64,9 +72,8 @@ code {
 }
 
 .sideBar {
+  position: fixed;
   height: 100vh;
-  /* height: 100%; */
-
   width: 200px;
   background-color: #212230;
 }
@@ -79,7 +86,8 @@ code {
 
 .sideBarRow {
   width: auto;
-  list-style-type: none;
+  text-decoration: none;
+  text-align: center;
   color: white;
   padding: 10px 0 10px 0;
   font-family: "Roboto";
@@ -95,9 +103,8 @@ code {
 }
 
 .sideBarLine {
-  color: #359b37;
-  border: 5px solid #359b37;
-  border-radius: 5px;
+  background-color: #359b37;
+  height: 0.6rem;
 }
 
 .cardStyle {
@@ -131,20 +138,20 @@ code {
   bottom: 0;
 }
 
-.beginner {
+.Beginner {
   background-color: #f8f82c;
 }
 
-.professional {
+.Professional {
   background-color: #afff6c;
 }
 
-.classic {
+.Classic {
   background-color: #b47c;
 }
 
-.amateur {
-  background-color: rgba(108, 74, 231, 0.8);
+.Amateur {
+  background-color: #6c4ae7cc;
 }
 
 .cardDesc {

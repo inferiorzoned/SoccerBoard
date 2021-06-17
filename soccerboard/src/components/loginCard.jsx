@@ -6,7 +6,7 @@ class LoginCard extends Component {
   state = {};
   render() {
     return (
-      <div className="login card shadow px-3 py-5 mb-5 w-75">
+      <div className="card shadow px-3 py-5 mb-5 w-75 login">
         <div className="card-body">
           <LoginForm />
           <div className="text-center">

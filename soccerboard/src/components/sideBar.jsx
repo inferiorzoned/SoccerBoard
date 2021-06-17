@@ -12,9 +12,11 @@ class SideBar extends Component {
     return (
       <div className="sideBar">
         {user.isAdmin && (
-          <SideBarList pageName={page} sectionType={"outerLink"} />
+          <React.Fragment>
+            <SideBarList pageName={page} sectionType={"outerLink"} />
+            <div className="sideBarLine"></div>
+          </React.Fragment>
         )}
-        {user.isAdmin && <hr className="sideBarLine" />}
         <SideBarList pageName={page} sectionType={"innerLink"} />
       </div>
     );

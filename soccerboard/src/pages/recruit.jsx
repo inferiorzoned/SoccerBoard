@@ -1,12 +1,6 @@
-// import React from "react";
-
-// const Recruit = () => {
-//   return <h1>Recruit</h1>;
-// };
-
-// export default Recruit;
-
 import React, { Component } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import { getApplicants, processApplicants } from "../services/recruitService";
 import InfoSidebar from "../components/commons/infoSidebar";
 import RecruitTable from "../components/recruitTable";
@@ -25,7 +19,7 @@ class Recruit extends Component {
     { key: "height", label: "Height" },
     { key: "weight", label: "Weight" },
     { key: "prefFoot", label: "Foot" },
-    { key: "prefPos", label: "Positions" },
+    { key: "prefPosition", label: "Positions" },
     { key: "institution", label: "Institution" },
     { key: "proLevel", label: "Level" },
     { key: "email", label: "Email" },
@@ -33,13 +27,13 @@ class Recruit extends Component {
   ];
 
   async componentDidMount() {
-    const epMedia = "http://localhost:3900/api/medias/image?mediaUrl=";
+    // const epMedia = "http://localhost:3900/api/medias/image?mediaUrl=";
     let applicants = await getApplicants();
-    if (applicants) {
-      applicants.forEach((applicant) => {
-        applicant.avatar = epMedia + applicant.avatar;
-      });
-    }
+    // if (applicants) {
+    //  applicants.forEach((applicant) => {
+    //    applicant.avatar = epMedia + applicant.avatar;
+    //  });
+    // }
     this.setState({ applicants: [...applicants] });
   }
 
@@ -51,11 +45,39 @@ class Recruit extends Component {
     this.setState({ acceptedIds: acceptedIds, rejectedIds: rejectedIds });
   };
 
+  getPlayersFromIds = (ids) => {
+    let names = "";
+    ids.forEach((id) => {
+      const applicant = this.state.applicants.find(
+        (applicant) => id === applicant._id
+      );
+      names += applicant.name + ", ";
+    });
+    return names.substr(0, names.lastIndexOf(",")) + ".";
+  };
+
   onSaveClicked = async () => {
-    const { acceptedIds, rejectedIds } = this.state;
-    console.log("Accepted", acceptedIds);
-    console.log("Rejected", rejectedIds);
-    await processApplicants(acceptedIds, rejectedIds);
+    const {
+      acceptedIds,
+      rejectedIds,
+      applicants: originalApplicants,
+    } = this.state;
+    const ids = [...acceptedIds, ...rejectedIds];
+    const applicants = originalApplicants.filter(
+      (applicant) => !ids.includes(applicant._id)
+    );
+
+    let accepted = "Accepted Players: " + this.getPlayersFromIds(acceptedIds);
+    let rejected = "Rejected Players: " + this.getPlayersFromIds(rejectedIds);
+
+    try {
+      if (acceptedIds.length > 0) toast.success(accepted);
+      if (rejectedIds.length > 0) toast.error(rejected);
+      this.setState({ applicants: applicants });
+      await processApplicants(acceptedIds, rejectedIds);
+    } catch (ex) {
+      this.setState({ applicants: originalApplicants });
+    }
   };
 
   render() {
@@ -63,7 +85,7 @@ class Recruit extends Component {
     return (
       <React.Fragment>
         <div className="d-flex">
-          <div className="p-2 flex-grow-1 container">
+          <div className="p-5 flex-grow-1 container">
             <RecruitTable
               applicants={applicants}
               sortColumn={sortColumn}
@@ -71,6 +93,7 @@ class Recruit extends Component {
               onSelectionChange={this.onSelectionChange}
             />
             <div className="text-center my-3">
+              {/* TODO - Show accepted players list and update recruit table */}
               <button
                 className="btn btn-green-dark"
                 onClick={this.onSaveClicked}
@@ -79,6 +102,7 @@ class Recruit extends Component {
               </button>
             </div>
           </div>
+          {/* TODO-Increase width of the side bar */}
           <div className="vh-100 bg-light sticky-top p-5 align-items-center">
             <InfoSidebar
               infoHeading={this.playerInfo}
@@ -86,6 +110,7 @@ class Recruit extends Component {
             />
           </div>
         </div>
+        <ToastContainer />
       </React.Fragment>
     );
   }

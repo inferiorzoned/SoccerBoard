@@ -1,6 +1,3 @@
-import pic from "../components/iniesta.jpg";
-import pic2 from "../components/demo.jpg";
-// import pic from "../components/long.jpg";
 import http from "../services/httpService";
 
 const apiEndpoint = "/squads/BUET";
@@ -24,7 +21,8 @@ function getPositionIndex(pos) {
 }
 
 export async function getSquadPositionData() {
-  let epMedia = "http://localhost:3900/api/medias/image?mediaUrl=";
+  // let epMedia = "http://localhost:3900/api/medias/image?mediaUrl=";
+  let epMedia = "";
   // epMedia += "/media/hisham/New Volume1/soccerboard_api/uploads/iniesta.jpg";
   // let avatar = await http.get(epMedia);
   // console.log(avatar);
