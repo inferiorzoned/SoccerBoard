@@ -1,0 +1,121 @@
+.i-container {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  border: solid 2px #3e3bdd;
+  border-radius: 8px;
+  min-width: 40%;
+  max-width: 100%;
+  min-height: 40%;
+  max-height: 60%;
+  padding: 0.6rem;
+  margin: 1rem;
+}
+
+.i-list {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.i-badge {
+  border-radius: 16px;
+  padding: 0.4rem 0.6rem 0.4rem 0.6rem;
+  margin: 0.4rem;
+  background-color: #f0fdfb;
+  box-shadow: 2px 2px 4px #808080;
+  min-height: 2.2rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+
+  &-selected {
+    // border: solid 1px #bb0092;
+    font-size: 1.2rem;
+    animation-name: popup;
+    animation-duration: 200ms;
+    box-shadow: 6px 6px 8px #808080;
+  }
+}
+
+.i-input {
+  display: block;
+  overflow: hidden;
+  resize: none;
+  border: none;
+  border-bottom: solid 1px #212230;
+  background-color: #f0fdfb;
+  max-width: 100%;
+
+  &:focus {
+    outline: #212230;
+  }
+}
+
+@keyframes popup {
+  0% {
+    box-shadow: 2px 2px 4px #808080;
+  }
+  100% {
+    box-shadow: 6px 6px 8px #808080;
+    transform: translateY(-2px);
+  }
+}
+
+.command-pallette {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: solid 1px #be4e41;
+  border-radius: 3rem;
+}
+
+$--btn-cmd-dim: 3rem;
+.btn-cmd {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: $--btn-cmd-dim;
+  height: $--btn-cmd-dim;
+  border-radius: $--btn-cmd-dim/2;
+  margin: 0.5rem;
+  box-shadow: 2px 2px 4px #808080;
+  background-color: #212230;
+  cursor: pointer;
+
+  &:active {
+    box-shadow: 1px 1px 2px #808080;
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    background-color: #52535a;
+  }
+
+  &-add:hover {
+    background-color: #0288d1;
+  }
+
+  &-edit:hover {
+    background-color: #571cba;
+  }
+
+  &-delete:hover {
+    background-color: red;
+  }
+
+  &-record:hover {
+    background-color: #79352d;
+  }
+
+  &-check:hover {
+    background-color: #00c853;
+  }
+}
+
+.fa-icon-white {
+  color: #fff;
+}

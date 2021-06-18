@@ -1,0 +1,17 @@
+/* other formats include: 'woff2', 'truetype, 'opentype', 'embedded-opentype', and 'svg' */
+
+@font-face {
+  font-family: "Comfortaa";
+  src: local("Comfortaa"),
+    url("/src/fonts/comfortaa/static/Comfortaa-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Passero One";
+  src: local("PasseroOne"),
+    url("/src/fonts/passero-one/PasseroOne-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

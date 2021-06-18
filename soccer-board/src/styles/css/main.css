@@ -1,0 +1,324 @@
+/* other formats include: 'woff2', 'truetype, 'opentype', 'embedded-opentype', and 'svg' */
+@font-face {
+  font-family: "Comfortaa";
+  src: local("Comfortaa"), url("/src/fonts/comfortaa/static/Comfortaa-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Passero One";
+  src: local("PasseroOne"), url("/src/fonts/passero-one/PasseroOne-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+.btn-maroon {
+  color: #ffffff;
+  background-color: #6a1c1c;
+  border-color: #6a1c1c;
+}
+.btn-maroon:hover, .btn-maroon:focus, .btn-maroon:active, .btn-maroon.active,
+.btn-maroon .open .dropdown-toggle.btn-maroon {
+  color: #ffffff;
+  background-color: #6a1c1c;
+  border-color: #6a1c1c;
+}
+.btn-maroon:active, .btn-maroon.active,
+.btn-maroon .open .dropdown-toggle.btn-maroon {
+  background-image: none;
+}
+.btn-maroon.disabled, .btn-maroon[disabled], fieldset[disabled] .btn-maroon, .btn-maroon.disabled:hover, .btn-maroon[disabled]:hover, fieldset[disabled] .btn-maroon:hover, .btn-maroon.disabled:focus, .btn-maroon[disabled]:focus, fieldset[disabled] .btn-maroon:focus, .btn-maroon.disabled:active, .btn-maroon[disabled]:active, fieldset[disabled] .btn-maroon:active, .btn-maroon.disabled.active, .btn-maroon[disabled].active, fieldset[disabled] .btn-maroon.active {
+  background-color: #6a1c1c;
+  border-color: #6a1c1c;
+}
+.btn-maroon .badge {
+  color: #6a1c1c;
+  background-color: #ffffff;
+}
+
+.btn-green-dark {
+  color: #f3f3f3;
+  background-color: #034732;
+  border-color: #034732;
+}
+.btn-green-dark:hover, .btn-green-dark:focus, .btn-green-dark:active, .btn-green-dark.active,
+.btn-green-dark .open .dropdown-toggle.btn-green-dark {
+  color: #f3f3f3;
+  background-color: #034732;
+  border-color: #034732;
+}
+.btn-green-dark:active, .btn-green-dark.active,
+.btn-green-dark .open .dropdown-toggle.btn-green-dark {
+  background-image: none;
+}
+.btn-green-dark.disabled, .btn-green-dark[disabled], fieldset[disabled] .btn-green-dark, .btn-green-dark.disabled:hover, .btn-green-dark[disabled]:hover, fieldset[disabled] .btn-green-dark:hover, .btn-green-dark.disabled:focus, .btn-green-dark[disabled]:focus, fieldset[disabled] .btn-green-dark:focus, .btn-green-dark.disabled:active, .btn-green-dark[disabled]:active, fieldset[disabled] .btn-green-dark:active, .btn-green-dark.disabled.active, .btn-green-dark[disabled].active, fieldset[disabled] .btn-green-dark.active {
+  background-color: #034732;
+  border-color: #034732;
+}
+.btn-green-dark .badge {
+  color: #034732;
+  background-color: #f3f3f3;
+}
+
+.squad-table {
+  border-radius: 16px;
+  border-spacing: 0;
+  border-collapse: separate;
+  font: normal 16px "Passero One", Roboto;
+  cursor: pointer;
+}
+.squad-table-caption {
+  font: bold 20px "Passero One";
+  color: #585858;
+}
+.squad-table thead th {
+  background-color: #ddefef;
+  border: solid 1px #ddeeee;
+  color: #336b6b;
+  padding: 10px;
+  text-align: left;
+  text-shadow: 1px 1px 1px #c8c8c8;
+}
+.squad-table tbody td {
+  outline: none;
+  color: #000000;
+  padding: 10px;
+  border-left: none;
+  border-right: none;
+}
+.squad-table tbody tr:hover {
+  background-color: #00c85381;
+}
+.squad-table th:first-child {
+  border-radius: 16px 0 0 0;
+}
+.squad-table th:last-child {
+  border-radius: 0 16px 0 0;
+}
+
+.squad-table-green {
+  border: 2px solid #003322;
+}
+.squad-table-green thead th {
+  background-color: #7ab8a3;
+  border: solid 1px #7ab8a3;
+  color: #14523d;
+}
+.squad-table-green tbody tr:hover {
+  background-color: rgba(51, 255, 129, 0.75);
+}
+.squad-table-green tbody tr:hover td:first-child {
+  border-bottom-left-radius: 16px;
+}
+.squad-table-green tbody tr:hover td:last-child {
+  border-bottom-right-radius: 16px;
+}
+
+.selected-green {
+  background-color: #00ff6a;
+}
+.selected-green td:first-child {
+  border-bottom-left-radius: 16px;
+}
+.selected-green td:last-child {
+  border-bottom-right-radius: 16px;
+}
+
+.squad-table-maroon {
+  border: 2px solid #7b342d;
+}
+.squad-table-maroon thead th {
+  background-color: #b8807a;
+  border: solid 1px #b8807a;
+  color: #521a14;
+}
+.squad-table-maroon tbody tr:hover {
+  background-color: rgba(255, 68, 51, 0.75);
+}
+.squad-table-maroon tbody tr:hover td:first-child {
+  border-bottom-left-radius: 16px;
+}
+.squad-table-maroon tbody tr:hover td:last-child {
+  border-bottom-right-radius: 16px;
+}
+
+.selected-maroon {
+  background-color: #ff4433;
+}
+.selected-maroon td:first-child {
+  border-bottom-left-radius: 16px;
+}
+.selected-maroon td:last-child {
+  border-bottom-right-radius: 16px;
+}
+
+.squad-table-violet {
+  border: 2px solid #561cba;
+}
+.squad-table-violet thead th {
+  background-color: #917ab8;
+  border: solid 1px #917ab8;
+  color: #290d59;
+}
+.squad-table-violet tbody tr:hover {
+  background-color: #9d80b3;
+}
+.squad-table-violet tbody tr:hover td:first-child {
+  border-bottom-left-radius: 16px;
+}
+.squad-table-violet tbody tr:hover td:last-child {
+  border-bottom-right-radius: 16px;
+}
+
+.selected-violet {
+  background-color: #be99ff;
+}
+.selected-violet td:first-child {
+  border-bottom-left-radius: 16px;
+}
+.selected-violet td:last-child {
+  border-bottom-right-radius: 16px;
+}
+
+.field-container {
+  width: 512px;
+  height: 775px;
+  border: none;
+  position: relative;
+}
+
+.player {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 48px;
+  position: absolute;
+  cursor: pointer;
+  background-image: url(/src/assets/images/player.svg);
+  z-index: 4;
+}
+.player:hover {
+  background-image: url(/src/assets/images/player-violet.svg);
+}
+
+.green {
+  background-image: url(/src/assets/images/player-green.svg);
+}
+
+.kit-no {
+  position: absolute;
+  font-family: "Passero One";
+  font-size: 14px;
+  color: white;
+  z-index: 6;
+}
+
+.i-container {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  border: solid 2px #3e3bdd;
+  border-radius: 8px;
+  min-width: 40%;
+  max-width: 100%;
+  min-height: 40%;
+  max-height: 60%;
+  padding: 0.6rem;
+  margin: 1rem;
+}
+
+.i-list {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.i-badge {
+  border-radius: 16px;
+  padding: 0.4rem 0.6rem 0.4rem 0.6rem;
+  margin: 0.4rem;
+  background-color: #f0fdfb;
+  box-shadow: 2px 2px 4px #808080;
+  min-height: 2.2rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.i-badge-selected {
+  font-size: 1.2rem;
+  animation-name: popup;
+  animation-duration: 200ms;
+  box-shadow: 6px 6px 8px #808080;
+}
+
+.i-input {
+  display: block;
+  overflow: hidden;
+  resize: none;
+  border: none;
+  border-bottom: solid 1px #212230;
+  background-color: #f0fdfb;
+  max-width: 100%;
+}
+.i-input:focus {
+  outline: #212230;
+}
+
+@keyframes popup {
+  0% {
+    box-shadow: 2px 2px 4px #808080;
+  }
+  100% {
+    box-shadow: 6px 6px 8px #808080;
+    transform: translateY(-2px);
+  }
+}
+.command-pallette {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: solid 1px #be4e41;
+  border-radius: 3rem;
+}
+
+.btn-cmd {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1.5rem;
+  margin: 0.5rem;
+  box-shadow: 2px 2px 4px #808080;
+  background-color: #212230;
+  cursor: pointer;
+}
+.btn-cmd:active {
+  box-shadow: 1px 1px 2px #808080;
+  transform: translateY(1px);
+}
+.btn-cmd:disabled {
+  background-color: #52535a;
+}
+.btn-cmd-add:hover {
+  background-color: #0288d1;
+}
+.btn-cmd-edit:hover {
+  background-color: #571cba;
+}
+.btn-cmd-delete:hover {
+  background-color: red;
+}
+.btn-cmd-record:hover {
+  background-color: #79352d;
+}
+.btn-cmd-check:hover {
+  background-color: #00c853;
+}
+
+.fa-icon-white {
+  color: #fff;
+}

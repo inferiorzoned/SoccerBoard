@@ -1,0 +1,126 @@
+$_variations: (
+  (
+    "name": "green",
+    "borderColor": hsl(160, 100%, 10%),
+    "thBgColor": hsl(160, 30%, 60%),
+    "thColor": hsl(160, 60%, 20%),
+    "hoverColor": hsla(143, 100%, 60%, 0.75),
+    "selectedColor": hsl(145, 100%, 50%),
+  ),
+  (
+    "name": "maroon",
+    "borderColor": hsl(5, 46%, 33%),
+    "thBgColor": hsl(5, 30%, 60%),
+    "thColor": hsl(5, 60%, 20%),
+    "hoverColor": hsl(5, 100%, 60%, 0.75),
+    "selectedColor": hsl(5, 100%, 60%),
+  ),
+  (
+    "name": "violet",
+    "borderColor": hsl(262, 74%, 42%),
+    "thBgColor": hsl(262, 30%, 60%),
+    "thColor": hsl(262, 75%, 20%),
+    "hoverColor": hsl(275, 25%, 60%),
+    "selectedColor": hsl(262, 100%, 80%),
+  )
+);
+
+.squad-table {
+  border-radius: 16px;
+  border-spacing: 0;
+  border-collapse: separate;
+  font: normal 16px "Passero One", Roboto;
+  cursor: pointer;
+
+  &-caption {
+    font: bold 20px "Passero One";
+    color: #585858;
+  }
+
+  thead th {
+    background-color: #ddefef;
+    border: solid 1px #ddeeee;
+    color: hsl(180, 35%, 31%);
+    padding: 10px;
+    text-align: left;
+    text-shadow: 1px 1px 1px rgb(200, 200, 200);
+  }
+
+  tbody td {
+    outline: none;
+    color: #000000;
+    padding: 10px;
+    border-left: none;
+    border-right: none;
+  }
+
+  tbody tr:hover {
+    background-color: #00c85381;
+  }
+
+  th:first-child {
+    border-radius: 16px 0 0 0;
+  }
+
+  th:last-child {
+    border-radius: 0 16px 0 0;
+  }
+}
+
+@each $var in $_variations {
+  $name: map-get(
+    $map: $var,
+    $key: "name",
+  );
+  $border-color: map-get(
+    $map: $var,
+    $key: "borderColor",
+  );
+  $th-bg-color: map-get(
+    $map: $var,
+    $key: "thBgColor",
+  );
+  $th-color: map-get(
+    $map: $var,
+    $key: "thColor",
+  );
+  $hover-color: map-get(
+    $map: $var,
+    $key: "hoverColor",
+  );
+  $selected-color: map-get(
+    $map: $var,
+    $key: "selectedColor",
+  );
+
+  .squad-table-#{$name} {
+    border: 2px solid $border-color;
+
+    thead th {
+      background-color: $th-bg-color;
+      border: solid 1px $th-bg-color;
+      color: $th-color;
+    }
+
+    tbody tr:hover {
+      background-color: $hover-color;
+      td:first-child {
+        border-bottom-left-radius: 16px;
+      }
+      td:last-child {
+        border-bottom-right-radius: 16px;
+      }
+    }
+  }
+
+  .selected-#{$name} {
+    background-color: $selected-color;
+
+    td:first-child {
+      border-bottom-left-radius: 16px;
+    }
+    td:last-child {
+      border-bottom-right-radius: 16px;
+    }
+  }
+}

@@ -14,7 +14,10 @@ const squad = [
     position: "CAM",
     kit: 10,
     partOf: "main",
-    instructions: ["Dribble around", "Shoot silently."],
+    instructions: [
+      "আপা, আপনে আমাদের মা এর মত। আপনেই বলেন আমি কী করব",
+      "শুধু আশপাশের গুলা কথা না শুনলে একটু বকে দিবেন",
+    ],
   },
   {
     _id: "3",
@@ -69,7 +72,7 @@ const squad = [
   {
     _id: "9",
     name: "Joe Biden",
-    position: "RCB",
+    position: "RB",
     kit: 5,
     partOf: "main",
     instructions: [
@@ -80,7 +83,7 @@ const squad = [
   {
     _id: "10",
     name: "Benjamin Netaniyahu",
-    position: "RM",
+    position: "RDM",
     kit: 17,
     partOf: "main",
     instructions: ["Oder box e dhuika boisha thakbi", "Call RCB for ball."],
@@ -96,10 +99,10 @@ const squad = [
   {
     _id: "12",
     name: "Jesinda Ardern",
-    position: "CDM",
+    position: "LDM",
     kit: 8,
     partOf: "main",
-    instructions: ["Keep the ball rolling.", "Don't hold the ball."],
+    instructions: ["Keep the ball rolling.", "মধু মধু হই বিষ খাওয়াইলা"],
   },
   {
     _id: "13",
@@ -115,5 +118,100 @@ const squad = [
 ];
 
 export function getSquad() {
-  return squad;
+  const positionSerial = [
+    "GK",
+    "RB",
+    "RCB",
+    "CB",
+    "LCB",
+    "LB",
+    "RM",
+    "RDM",
+    "CDM",
+    "LDM",
+    "LM",
+    "CM",
+    "CAM",
+    "RW",
+    "FW",
+    "ST",
+    "LW",
+  ];
+
+  let squadSerial = [];
+  positionSerial.forEach((pos) => {
+    const player = squad.filter((p) => p.position === pos);
+    if (player) squadSerial.push(...player);
+  });
+  return squadSerial;
+}
+
+const formations = [
+  {
+    _id: "1",
+    label: "4-3-3",
+    positions: [
+      {
+        label: "GK",
+        left: 50,
+        bottom: 10,
+        isGK: true,
+      },
+      {
+        label: "RCB",
+        left: 65,
+        bottom: 20,
+      },
+      {
+        label: "LCB",
+        left: 35,
+        bottom: 20,
+      },
+      {
+        label: "LB",
+        left: 15,
+        bottom: 25,
+      },
+      {
+        label: "RB",
+        left: 85,
+        bottom: 25,
+      },
+      {
+        label: "RDM",
+        left: 60,
+        bottom: 35,
+      },
+      {
+        label: "LDM",
+        left: 40,
+        bottom: 35,
+      },
+      {
+        label: "CAM",
+        left: 50,
+        bottom: 45,
+      },
+      {
+        label: "LW",
+        left: 20,
+        bottom: 55,
+      },
+      {
+        label: "RW",
+        left: 80,
+        bottom: 55,
+      },
+      {
+        label: "ST",
+        left: 50,
+        bottom: 60,
+      },
+    ],
+  },
+];
+
+export function getFormation(id) {
+  id = "1";
+  return formations.find((f) => f._id === id);
 }

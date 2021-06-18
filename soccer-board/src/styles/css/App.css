@@ -1,0 +1,107 @@
+@import "./main.css";
+/* .App {
+  text-align: center;
+} */
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  font-family: "Comfortaa", "Roboto";
+  font-size: 108px;
+  font-weight: 900;
+  text-align: center;
+  color: #1d4912;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.homepage-bgimage {
+  background: url("../../assets/images/travel-nomades-JO19K0HDDXI-unsplash.jpg");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login {
+  background-color: #034732;
+  border-radius: 16px;
+  font-family: "Comfortaa", "Roboto";
+  font-weight: normal;
+  font-style: normal;
+  color: #d3e1de;
+}
+
+.form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(0, 200, 83, 0.25);
+}
+
+.img-thumbnail {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  border-color: #6a1c1c;
+}
+
+.form-check-input:checked {
+  background-color: #00c853;
+  border-color: #00c853;
+}
+
+.status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 148px;
+  height: 64px;
+  border: 2px solid #00251a;
+  box-sizing: border-box;
+  border-radius: 20px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: capitalize;
+  color: #000000;
+}
+
+#processing {
+  background-color: #ffff8d;
+}
+
+#accepted {
+  background-color: #48e78a;
+}
+
+#rejected {
+  background-color: #f27b7b;
+}
+
+.label {
+  color: #6d6e78;
+  font-size: 16px;
+}
+
+.value {
+  font-size: 32px;
+}

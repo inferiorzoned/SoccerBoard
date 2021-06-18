@@ -13,12 +13,29 @@ class TableBody extends Component {
   };
 
   render() {
-    const { data, columns, onRowClicked } = this.props;
-
+    const {
+      data,
+      columns,
+      onRowClicked,
+      onRowCtrlClicked,
+      selected,
+      selectedRowClassName,
+      themeClassName,
+    } = this.props;
+    const selectedRowClass = selectedRowClassName + "-" + themeClassName;
     return (
       <tbody>
         {data.map((item) => (
-          <tr key={item._id} onClick={() => onRowClicked(item)}>
+          <tr
+            key={item._id}
+            onClick={(e) => {
+              if (e.ctrlKey || e.metaKey) return onRowCtrlClicked(item);
+              if (onRowClicked) onRowClicked(item);
+            }}
+            className={
+              selected.find((p) => p._id === item._id) ? selectedRowClass : null
+            }
+          >
             {columns.map((column) => (
               <td key={this.createKey(item, column)}>
                 {this.renderCell(item, column)}

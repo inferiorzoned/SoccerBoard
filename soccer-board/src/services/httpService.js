@@ -2,7 +2,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 // axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-axios.defaults.baseURL = "http://localhost:3900/api";
+// axios.defaults.baseURL = "http://localhost:3900/api";
+axios.defaults.baseURL = "https://soccerboard-api.herokuapp.com/api/";
 
 axios.interceptors.response.use(null, (error) => {
   const expectedError =

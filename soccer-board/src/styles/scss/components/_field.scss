@@ -1,0 +1,36 @@
+$_fw: 512px;
+$_fh: 775px;
+
+.field-container {
+  width: $_fw;
+  height: $_fh;
+  border: none;
+  position: relative;
+}
+
+.player {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 48px;
+  position: absolute;
+  cursor: pointer;
+  background-image: url(/src/assets/images/player.svg);
+  z-index: 4;
+
+  &:hover {
+    background-image: url(/src/assets/images/player-violet.svg);
+  }
+}
+.green {
+  background-image: url(/src/assets/images/player-green.svg);
+}
+
+.kit-no {
+  position: absolute;
+  font-family: "Passero One";
+  font-size: 14px;
+  color: white;
+  z-index: 6;
+}
