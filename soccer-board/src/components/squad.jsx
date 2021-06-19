@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 import gotoWhiteboard from "../assets/icons/gotoWhiteboard.svg";
 import load from "../assets/icons/load.svg";
 import field from "../assets/images/field.svg";
-import { getSquad, getFormation } from "../services/squad";
+import { getSquad, getFormation, orderSquad } from "../services/squad";
 import Player from "./commons/player";
 import Table from "./commons/table";
 import Instruction from "./instruction";
@@ -369,13 +369,14 @@ class Squad extends Component {
       selectedPlayer.instructions = selectedPlayer.instructions.filter(
         (i) => i.length !== 0
       );
-    if (selectedPlayer._id !== this.state.selectedPlayer._id) {
-      if (player.partOf === "main")
-        selection.selectedMainPlayers.push(selectedPlayer);
+
+    // using player instead of selectPlayer, because player is a reference and selectPlayer is a copy
+    if (player._id !== this.state.selectedPlayer._id) {
+      if (player.partOf === "main") selection.selectedMainPlayers.push(player);
       else if (player.partOf === "sub")
-        selection.selectedSubPlayers.push(selectedPlayer);
+        selection.selectedSubPlayers.push(player);
       else if (player.partOf === "reserved")
-        selection.selectedReservedPlayers.push(selectedPlayer);
+        selection.selectedReservedPlayers.push(player);
     } else {
       selectedPlayer = {};
     }
@@ -425,6 +426,134 @@ class Squad extends Component {
     );
   };
 
+  swapPlayers = (player1, player2) => {
+    const { positions } = this.state;
+    const group1 = this.state[player1.partOf];
+    const group2 = this.state[player2.partOf];
+
+    const g1_i = group1.indexOf(player1);
+    const g2_i = group2.indexOf(player2);
+
+    if (player1.partOf === "main" && player2.partOf === "main") {
+      const posi1 = positions.findIndex(
+        (pos) => player1.position === pos.label
+      );
+      const posi2 = positions.findIndex(
+        (pos) => player2.position === pos.label
+      );
+
+      [positions[posi1].kit, positions[posi2].kit] = [
+        positions[posi2].kit,
+        positions[posi1].kit,
+      ];
+    } else {
+      const posi =
+        player1.partOf === "main"
+          ? positions.findIndex((pos) => player1.position === pos.label)
+          : positions.findIndex((pos) => player2.position === pos.label);
+
+      if (posi >= 0)
+        positions[posi].kit =
+          player1.partOf === "main" ? group2[g2_i].kit : group1[g1_i].kit;
+    }
+
+    if (player1.partOf === "main" || player2.partOf === "main") {
+      [
+        group1[g1_i].position,
+        group1[g1_i].partOf,
+        group2[g2_i].position,
+        group2[g2_i].partOf,
+      ] = [
+        group2[g2_i].position,
+        group2[g2_i].partOf,
+        group1[g1_i].position,
+        group1[g1_i].partOf,
+      ];
+    }
+
+    if (player1.partOf !== "main")
+      group1[g1_i].position = group1[g1_i].prefPosition;
+    if (player2.partOf !== "main")
+      group2[g2_i].position = group2[g2_i].prefPosition;
+
+    [group1[g1_i], group2[g2_i]] = [group2[g2_i], group1[g1_i]];
+
+    this.setState({
+      selectedMainPlayers: [],
+      selectedSubPlayers: [],
+      selectedReservedPlayers: [],
+      selectedPlayer: {},
+    });
+  };
+
+  exchangePlayers = () => {
+    const { selectedMainPlayers, selectedSubPlayers, selectedReservedPlayers } =
+      this.state;
+
+    if (selectedMainPlayers.length === 2) {
+      this.swapPlayers(selectedMainPlayers[0], selectedMainPlayers[1]);
+    } else if (
+      selectedMainPlayers.length === 1 &&
+      selectedSubPlayers.length === 1 &&
+      selectedReservedPlayers.length === 0
+    ) {
+      this.swapPlayers(selectedMainPlayers[0], selectedSubPlayers[0]);
+    } else if (
+      selectedMainPlayers.length === 1 &&
+      selectedReservedPlayers.length === 1 &&
+      selectedSubPlayers.length === 0
+    ) {
+      this.swapPlayers(selectedMainPlayers[0], selectedReservedPlayers[0]);
+    } else if (
+      selectedMainPlayers.length === 0 &&
+      selectedSubPlayers.length === 1 &&
+      selectedReservedPlayers.length === 1
+    ) {
+      this.swapPlayers(selectedSubPlayers[0], selectedReservedPlayers[0]);
+    } else {
+      toast.error(
+        "You must swap only 2 players. Swapping inside substitutes and reserved table is not allowed!"
+      );
+    }
+  };
+
+  toReserved = () => {
+    const { main, sub, reserved, selectedMainPlayers, selectedSubPlayers } =
+      this.state;
+
+    const newReserved = orderSquad([...reserved, ...selectedSubPlayers]);
+    const newSub = sub.filter(
+      (p) => selectedSubPlayers.findIndex((ssp) => ssp._id === p._id) < 0
+    );
+
+    this.setState({
+      sub: newSub,
+      reserved: newReserved,
+      selectedMainPlayers: [],
+      selectedSubPlayers: [],
+      selectedReservedPlayers: [],
+      selectedPlayer: {},
+    });
+  };
+
+  fromReserved = () => {
+    const { sub, reserved, selectedReservedPlayers } = this.state;
+
+    const newSub = orderSquad([...sub, ...selectedReservedPlayers]);
+    const newReserved = reserved.filter(
+      (rp) => !selectedReservedPlayers.find((srp) => rp._id === srp._id)
+    );
+
+    this.setState({
+      sub: newSub,
+      reserved: newReserved,
+      selectedMainPlayers: [],
+      selectedSubPlayers: [],
+      selectedReservedPlayers: [],
+      selectedPlayer: {},
+    });
+  };
+
   render() {
     const {
       main,
@@ -463,16 +592,19 @@ class Squad extends Component {
                       faIcon={faSyncAlt}
                       buttonClasses="btn-cmd-square"
                       iconClasses="fa-icon-white"
+                      onClick={this.exchangePlayers}
                     />
                     <CmdButton
                       faIcon={faAngleDoubleRight}
                       buttonClasses="btn-cmd-square"
                       iconClasses="fa-icon-white"
+                      onClick={this.toReserved}
                     />
                     <CmdButton
                       faIcon={faAngleDoubleLeft}
                       buttonClasses="btn-cmd-square"
                       iconClasses="fa-icon-white"
+                      onClick={this.fromReserved}
                     />
                   </div>
                 </div>
