@@ -5,6 +5,9 @@ import {
   faPen,
   faTrash,
   faMicrophoneAlt,
+  faSyncAlt,
+  faAngleDoubleRight,
+  faAngleDoubleLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -17,7 +20,15 @@ import Table from "./commons/table";
 import Instruction from "./instruction";
 import CmdButton from "./commons/cmdButton";
 
-library.add(faPlus, faPen, faTrash, faMicrophoneAlt);
+library.add(
+  faPlus,
+  faPen,
+  faTrash,
+  faMicrophoneAlt,
+  faSyncAlt,
+  faAngleDoubleRight,
+  faAngleDoubleLeft
+);
 
 class Squad extends Component {
   state = {
@@ -63,7 +74,7 @@ class Squad extends Component {
 
     const positions = formation.positions.map((p) => {
       const player = mainPlayers.find((mp) => mp.position === p.label);
-      if (player) p.label = player.kit;
+      if (player) p.kit = player.kit;
       return p;
     });
 
@@ -159,17 +170,25 @@ class Squad extends Component {
   };
 
   renderField = () => {
-    const { positions } = this.state;
+    const { main, positions, selectedMainPlayers, selectedPlayer } = this.state;
+    const selectedPlayers = [...selectedMainPlayers, selectedPlayer];
     return (
       <div className="field-container">
         {positions &&
           positions.map((p) => (
             <Player
               key={p.label}
-              kit={p.label}
+              kit={p.kit ? p.kit : p.label}
               fromLeft={p.left}
               fromBottom={p.bottom}
-              isGK={p.isGK}
+              isGK={p.label === "GK"}
+              isSelected={selectedPlayers.find((sp) => sp.kit === p.kit)}
+              onClick={(e) => {
+                const player = main.find((sp) => sp.kit === p.kit);
+                if (e.ctrlKey || e.metaKey)
+                  return this.onMultiRowClicked(player);
+                this.onRowClicked(player);
+              }}
             />
           ))}
         <img src={field} alt="" />
@@ -200,6 +219,7 @@ class Squad extends Component {
 
   handleAdd = () => {
     let { selectedPlayer, selectedInstruction } = this.state;
+    if (Object.keys(selectedPlayer).length === 0) return;
     if (
       selectedPlayer.instructions[selectedPlayer.instructions.length - 1] !== ""
     ) {
@@ -224,6 +244,7 @@ class Squad extends Component {
 
   handleDelete = () => {
     let { selectedPlayer, selectedInstruction } = this.state;
+    if (Object.keys(selectedPlayer).length === 0) return;
     selectedPlayer.instructions = selectedPlayer.instructions.filter(
       (i, _index) => _index !== selectedInstruction.index
     );
@@ -344,16 +365,20 @@ class Squad extends Component {
     };
 
     let { ...selectedPlayer } = player;
-    selectedPlayer.instructions = selectedPlayer.instructions.filter(
-      (i) => i.length !== 0
-    );
-
-    if (player.partOf === "main")
-      selection.selectedMainPlayers.push(selectedPlayer);
-    else if (player.partOf === "sub")
-      selection.selectedSubPlayers.push(selectedPlayer);
-    else if (player.partOf === "reserved")
-      selection.selectedReservedPlayers.push(selectedPlayer);
+    if (selectedPlayer.instructions)
+      selectedPlayer.instructions = selectedPlayer.instructions.filter(
+        (i) => i.length !== 0
+      );
+    if (selectedPlayer._id !== this.state.selectedPlayer._id) {
+      if (player.partOf === "main")
+        selection.selectedMainPlayers.push(selectedPlayer);
+      else if (player.partOf === "sub")
+        selection.selectedSubPlayers.push(selectedPlayer);
+      else if (player.partOf === "reserved")
+        selection.selectedReservedPlayers.push(selectedPlayer);
+    } else {
+      selectedPlayer = {};
+    }
 
     this.setState({
       selectedPlayer: selectedPlayer,
@@ -384,7 +409,7 @@ class Squad extends Component {
 
   renderSquad = (type, players, selectedPlayers, theme, onMultiRowClicked) => {
     return (
-      <div className="text-center p-3">
+      <div className="d-flex flex-column justify-content-center align-items-center p-3">
         <div className="squad-table-caption">{type}</div>
         <Table
           columns={this.columns}
@@ -393,7 +418,7 @@ class Squad extends Component {
           themeClassName={theme}
           onRowClicked={this.onRowClicked}
           onRowCtrlClicked={onMultiRowClicked}
-          selected={selectedPlayers}
+          selectedItems={selectedPlayers}
           selectedRowClassName="selected"
         />
       </div>
@@ -413,31 +438,54 @@ class Squad extends Component {
       <React.Fragment>
         <div className="container">
           <div className="row">
-            <div className="col-auto">{this.renderField()}</div>
-            <div className="col-auto">
-              {this.renderSquad(
-                "Main Squad",
-                main,
-                selectedMainPlayers,
-                "green",
-                this.onMultiRowClicked
-              )}
-              {this.renderSquad(
-                "Substitutes",
-                sub,
-                selectedSubPlayers,
-                "violet",
-                this.onMultiRowClicked
-              )}
-            </div>
-            <div className="col-auto">
-              {this.renderSquad(
-                "Reserved",
-                reserved,
-                selectedReservedPlayers,
-                "maroon",
-                this.onMultiRowClicked
-              )}
+            <div className="col-sm-5">{this.renderField()}</div>
+            <div className="col-sm-7">
+              <div className="row justify-content-center align-items-center">
+                <div className="col-sm-6 d-flex flex-column justify-content-center align-items-center">
+                  {this.renderSquad(
+                    "Main Squad",
+                    main,
+                    selectedMainPlayers,
+                    "green",
+                    this.onMultiRowClicked
+                  )}
+                  {this.renderSquad(
+                    "Substitutes",
+                    sub,
+                    selectedSubPlayers,
+                    "violet",
+                    this.onMultiRowClicked
+                  )}
+                </div>
+                <div className="col-sm-1">
+                  <div className="d-flex flex-row flex-md-column justify-content-center align-items-center">
+                    <CmdButton
+                      faIcon={faSyncAlt}
+                      buttonClasses="btn-cmd-square"
+                      iconClasses="fa-icon-white"
+                    />
+                    <CmdButton
+                      faIcon={faAngleDoubleRight}
+                      buttonClasses="btn-cmd-square"
+                      iconClasses="fa-icon-white"
+                    />
+                    <CmdButton
+                      faIcon={faAngleDoubleLeft}
+                      buttonClasses="btn-cmd-square"
+                      iconClasses="fa-icon-white"
+                    />
+                  </div>
+                </div>
+                <div className="col-sm-5">
+                  {this.renderSquad(
+                    "Reserved",
+                    reserved,
+                    selectedReservedPlayers,
+                    "maroon",
+                    this.onMultiRowClicked
+                  )}
+                </div>
+              </div>
             </div>
           </div>
           {this.renderInstructions()}

@@ -11,7 +11,7 @@ const Table = ({
   onRowCtrlClicked,
   tableClassName,
   themeClassName,
-  selected,
+  selectedItems,
   selectedRowClassName,
 }) => {
   const tableClass = tableClassName
@@ -27,7 +27,7 @@ const Table = ({
         onRowClicked={onRowClicked}
         onRowCtrlClicked={onRowCtrlClicked}
         themeClassName={themeClassName}
-        selected={selected}
+        selectedItems={selectedItems}
         selectedRowClassName={selectedRowClassName}
       />
     </table>

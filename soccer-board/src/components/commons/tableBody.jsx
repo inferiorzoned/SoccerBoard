@@ -18,7 +18,7 @@ class TableBody extends Component {
       columns,
       onRowClicked,
       onRowCtrlClicked,
-      selected,
+      selectedItems,
       selectedRowClassName,
       themeClassName,
     } = this.props;
@@ -33,7 +33,9 @@ class TableBody extends Component {
               if (onRowClicked) onRowClicked(item);
             }}
             className={
-              selected.find((p) => p._id === item._id) ? selectedRowClass : null
+              selectedItems.find((p) => p._id === item._id)
+                ? selectedRowClass
+                : null
             }
           >
             {columns.map((column) => (

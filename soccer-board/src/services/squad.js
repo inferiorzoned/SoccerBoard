@@ -155,7 +155,6 @@ const formations = [
         label: "GK",
         left: 50,
         bottom: 10,
-        isGK: true,
       },
       {
         label: "RCB",

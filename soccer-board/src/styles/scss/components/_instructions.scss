@@ -91,9 +91,22 @@ $--btn-cmd-dim: 3rem;
     transform: translateY(1px);
   }
 
+  &:hover {
+    background-color: #034732;
+  }
+
   &:disabled {
     background-color: #52535a;
   }
+
+  &-square {
+    border-radius: $--btn-cmd-dim/8;
+  }
+
+  // &-square-rotated {
+  //   border-radius: $--btn-cmd-dim/8;
+  //   transform: rotate(90deg);
+  // }
 
   &-add:hover {
     background-color: #0288d1;

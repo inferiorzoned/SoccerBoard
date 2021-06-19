@@ -20,11 +20,15 @@ $_fh: 775px;
   z-index: 4;
 
   &:hover {
-    background-image: url(/src/assets/images/player-violet.svg);
+    background-image: url(/src/assets/images/player-pink.svg);
   }
 }
 .green {
   background-image: url(/src/assets/images/player-green.svg);
+}
+
+.violet {
+  background-image: url(/src/assets/images/player-violet.svg);
 }
 
 .kit-no {
