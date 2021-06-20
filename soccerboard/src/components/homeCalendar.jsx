@@ -146,7 +146,7 @@ class HomeCalendar extends Component {
             onDecrease={this.handleMonthDecrease}
           />
         </div>
-        <div className="row details">
+        <div className="row">
           <DetailsBox eventSelected={selectedEvent} month={month} />
         </div>
       </div>

@@ -9,19 +9,19 @@ function getEvents(month, year) {
 
 function getMonthsLastDate(month, year) {
   const leapYear =
-    year % 4 == 0
-      ? year % 100 == 0
-        ? year % 400 == 0
+    year % 4 === 0
+      ? year % 100 === 0
+        ? year % 400 === 0
           ? true
           : false
         : true
       : false;
   if (month < 7) {
-    if (month == 1) return leapYear ? 29 : 28;
-    else if (month % 2 == 0) return 31;
+    if (month === 1) return leapYear ? 29 : 28;
+    else if (month % 2 === 0) return 31;
     return 30;
   } else {
-    if (month % 2 == 0) return 30;
+    if (month % 2 === 0) return 30;
     return 31;
   }
 }
