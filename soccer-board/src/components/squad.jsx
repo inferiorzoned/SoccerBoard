@@ -10,15 +10,16 @@ import {
   faSyncAlt,
   faAngleDoubleRight,
   faAngleDoubleLeft,
+  faArrowRight,
+  faCloudUploadAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import gotoWhiteboard from "../assets/icons/gotoWhiteboard.svg";
-import load from "../assets/icons/load.svg";
 import { getSquad, getFormation, orderSquad } from "../services/squad";
 import field from "../assets/images/field.svg";
 import Player from "./commons/player";
 import Table from "./commons/table";
 import Instruction from "./instruction";
 import CmdButton from "./commons/cmdButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 library.add(
   faPlus,
@@ -27,7 +28,9 @@ library.add(
   faMicrophoneAlt,
   faSyncAlt,
   faAngleDoubleRight,
-  faAngleDoubleLeft
+  faAngleDoubleLeft,
+  faArrowRight,
+  faCloudUploadAlt
 );
 
 class Squad extends Component {
@@ -98,83 +101,23 @@ class Squad extends Component {
   }
 
   renderFormation = () => {
-    const formationCSS = {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      width: "120px",
-      height: "48px",
-      background: "#212230",
-      border: "4px solid #217075",
-      padding: "4px",
-      boxSizing: "border-box",
-      borderRadius: "24px",
-      fontFamily: "Passero One",
-      fontStyle: "normal",
-      fontWeight: "normal",
-      fontSize: "24px",
-      textAlign: "center",
-      color: "#F0FDFB",
-    };
-    const labelCSS = {
-      padding: "4px",
-      fontFamily: "Passero One",
-      fontSize: "20px",
-      color: "#6D6E78",
-    };
-
     return (
-      <div>
-        <div style={labelCSS}>Formation</div>
-        <div style={formationCSS}>4-3-3</div>;
+      <div className="formation-select">
+        <select name="formation" id="">
+          <option value="4-3-3">4-3-3 Custom - 1</option>
+          <option value="4-4-2">4-4-2</option>
+          <option value="4-5-1">4-5-1</option>
+        </select>
       </div>
     );
   };
 
-  renderBadge = () => {
-    const badgeCSS = {
-      width: "180px",
-      height: "60px",
-      fontFamily: "Passero One",
-      fontStyle: "normal",
-      fontWeight: "normal",
-      fontSize: "20px",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      textAlign: "center",
-      color: "#000000",
-      border: "4px solid #034732",
-      boxSizing: "border-box",
-      borderRadius: "32px",
-    };
+  renderBadge = (label, iconName, onClick) => {
     return (
-      <div>
-        <div style={badgeCSS}>
-          Whiteboard
-          <img
-            src={gotoWhiteboard}
-            style={{
-              padding: "0px 12px 0px 12px",
-              height: "52px",
-              width: "52px",
-            }}
-            alt=""
-            srcSet=""
-          />
-        </div>
-        <div style={badgeCSS}>
-          Load Squad
-          <img
-            src={load}
-            style={{
-              padding: "0px 12px 0px 12px",
-              height: "60px",
-              width: "60px",
-            }}
-            alt=""
-            srcSet=""
-          />
+      <div className="btn-badge">
+        {label}
+        <div className="btn-badge-icon">
+          <FontAwesomeIcon icon={iconName} onClick={onClick} />
         </div>
       </div>
     );
@@ -310,60 +253,63 @@ class Squad extends Component {
   renderInstructions = () => {
     const { instructions } = this.state.selectedPlayer;
     return (
-      <div className="i-container">
-        <div className="command-pallette">
-          <CmdButton
-            faIcon={faPlus}
-            iconClasses="fa-icon-white"
-            buttonClasses="btn-cmd-add"
-            onClick={this.handleAdd}
-          />
-          <CmdButton
-            faIcon={faPen}
-            iconClasses="fa-icon-white"
-            buttonClasses="btn-cmd-edit"
-            onClick={this.handleEdit}
-          />
-          <CmdButton
-            faIcon={faTrash}
-            iconClasses="fa-icon-white"
-            buttonClasses="btn-cmd-delete"
-            onClick={this.handleDelete}
-          />
-          <CmdButton
-            faIcon={faMicrophoneAlt}
-            iconClasses="fa-icon-white"
-            buttonClasses="btn-cmd-record"
-            onClick={this.handleRecord}
-          />
-        </div>
-        <div className="i-list">
-          {instructions &&
-            instructions.map((i, index) => (
-              <Instruction
-                key={index}
-                isSelected={this.state.selectedInstruction.index === index}
-                isEditable={
-                  this.state.selectedInstruction.index === index &&
-                  this.state.selectedInstruction.isEditable
-                }
-                onChange={({ currentTarget: input }) => {
-                  let player = this.state.selectedPlayer;
-                  const { selectedInstruction } = this.state;
-                  selectedInstruction.saved = false;
-                  player.instructions[index].content = input.value;
-                  this.setState({
-                    selectedPlayer: player,
-                    selectedInstruction: this.state.selectedInstruction,
-                  });
-                }}
-                instruction={i}
-                onBadgeClicked={() => this.onBadgeClicked(index)}
-                onSave={this.handleSave}
-                handleMediaStop={(data) => this.handleAudioStop(data)}
-                handleMediaReset={() => this.handleReset()}
-              />
-            ))}
+      <div className="my-5">
+        <div className="squad-table-caption text-center">Instructions</div>
+        <div className="i-container">
+          <div className="command-pallette">
+            <CmdButton
+              faIcon={faPlus}
+              iconClasses="fa-icon-white"
+              buttonClasses="btn-cmd-add"
+              onClick={this.handleAdd}
+            />
+            <CmdButton
+              faIcon={faPen}
+              iconClasses="fa-icon-white"
+              buttonClasses="btn-cmd-edit"
+              onClick={this.handleEdit}
+            />
+            <CmdButton
+              faIcon={faTrash}
+              iconClasses="fa-icon-white"
+              buttonClasses="btn-cmd-delete"
+              onClick={this.handleDelete}
+            />
+            <CmdButton
+              faIcon={faMicrophoneAlt}
+              iconClasses="fa-icon-white"
+              buttonClasses="btn-cmd-record"
+              onClick={this.handleRecord}
+            />
+          </div>
+          <div className="i-list">
+            {instructions &&
+              instructions.map((i, index) => (
+                <Instruction
+                  key={index}
+                  isSelected={this.state.selectedInstruction.index === index}
+                  isEditable={
+                    this.state.selectedInstruction.index === index &&
+                    this.state.selectedInstruction.isEditable
+                  }
+                  onChange={({ currentTarget: input }) => {
+                    let player = this.state.selectedPlayer;
+                    const { selectedInstruction } = this.state;
+                    selectedInstruction.saved = false;
+                    player.instructions[index].content = input.value;
+                    this.setState({
+                      selectedPlayer: player,
+                      selectedInstruction: this.state.selectedInstruction,
+                    });
+                  }}
+                  instruction={i}
+                  onBadgeClicked={() => this.onBadgeClicked(index)}
+                  onSave={this.handleSave}
+                  handleMediaStop={(data) => this.handleAudioStop(data)}
+                  handleMediaReset={() => this.handleReset()}
+                />
+              ))}
+          </div>
         </div>
       </div>
     );
@@ -648,6 +594,17 @@ class Squad extends Component {
     return (
       <React.Fragment>
         <div className="container">
+          <div className="row w-100">
+            <div className="col-5 d-flex justify-content-center align-items-center">
+              {this.renderFormation()}
+            </div>
+            <div className="col-4 d-flex justify-content-center align-items-center">
+              {this.renderBadge("SAVE", faCloudUploadAlt, null)}
+            </div>
+            <div className="col-3 d-flex justify-content-center align-items-center">
+              {this.renderBadge("WHITEBOARD", faArrowRight, null)}
+            </div>
+          </div>
           <div className="row">
             <div className="col-sm-5">{this.renderField()}</div>
             <div className="col-sm-7">
