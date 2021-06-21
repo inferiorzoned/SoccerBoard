@@ -1,6 +1,5 @@
 import Joi from "joi-browser";
 import React from "react";
-import { Link } from "react-router-dom";
 import { getApplicantionStatus } from "../services/statusService";
 import Form from "./commons/form";
 import SignupForm from "./signupForm";

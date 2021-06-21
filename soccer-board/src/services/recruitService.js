@@ -1,7 +1,7 @@
 import { getCurrentUser } from "./authService";
 import http from "./httpService";
 
-const applicants = [
+/* const applicants = [
   {
     _id: "ajskghaksjdfukweryijnh",
     name: "Shahrar Swapnil",
@@ -32,7 +32,7 @@ const applicants = [
     avatar:
       "https://scontent.fdac5-1.fna.fbcdn.net/v/t1.6435-1/c80.0.320.320a/p320x320/88241758_1407765116082453_8609546447760654336_n.jpg?_nc_cat=100&ccb=1-3&_nc_sid=7206a8&_nc_eui2=AeGYzFs54Gyw_fB7O2zIdSSk-VHb7yD8nKL5UdvvIPycogg0UG4afbXcGY5lnNJWPmDnbZhLfse1hRQ4TZSvpMMU&_nc_ohc=bx1tZoC8J2sAX8qrqtn&_nc_ht=scontent.fdac5-1.fna&tp=27&oh=595edab54017c5c64fe98b81b2575d08&oe=60E0A995",
   },
-];
+]; */
 
 const epApplications = "/applications";
 const epAcceptApplicants = "/applications/recruit";
@@ -65,6 +65,8 @@ export async function processApplicants(acceptedIds, rejectedIds) {
   await rejectApplicants(rejectedIds);
 }
 
-export default {
+const recruitService = {
   getApplicants,
 };
+
+export default recruitService;

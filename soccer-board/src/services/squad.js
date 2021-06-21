@@ -7,7 +7,10 @@ const squad = [
     kit: 11,
     captain: true,
     partOf: "main",
-    instructions: ["Ask for pass", "If he don't listen, kill him."],
+    instructions: [
+      { type: "text", content: "Ask for pass" },
+      { type: "text", content: "If he don't listen, kill him." },
+    ],
   },
   {
     _id: "2",
@@ -17,8 +20,14 @@ const squad = [
     kit: 10,
     partOf: "main",
     instructions: [
-      "আপা, আপনে আমাদের মা এর মত। আপনেই বলেন আমি কী করব",
-      "শুধু আশপাশের গুলা কথা না শুনলে একটু বকে দিবেন",
+      {
+        type: "text",
+        content: "আপা, আপনে আমাদের মা এর মত। আপনেই বলেন আমি কী করব",
+      },
+      {
+        type: "text",
+        content: "শুধু আশপাশের গুলা কথা না শুনলে একটু বকে দিবেন",
+      },
     ],
   },
   {
@@ -36,7 +45,10 @@ const squad = [
     prefPosition: "RW",
     kit: 7,
     partOf: "main",
-    instructions: ["Hold possession", "Avoid bad call"],
+    instructions: [
+      { type: "text", content: "Hold possession" },
+      { type: "text", content: "Avoid bad call" },
+    ],
   },
   {
     _id: "5",
@@ -45,7 +57,10 @@ const squad = [
     prefPosition: "RCB",
     kit: 4,
     partOf: "main",
-    instructions: ["Keep up the speed", "Avoid cards"],
+    instructions: [
+      { type: "text", content: "Keep up the speed" },
+      { type: "text", content: "Avoid cards" },
+    ],
   },
   {
     _id: "6",
@@ -54,7 +69,10 @@ const squad = [
     prefPosition: "LCB",
     kit: 2,
     partOf: "main",
-    instructions: ["Don't be selfish.", "Don't foul your teammate."],
+    instructions: [
+      { type: "text", content: "Don't be selfish." },
+      { type: "text", content: "Don't foul your teammate." },
+    ],
   },
   {
     _id: "7",
@@ -63,7 +81,10 @@ const squad = [
     prefPosition: "LW",
     kit: 13,
     partOf: "main",
-    instructions: ["Dive in the box", "Injure the oponent gk"],
+    instructions: [
+      { type: "text", content: "Dive in the box" },
+      { type: "text", content: "Injure the oponent gk" },
+    ],
   },
   {
     _id: "8",
@@ -73,8 +94,8 @@ const squad = [
     kit: 1,
     partOf: "main",
     instructions: [
-      "Chipa mair diye acting skill dekhabi",
-      "Pass ball to the both wings",
+      { type: "text", content: "Chipa mair diye acting skill dekhabi" },
+      { type: "text", content: "Pass ball to the both wings" },
     ],
   },
   {
@@ -85,8 +106,8 @@ const squad = [
     kit: 5,
     partOf: "main",
     instructions: [
-      "Play one-two with the RM",
-      "Opponent er striker er theng vainga dibi",
+      { type: "text", content: "Play one-two with the RM" },
+      { type: "text", content: "Opponent er striker er theng vainga dibi" },
     ],
   },
   {
@@ -96,7 +117,10 @@ const squad = [
     prefPosition: "RDM",
     kit: 17,
     partOf: "main",
-    instructions: ["Oder box e dhuika boisha thakbi", "Call RCB for ball."],
+    instructions: [
+      { type: "text", content: "Oder box e dhuika boisha thakbi" },
+      { type: "text", content: "Call RCB for ball." },
+    ],
   },
   {
     _id: "11",
@@ -105,7 +129,10 @@ const squad = [
     prefPosition: "LB",
     kit: 24,
     partOf: "main",
-    instructions: ["Play long ball to RM", "Preserve stamina"],
+    instructions: [
+      { type: "text", content: "Play long ball to RM" },
+      { type: "text", content: "Preserve stamina" },
+    ],
   },
   {
     _id: "12",
@@ -114,7 +141,10 @@ const squad = [
     prefPosition: "LDM",
     kit: 8,
     partOf: "main",
-    instructions: ["Keep the ball rolling.", "মধু মধু হই বিষ খাওয়াইলা"],
+    instructions: [
+      { type: "text", content: "Keep the ball rolling." },
+      { type: "text", content: "মধু মধু হই বিষ খাওয়াইলা" },
+    ],
   },
   {
     _id: "13",
@@ -124,8 +154,8 @@ const squad = [
     kit: 18,
     partOf: "sub",
     instructions: [
-      "Shoot at first chance",
-      "Communicate with the RW for cross.",
+      { type: "text", content: "Shoot at first chance" },
+      { type: "text", content: "Communicate with the RW for cross." },
     ],
   },
 ];

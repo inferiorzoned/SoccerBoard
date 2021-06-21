@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import {
   faPlus,
   faPen,
@@ -9,12 +11,10 @@ import {
   faAngleDoubleRight,
   faAngleDoubleLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
 import gotoWhiteboard from "../assets/icons/gotoWhiteboard.svg";
 import load from "../assets/icons/load.svg";
-import field from "../assets/images/field.svg";
 import { getSquad, getFormation, orderSquad } from "../services/squad";
+import field from "../assets/images/field.svg";
 import Player from "./commons/player";
 import Table from "./commons/table";
 import Instruction from "./instruction";
@@ -44,6 +44,17 @@ class Squad extends Component {
       index: -1,
       isEditable: false,
       saved: undefined,
+    },
+
+    audioDetails: {
+      url: null,
+      blob: null,
+      chunks: null,
+      duration: {
+        h: 0,
+        m: 0,
+        s: 0,
+      },
     },
   };
 
@@ -220,10 +231,10 @@ class Squad extends Component {
   handleAdd = () => {
     let { selectedPlayer, selectedInstruction } = this.state;
     if (Object.keys(selectedPlayer).length === 0) return;
-    if (
-      selectedPlayer.instructions[selectedPlayer.instructions.length - 1] !== ""
-    ) {
-      selectedPlayer.instructions.push("");
+    const lastInstruction =
+      selectedPlayer.instructions[selectedPlayer.instructions.length - 1];
+    if (lastInstruction.type === "text" && lastInstruction.content !== "") {
+      selectedPlayer.instructions.push({ type: "text", content: "" });
       selectedInstruction = {
         ...selectedInstruction,
         index: selectedPlayer.instructions.length - 1,
@@ -237,9 +248,14 @@ class Squad extends Component {
   };
 
   handleEdit = () => {
-    let { selectedInstruction } = this.state;
-    selectedInstruction.isEditable = true;
-    this.setState({ selectedInstruction: selectedInstruction });
+    let { selectedInstruction, selectedPlayer } = this.state;
+    if (
+      selectedPlayer.instructions[selectedInstruction.index] &&
+      selectedPlayer.instructions[selectedInstruction.index].type === "text"
+    ) {
+      selectedInstruction.isEditable = true;
+      this.setState({ selectedInstruction: selectedInstruction });
+    }
   };
 
   handleDelete = () => {
@@ -259,8 +275,24 @@ class Squad extends Component {
     });
   };
 
+  handleRecord = () => {
+    const { selectedPlayer } = this.state;
+    if (Object.keys(selectedPlayer).length === 0) return;
+
+    selectedPlayer.instructions.push({
+      type: "audio",
+      content: {
+        blob: {},
+        url: null,
+      },
+    });
+
+    this.setState({ selectedPlayer });
+  };
+
   handleSave = () => {
-    let { selectedPlayer } = this.state;
+    const { selectedPlayer } = this.state;
+
     const players = this.state[selectedPlayer.partOf];
 
     let player = players.find((p) => p._id === selectedPlayer._id);
@@ -302,6 +334,7 @@ class Squad extends Component {
             faIcon={faMicrophoneAlt}
             iconClasses="fa-icon-white"
             buttonClasses="btn-cmd-record"
+            onClick={this.handleRecord}
           />
         </div>
         <div className="i-list">
@@ -309,7 +342,6 @@ class Squad extends Component {
             instructions.map((i, index) => (
               <Instruction
                 key={index}
-                order={index}
                 isSelected={this.state.selectedInstruction.index === index}
                 isEditable={
                   this.state.selectedInstruction.index === index &&
@@ -317,16 +349,19 @@ class Squad extends Component {
                 }
                 onChange={({ currentTarget: input }) => {
                   let player = this.state.selectedPlayer;
-                  this.state.selectedInstruction.saved = false;
-                  player.instructions[index] = input.value;
+                  const { selectedInstruction } = this.state;
+                  selectedInstruction.saved = false;
+                  player.instructions[index].content = input.value;
                   this.setState({
                     selectedPlayer: player,
                     selectedInstruction: this.state.selectedInstruction,
                   });
                 }}
-                description={i}
-                onBadgeClicked={this.onBadgeClicked}
+                instruction={i}
+                onBadgeClicked={() => this.onBadgeClicked(index)}
                 onSave={this.handleSave}
+                handleMediaStop={(data) => this.handleAudioStop(data)}
+                handleMediaReset={() => this.handleReset()}
               />
             ))}
         </div>
@@ -367,7 +402,8 @@ class Squad extends Component {
     let { ...selectedPlayer } = player;
     if (selectedPlayer.instructions)
       selectedPlayer.instructions = selectedPlayer.instructions.filter(
-        (i) => i.length !== 0
+        (i) =>
+          (i.type === "text" && i.content.length !== 0) || i.type === "audio"
       );
 
     // using player instead of selectPlayer, because player is a reference and selectPlayer is a copy
@@ -390,6 +426,8 @@ class Squad extends Component {
       },
       ...selection,
     });
+
+    console.log(this.state);
   };
 
   onMultiRowClicked = (player) => {
@@ -518,8 +556,7 @@ class Squad extends Component {
   };
 
   toReserved = () => {
-    const { main, sub, reserved, selectedMainPlayers, selectedSubPlayers } =
-      this.state;
+    const { sub, reserved, selectedSubPlayers } = this.state;
 
     const newReserved = orderSquad([...reserved, ...selectedSubPlayers]);
     const newSub = sub.filter(
@@ -553,6 +590,51 @@ class Squad extends Component {
       selectedPlayer: {},
     });
   };
+
+  handleAudioStop(data) {
+    const { selectedPlayer } = this.state;
+
+    console.log(data);
+
+    if (data.url) {
+      const lastIndex = selectedPlayer.instructions.length - 1;
+      selectedPlayer.instructions[lastIndex].content = {
+        blob: data.blob,
+        url: data.url,
+      };
+    }
+    const players = this.state[selectedPlayer.partOf];
+
+    let player = players.find((p) => p._id === selectedPlayer._id);
+    player.instructions = [...selectedPlayer.instructions];
+
+    this.setState({
+      selectedInstruction: {
+        ...this.state.selectedInstruction,
+        isEditable: false,
+      },
+      [selectedPlayer.partOf]: players,
+      audioDetails: data,
+    });
+  }
+
+  handleAudioUpload(file) {
+    console.log(file);
+  }
+
+  handleReset() {
+    const reset = {
+      url: null,
+      blob: null,
+      chunks: null,
+      duration: {
+        h: 0,
+        m: 0,
+        s: 0,
+      },
+    };
+    this.setState({ audioDetails: reset });
+  }
 
   render() {
     const {
