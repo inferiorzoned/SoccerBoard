@@ -62,7 +62,8 @@
 .t-card {
   justify-content: center;
   height: 240px;
-  width: 360px;
+  /* width: 360px; */
+  width: auto;
   border: solid 2px #00251a;
   border-radius: 8px;
   padding: 16px;

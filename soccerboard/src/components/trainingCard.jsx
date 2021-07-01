@@ -10,6 +10,9 @@ input:
 
 class TrainingCard extends Component {
   async getImage() {}
+  state = {
+    // selected: false,
+  };
   render() {
     const str = "hello";
     const {
@@ -18,30 +21,57 @@ class TrainingCard extends Component {
       trainingDifficulty,
       trainingDescription,
       trainingID,
+      handleLink,
+      linkType,
     } = this.props;
-    // const epMedia = "http://localhost:3900/api/medias/image?mediaUrl=";
-    // const trainingImage2 = epMedia + trainingImage;
     return (
-      <Link
-        to={`/Training Repo/${trainingID}`}
-        style={{ textDecoration: "none" }}
-      >
-        <div className="t-card">
-          <div className="d-flex flex-row me-3">
-            <img className="t-card-image" src={trainingImage} />
+      // <Link
+      //   to={`/Training Repo/${trainingID}`}
+      //   style={{ textDecoration: "none" }}
+      // >
+      //   <div className="t-card">
+      //     <div className="d-flex flex-row me-3">
+      //       <img className="t-card-image" src={trainingImage} />
 
-            <div className="d-flex flex-column ms-3">
-              <div className="t-card-title">{trainingTitle}</div>
-              <div
-                className={`t-difficulty-badge t-difficulty-badge-${trainingDifficulty.toLowerCase()}`}
-              >
-                {trainingDifficulty}
-              </div>
+      //       <div className="d-flex flex-column ms-3">
+      //         <div className="t-card-title">{trainingTitle}</div>
+      //         <div
+      //           className={`t-difficulty-badge t-difficulty-badge-${trainingDifficulty.toLowerCase()}`}
+      //         >
+      //           {trainingDifficulty}
+      //         </div>
+      //       </div>
+      //     </div>
+      //     <div className="t-card-text">{trainingDescription}</div>
+      //   </div>
+      // </Link>
+
+      <div
+        onClick={(e) => {
+          handleLink(e, linkType, trainingID);
+          if (e.ctrlKey || e.metaKey) {
+            const isSelected = this.state.selected ? false : true;
+            this.setState({ selected: isSelected });
+          }
+        }}
+        className={`t-card${
+          this.state.selected ? " border border-danger border-4" : ""
+        }`}
+      >
+        <div className="d-flex flex-row me-3">
+          <img className="t-card-image" src={trainingImage} />
+
+          <div className="d-flex flex-column ms-3">
+            <div className="t-card-title">{trainingTitle}</div>
+            <div
+              className={`t-difficulty-badge t-difficulty-badge-${trainingDifficulty.toLowerCase()}`}
+            >
+              {trainingDifficulty}
             </div>
           </div>
-          <div className="t-card-text">{trainingDescription}</div>
         </div>
-      </Link>
+        <div className="t-card-text">{trainingDescription}</div>
+      </div>
     );
   }
 }

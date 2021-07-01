@@ -1,7 +1,7 @@
 const outerLink = {
   trainingRepo: [
     { label: "Create Training", link: "Training Repo/Create Training" },
-    { label: "Create New Session", link: "" },
+    { label: "Create New Session", link: "Training Repo/Create New Session" },
   ],
   squad: [
     { label: "Manage Squad", link: "" },

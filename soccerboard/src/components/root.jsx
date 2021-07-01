@@ -8,6 +8,7 @@ import Recruit from "../pages/recruit";
 import Squad from "../pages/squad";
 import CreateTraining from "../pages/createTraining";
 import Training from "../pages/training";
+import CreateNewSession from "../pages/createNewSession.jsx";
 
 function Root() {
   return (
@@ -20,16 +21,23 @@ function Root() {
           <Route path="/Squad" component={Squad}></Route>
           <Route path="/Recruit" component={Recruit}></Route>
           <Route
-            path="/Training Repo/Create Training"
-            exact
+            path="/Training Repo/Create Training" exact
             component={CreateTraining}
+          ></Route>
+          <Route
+            path="/Training Repo/Create New Session" exact 
+            component={CreateNewSession}
           ></Route>
           <Route path="/Training Repo/:_id" component={Training}></Route>
           <Route path="/Training Repo" exact component={TrainingRepo}></Route>
-          <Route
+          {/* <Route
             path="/Training Repo/Create Training"
             component={CreateTraining}
           ></Route>
+          <Route
+            path="/Training Repo/Create New Session"
+            component={CreateNewSession}
+          ></Route> */}
         </Switch>
       </main>
     </div>
