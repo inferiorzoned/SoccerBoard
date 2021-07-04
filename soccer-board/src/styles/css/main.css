@@ -186,6 +186,13 @@
   position: relative;
 }
 
+.main-field-dummy {
+  width: 472px;
+  height: 735px;
+  position: absolute;
+  margin: 20px;
+}
+
 .player {
   display: flex;
   justify-content: center;

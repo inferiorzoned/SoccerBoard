@@ -7,12 +7,14 @@ import ApplicationStatusForm from "./components/applicationStatusForm";
 import Squad from "./components/squad";
 import Recruit from "./components/recruit";
 import Home from "./pages/home";
+import Test from "./test/test";
 
 function App() {
   return (
     <React.Fragment>
       <main>
         <Switch>
+          <Route path="/test" component={Test} />
           <Route
             path="/application-status"
             component={ApplicationStatusForm}

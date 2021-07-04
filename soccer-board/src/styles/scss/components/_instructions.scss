@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .i-container {
   display: flex;
   justify-content: flex-start;
@@ -85,7 +87,7 @@ $--btn-cmd-dim: 3rem;
   align-items: center;
   width: $--btn-cmd-dim;
   height: $--btn-cmd-dim;
-  border-radius: $--btn-cmd-dim/2;
+  border-radius: math.div($--btn-cmd-dim, 2);
   margin: 0.5rem;
   box-shadow: 2px 2px 4px #808080;
   background-color: #212230;
@@ -105,14 +107,14 @@ $--btn-cmd-dim: 3rem;
   }
 
   &-square {
-    border-radius: $--btn-cmd-dim/8;
+    border-radius: math.div($--btn-cmd-dim, 8);
   }
 
   &-mini {
     width: $--btn-cmd-dim * 0.8;
     height: $--btn-cmd-dim * 0.8;
-    border-radius: $--btn-cmd-dim / 2;
-    font-size: $--btn-cmd-dim / 3 * 0.8;
+    border-radius: math.div($--btn-cmd-dim, 2);
+    font-size: math.div($--btn-cmd-dim, 3) * 0.8;
   }
 
   &-add:hover {

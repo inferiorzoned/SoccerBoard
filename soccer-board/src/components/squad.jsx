@@ -128,23 +128,25 @@ class Squad extends Component {
     const selectedPlayers = [...selectedMainPlayers, selectedPlayer];
     return (
       <div className="field-container">
-        {positions &&
-          positions.map((p) => (
-            <Player
-              key={p.label}
-              kit={p.kit ? p.kit : p.label}
-              fromLeft={p.left}
-              fromBottom={p.bottom}
-              isGK={p.label === "GK"}
-              isSelected={selectedPlayers.find((sp) => sp.kit === p.kit)}
-              onClick={(e) => {
-                const player = main.find((sp) => sp.kit === p.kit);
-                if (e.ctrlKey || e.metaKey)
-                  return this.onMultiRowClicked(player);
-                this.onRowClicked(player);
-              }}
-            />
-          ))}
+        <div className="main-field-dummy">
+          {positions &&
+            positions.map((p) => (
+              <Player
+                key={p.label}
+                kit={p.kit ? p.kit : p.label}
+                fromLeft={p.left}
+                fromTop={p.top}
+                isGK={p.label === "GK"}
+                isSelected={selectedPlayers.find((sp) => sp.kit === p.kit)}
+                onClick={(e) => {
+                  const player = main.find((sp) => sp.kit === p.kit);
+                  if (e.ctrlKey || e.metaKey)
+                    return this.onMultiRowClicked(player);
+                  this.onRowClicked(player);
+                }}
+              />
+            ))}
+        </div>
         <img src={field} alt="" />
       </div>
     );
@@ -373,7 +375,7 @@ class Squad extends Component {
       ...selection,
     });
 
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   onMultiRowClicked = (player) => {
@@ -442,16 +444,9 @@ class Squad extends Component {
     }
 
     if (player1.partOf === "main" || player2.partOf === "main") {
-      [
-        group1[g1_i].position,
-        group1[g1_i].partOf,
+      [group1[g1_i].position, group2[g2_i].position] = [
         group2[g2_i].position,
-        group2[g2_i].partOf,
-      ] = [
-        group2[g2_i].position,
-        group2[g2_i].partOf,
         group1[g1_i].position,
-        group1[g1_i].partOf,
       ];
     }
 
@@ -459,6 +454,11 @@ class Squad extends Component {
       group1[g1_i].position = group1[g1_i].prefPosition;
     if (player2.partOf !== "main")
       group2[g2_i].position = group2[g2_i].prefPosition;
+
+    [group1[g1_i].partOf, group2[g2_i].partOf] = [
+      group2[g2_i].partOf,
+      group1[g1_i].partOf,
+    ];
 
     [group1[g1_i], group2[g2_i]] = [group2[g2_i], group1[g1_i]];
 

@@ -8,6 +8,13 @@ $_fh: 775px;
   position: relative;
 }
 
+.main-field-dummy {
+  width: $_fw - 40px;
+  height: $_fh - 40px;
+  position: absolute;
+  margin: 20px;
+}
+
 .player {
   display: flex;
   justify-content: center;
