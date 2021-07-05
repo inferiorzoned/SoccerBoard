@@ -1,6 +1,7 @@
 import http from "../services/httpService";
 
-const apiEndpoint = "/squads/BUET";
+const apiEndpoint = "/players/BUET";
+// const apiEndpoint = "/squads/BUET";
 
 export const squadPositions = [
   "Goalkeepers",
@@ -13,7 +14,7 @@ function getPositionIndex(pos) {
   // gk = 0 ; def = 1 ; mid = 2 ; for = 3
   // const pos = ["GK", "RB", "RCB", "CB", "LCB", "LB", "RM", "CDM", "CM", "LM", "CAM", "RW",
   //             "ST",  "LW"];
-
+  console.log(pos);
   if (pos === "GK") return 0;
   else if (pos[pos.length - 1] === "B") return 1;
   else if (pos[pos.length - 1] === "M") return 2;
@@ -45,6 +46,7 @@ export async function getSquadPositionData() {
         object = {
           playerImage: epMedia + httpData["data"][key]["profile"]["avatar"],
           // playerImage: epMedia,
+          _id: httpData["data"][key]["profile"]["_id"],
           kit: httpData["data"][key]["kit"],
           position: httpData["data"][key]["position"],
           name: httpData["data"][key]["profile"]["name"],
@@ -57,7 +59,10 @@ export async function getSquadPositionData() {
           cleanSheets: httpData["data"][key]["cleanSheets"],
         };
         p = position;
-        squadPositionData[p] = [];
+        if (!squadPositionData[p]) {
+          squadPositionData[p] = [];
+        }
+        console.log(object);
       }
     });
     squadPositionData[p].push(object);

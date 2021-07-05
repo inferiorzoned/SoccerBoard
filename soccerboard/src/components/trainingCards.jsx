@@ -18,6 +18,7 @@ class TrainingCards extends Component {
   }
 
   render() {
+    const { handleLink, linkType } = this.props;
     const { trainingRepoCategoryData } = this.state;
     console.log(trainingRepoCategoryData);
     if (trainingRepoCategoryData) {
@@ -29,6 +30,8 @@ class TrainingCards extends Component {
                 groupType={"trainingRepo"}
                 categoryName={trainingType}
                 categoryData={trainingRepoCategoryData}
+                handleLink = {handleLink}
+                linkType = {linkType}
               />
             </li>
           ))}

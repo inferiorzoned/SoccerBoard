@@ -1,10 +1,10 @@
 const outerLink = {
   trainingRepo: [
     { label: "Create Training", link: "Training Repo/Create Training" },
-    { label: "Create New Session", link: "" },
+    { label: "Create New Session", link: "Training Repo/Create New Session" },
   ],
   squad: [
-    { label: "Manage Squad", link: "" },
+    { label: "Manage Squad", link: "squad/manage-squad" },
     { label: "Squad Status", link: "" },
   ],
   home: [
@@ -33,11 +33,10 @@ const innerLink = {
     { label: "Forwards", link: "" },
   ],
   trainingSession: [
-    { label: "Attacker", link: "" },
-    { label: "Midfielder", link: "" },
-    { label: "Defender", link: "" },
-    { label: "Winger", link: "" },
-    { label: "Goalkeeper", link: "" },
+    { label: "Goalkeepers", link: "" },
+    { label: "Defenders", link: "" },
+    { label: "Midfielders", link: "" },
+    { label: "Forwards", link: "" },
   ],
 };
 

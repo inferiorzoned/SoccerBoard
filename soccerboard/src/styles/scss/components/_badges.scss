@@ -1,0 +1,52 @@
+@use 'sass:math';
+
+$--content-size: 1.4rem;
+
+.btn-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: black;
+  padding: math.div($--content-size, 3);
+  font-family: "Passero One";
+  font-style: normal;
+  font-weight: normal;
+  font-size: $--content-size;
+  border: 4px solid #034732;
+  border-radius: math.div($--content-size, 3);
+  box-shadow: 2px 2px 4px #808080;
+  cursor: pointer;
+
+  &:active {
+    box-shadow: 1px 1px 2px #808080;
+    transform: translateY(1px);
+  }
+
+  &-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $--content-size * 2;
+    height: $--content-size * 2;
+    border-radius: math.div($--content-size, 3);
+    margin: math.div($--content-size, 6);
+    color: white;
+    background-color: #00c853;
+  }
+}
+
+.formation-select select {
+  font-size: $--content-size;
+  padding: math.div($--content-size, 2);
+  font-family: "Passero One";
+  font-weight: normal;
+  font-style: normal;
+  border: 4px solid #217075;
+  border-radius: $--content-size;
+  background-color: #212230;
+  color: #f0fdfb;
+
+  outline: none;
+  //   appearance: none;
+}

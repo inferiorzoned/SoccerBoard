@@ -351,7 +351,7 @@ swapnils
   height: 100%;
   width: 70%;
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-  monospace;
+    monospace;
   border-radius: 1%;
   border: 2px solid green;
 }
@@ -402,11 +402,11 @@ swapnils
   height: 100%;
 }
 
-.canvasBox{
-  border: 2px solid greenyellow
+.canvasBox {
+  border: 2px solid greenyellow;
 }
 
-.layerBox{
+.layerBox {
   width: 300px;
   height: 250px;
   border: 1px solid greenyellow

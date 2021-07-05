@@ -45,6 +45,8 @@ class CardGroup extends Component {
                   trainingDifficulty={trainingInstance.trainingDifficulty}
                   trainingDescription={trainingInstance.trainingDescription}
                   trainingID={trainingInstance._id}
+                  handleLink = {this.props.handleLink}
+                  linkType = {this.props.linkType}
                 />
               </div>
             ))}
