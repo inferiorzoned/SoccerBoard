@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import _ from "lodash";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -13,7 +14,11 @@ import {
   faArrowRight,
   faCloudUploadAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { getSquad, getFormation, orderSquad } from "../services/squad";
+import {
+  getSquad,
+  orderSquadPositions,
+  getFormations,
+} from "../services/squad";
 import field from "../assets/images/field.svg";
 import Player from "./commons/player";
 import Table from "./commons/table";
@@ -35,6 +40,9 @@ library.add(
 
 class Squad extends Component {
   state = {
+    squadId: "",
+    formationId: "",
+    formations: [],
     positions: [],
     main: [],
     sub: [],
@@ -59,6 +67,8 @@ class Squad extends Component {
         s: 0,
       },
     },
+
+    squadsToSave: [],
   };
 
   columns = [
@@ -80,19 +90,26 @@ class Squad extends Component {
   ];
 
   componentDidMount() {
-    const formation = getFormation("1");
-    const players = [...getSquad()];
-    const mainPlayers = players.filter((p) => p.partOf === "main");
-    const subPlayers = players.filter((p) => p.partOf === "sub");
-    const reservedPlayers = players.filter((p) => p.partOf === "reserved");
-
-    const positions = formation.positions.map((p) => {
-      const player = mainPlayers.find((mp) => mp.position === p.label);
-      if (player) p.kit = player.kit;
-      return p;
-    });
-
+    const squad = getSquad();
+    const { _id: squadId, formationId, players } = squad;
+    const formations = [...getFormations()];
+    const formation = formations.find((f) => f._id === formationId);
+    const mainPlayers = orderSquadPositions(
+      players.filter((p) => p.partOf === "main")
+    );
+    const subPlayers = orderSquadPositions(
+      players.filter((p) => p.partOf === "sub")
+    );
+    const reservedPlayers = orderSquadPositions(
+      players.filter((p) => p.partOf === "reserved")
+    );
+    // console.log(formation);
+    const positions = this.setupPositions(mainPlayers, formation);
+    // console.log(formation);
     this.setState({
+      squadId: squadId,
+      formationId: formationId,
+      formations: formations,
       positions: positions,
       main: mainPlayers,
       sub: subPlayers,
@@ -100,13 +117,79 @@ class Squad extends Component {
     });
   }
 
+  setupPositions = (_mainPlayers, _formation) => {
+    // const mainPlayers = _.cloneDeep(_mainPlayers);
+    const mainPlayers = _mainPlayers;
+    const formation = _.cloneDeep(_formation);
+
+    let playerUnmatched = [];
+    let positionMatchMap = [];
+    let _positions = [];
+
+    mainPlayers.forEach((mp) => {
+      const positionInFormation = formation.positions.find(
+        (pos) => pos.label === mp.position
+      );
+
+      if (positionInFormation) {
+        positionMatchMap.push(positionInFormation);
+
+        positionInFormation.kit = mp.kit;
+        _positions.push(positionInFormation);
+      } else {
+        playerUnmatched.push(mp);
+      }
+    });
+    const positionUnmatched = formation.positions.filter(
+      (pos) => positionMatchMap.findIndex((pm) => pm.label === pos.label) < 0
+    );
+
+    positionUnmatched.forEach((pos, i) => {
+      playerUnmatched[i].position = pos.label;
+      pos.kit = playerUnmatched[i].kit;
+    });
+
+    _positions.push(...positionUnmatched);
+    _positions = orderSquadPositions(_positions, "label");
+
+    // let positions = this.state.positions;
+    // while (positions.length > 0) positions.pop();
+    // positions.push(..._positions);
+    // return _.cloneDeep(positions);
+    return _positions;
+  };
+
   renderFormation = () => {
+    const { formations, formationId } = this.state;
     return (
       <div className="formation-select">
-        <select name="formation" id="">
-          <option value="4-3-3">4-3-3 Custom - 1</option>
-          <option value="4-4-2">4-4-2</option>
-          <option value="4-5-1">4-5-1</option>
+        <select
+          name="formation"
+          onChange={({ currentTarget: input }) => {
+            const { formations, main: mainPlayers } = this.state;
+            const formationId = input.value;
+            const formation = formations.find((f) => f._id === formationId);
+            const positions = this.setupPositions(mainPlayers, formation);
+
+            const orderedMain = orderSquadPositions(mainPlayers);
+
+            this.setState({ positions: [] }, () =>
+              this.setState({
+                positions: positions,
+                formationId: formationId,
+                main: orderedMain,
+              })
+            );
+
+            // console.log(this.state);
+          }}
+          value={formationId}
+        >
+          {formations.map((f) => (
+            <option key={f._id} value={f._id}>
+              {f.label}
+            </option>
+          ))}
         </select>
       </div>
     );
@@ -143,6 +226,11 @@ class Squad extends Component {
                   if (e.ctrlKey || e.metaKey)
                     return this.onMultiRowClicked(player);
                   this.onRowClicked(player);
+                }}
+                savePosition={({ left, top }) => {
+                  p.left = left;
+                  p.top = top;
+                  this.setState({ positions: positions });
                 }}
               />
             ))}
@@ -504,7 +592,10 @@ class Squad extends Component {
   toReserved = () => {
     const { sub, reserved, selectedSubPlayers } = this.state;
 
-    const newReserved = orderSquad([...reserved, ...selectedSubPlayers]);
+    const newReserved = orderSquadPositions([
+      ...reserved,
+      ...selectedSubPlayers,
+    ]);
     const newSub = sub.filter(
       (p) => selectedSubPlayers.findIndex((ssp) => ssp._id === p._id) < 0
     );
@@ -522,7 +613,7 @@ class Squad extends Component {
   fromReserved = () => {
     const { sub, reserved, selectedReservedPlayers } = this.state;
 
-    const newSub = orderSquad([...sub, ...selectedReservedPlayers]);
+    const newSub = orderSquadPositions([...sub, ...selectedReservedPlayers]);
     const newReserved = reserved.filter(
       (rp) => !selectedReservedPlayers.find((srp) => rp._id === srp._id)
     );
