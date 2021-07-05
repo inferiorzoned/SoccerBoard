@@ -15,7 +15,13 @@ const outerLink = {
     { label: "View Reports", link: "" },
     { label: "Inventory", link: "" },
   ],
-  trainingSession: [{ label: "Evaluation", link: "" }],
+  trainingSession: [{ label: "Evaluation", link: "evaluation" }],
+  evaluation: [],
+  evaluationResult: [
+    { label: "Squad", link: "Squad" },
+    { label: "Training", link: "" },
+    { label: "Report Problem", link: "" },
+  ],
 };
 
 const innerLink = {

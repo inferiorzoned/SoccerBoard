@@ -10,6 +10,8 @@ import CreateTraining from "../pages/createTraining";
 import Training from "../pages/training";
 import CreateNewSession from "../pages/createNewSession.jsx";
 import GameSquad from "./gameSquad.jsx";
+import Evaluation from "../pages/evaluation.jsx";
+import EvaluationResult from "../pages/evaluationResult.jsx";
 
 function Root() {
   return (
@@ -22,6 +24,8 @@ function Root() {
           <Route path="/squad/manage-squad" component={GameSquad}></Route>
           <Route path="/Squad" component={Squad}></Route>
           <Route path="/Recruit" component={Recruit}></Route>
+          <Route path="/evaluation-result" component={EvaluationResult}></Route>
+          <Route path="/evaluation" component={Evaluation}></Route>
           <Route
             path="/Training Repo/Create Training"
             exact

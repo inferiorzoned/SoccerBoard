@@ -11,54 +11,6 @@
   font-weight: normal;
   font-style: normal;
 }
-.btn-maroon {
-  color: #ffffff;
-  background-color: #6a1c1c;
-  border-color: #6a1c1c;
-}
-.btn-maroon:hover, .btn-maroon:focus, .btn-maroon:active, .btn-maroon.active,
-.btn-maroon .open .dropdown-toggle.btn-maroon {
-  color: #ffffff;
-  background-color: #6a1c1c;
-  border-color: #6a1c1c;
-}
-.btn-maroon:active, .btn-maroon.active,
-.btn-maroon .open .dropdown-toggle.btn-maroon {
-  background-image: none;
-}
-.btn-maroon.disabled, .btn-maroon[disabled], fieldset[disabled] .btn-maroon, .btn-maroon.disabled:hover, .btn-maroon[disabled]:hover, fieldset[disabled] .btn-maroon:hover, .btn-maroon.disabled:focus, .btn-maroon[disabled]:focus, fieldset[disabled] .btn-maroon:focus, .btn-maroon.disabled:active, .btn-maroon[disabled]:active, fieldset[disabled] .btn-maroon:active, .btn-maroon.disabled.active, .btn-maroon[disabled].active, fieldset[disabled] .btn-maroon.active {
-  background-color: #6a1c1c;
-  border-color: #6a1c1c;
-}
-.btn-maroon .badge {
-  color: #6a1c1c;
-  background-color: #ffffff;
-}
-
-.btn-green-dark {
-  color: #f3f3f3;
-  background-color: #034732;
-  border-color: #034732;
-}
-.btn-green-dark:hover, .btn-green-dark:focus, .btn-green-dark:active, .btn-green-dark.active,
-.btn-green-dark .open .dropdown-toggle.btn-green-dark {
-  color: #f3f3f3;
-  background-color: #034732;
-  border-color: #034732;
-}
-.btn-green-dark:active, .btn-green-dark.active,
-.btn-green-dark .open .dropdown-toggle.btn-green-dark {
-  background-image: none;
-}
-.btn-green-dark.disabled, .btn-green-dark[disabled], fieldset[disabled] .btn-green-dark, .btn-green-dark.disabled:hover, .btn-green-dark[disabled]:hover, fieldset[disabled] .btn-green-dark:hover, .btn-green-dark.disabled:focus, .btn-green-dark[disabled]:focus, fieldset[disabled] .btn-green-dark:focus, .btn-green-dark.disabled:active, .btn-green-dark[disabled]:active, fieldset[disabled] .btn-green-dark:active, .btn-green-dark.disabled.active, .btn-green-dark[disabled].active, fieldset[disabled] .btn-green-dark.active {
-  background-color: #034732;
-  border-color: #034732;
-}
-.btn-green-dark .badge {
-  color: #034732;
-  background-color: #f3f3f3;
-}
-
 .t-card {
   justify-content: center;
   height: 240px;
@@ -116,6 +68,54 @@
 }
 .t-difficulty-badge-amateur {
   background-color: #6c4ae7cc;
+}
+
+.btn-maroon {
+  color: #ffffff;
+  background-color: #6a1c1c;
+  border-color: #6a1c1c;
+}
+.btn-maroon:hover, .btn-maroon:focus, .btn-maroon:active, .btn-maroon.active,
+.btn-maroon .open .dropdown-toggle.btn-maroon {
+  color: #ffffff;
+  background-color: #6a1c1c;
+  border-color: #6a1c1c;
+}
+.btn-maroon:active, .btn-maroon.active,
+.btn-maroon .open .dropdown-toggle.btn-maroon {
+  background-image: none;
+}
+.btn-maroon.disabled, .btn-maroon[disabled], fieldset[disabled] .btn-maroon, .btn-maroon.disabled:hover, .btn-maroon[disabled]:hover, fieldset[disabled] .btn-maroon:hover, .btn-maroon.disabled:focus, .btn-maroon[disabled]:focus, fieldset[disabled] .btn-maroon:focus, .btn-maroon.disabled:active, .btn-maroon[disabled]:active, fieldset[disabled] .btn-maroon:active, .btn-maroon.disabled.active, .btn-maroon[disabled].active, fieldset[disabled] .btn-maroon.active {
+  background-color: #6a1c1c;
+  border-color: #6a1c1c;
+}
+.btn-maroon .badge {
+  color: #6a1c1c;
+  background-color: #ffffff;
+}
+
+.btn-green-dark {
+  color: #f3f3f3;
+  background-color: #034732;
+  border-color: #034732;
+}
+.btn-green-dark:hover, .btn-green-dark:focus, .btn-green-dark:active, .btn-green-dark.active,
+.btn-green-dark .open .dropdown-toggle.btn-green-dark {
+  color: #f3f3f3;
+  background-color: #034732;
+  border-color: #034732;
+}
+.btn-green-dark:active, .btn-green-dark.active,
+.btn-green-dark .open .dropdown-toggle.btn-green-dark {
+  background-image: none;
+}
+.btn-green-dark.disabled, .btn-green-dark[disabled], fieldset[disabled] .btn-green-dark, .btn-green-dark.disabled:hover, .btn-green-dark[disabled]:hover, fieldset[disabled] .btn-green-dark:hover, .btn-green-dark.disabled:focus, .btn-green-dark[disabled]:focus, fieldset[disabled] .btn-green-dark:focus, .btn-green-dark.disabled:active, .btn-green-dark[disabled]:active, fieldset[disabled] .btn-green-dark:active, .btn-green-dark.disabled.active, .btn-green-dark[disabled].active, fieldset[disabled] .btn-green-dark.active {
+  background-color: #034732;
+  border-color: #034732;
+}
+.btn-green-dark .badge {
+  color: #034732;
+  background-color: #f3f3f3;
 }
 
 .squad-table {
@@ -236,6 +236,32 @@
 }
 .selected-violet td:last-child {
   border-bottom-right-radius: 16px;
+}
+
+.evaluation-table {
+  width: 100%;
+  font: normal 16px "Passero One", Roboto;
+  cursor: pointer;
+  margin: 16px;
+  border: solid 2px #561cba;
+}
+.evaluation-table thead th {
+  text-align: center;
+  color: #585858;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.evaluation-table tbody td {
+  text-align: center;
+  padding: 0.4rem;
+}
+.evaluation-table tbody tr:nth-child(odd) {
+  background-color: #ffd3cd;
+}
+
+.evaluation-marks-input:focus {
+  outline-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(0, 200, 83, 0.25);
 }
 
 .field-container {

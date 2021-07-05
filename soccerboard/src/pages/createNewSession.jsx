@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import SideBar from "../components/sideBar";
 import TrainingCards from "../components/trainingCards";
 import SessionCreation from "../components/sessionCreation";
@@ -165,7 +167,10 @@ class CreateNewSession extends Component {
     console.log(this.state.weekDays);
 
     // TODO reset all things
-    // window.location = "/Training Repo/Create New Session";
+    toast.success("Training Session created!");
+    setTimeout(() => {
+      window.location = "/Training Session";
+    }, 1000);
     console.log(this.state.trainings);
   };
 
@@ -187,69 +192,70 @@ class CreateNewSession extends Component {
     const duringPopUp =
       showTraineeInfo || showScheduleInfo ? " during-popup" : "";
     return (
-      <div className={"" + duringPopUp}>
-        <div className="row">
-          {showTraineeInfo && (
-            <div>
-              <TraineeListPopup
-                setPopup={this.setPopup}
-                onSelectionChange={this.onSelectionChange}
-                onRowClicked={this.onRowClicked}
-                // sortColumn={sortColumn}
-                saveTrainee={this.saveTrainee}
-                previouslySelected={this.state.finalSelectedPlayers}
-              />
-            </div>
-          )}
-          {showScheduleInfo && (
-            <div>
-              <SchedulePopup
-                handleStartDatePicker={this.handleStartDatePicker}
-                handleEndDatePicker={this.handleEndDatePicker}
-                handleTrainingTime={this.handleTrainingTime}
-                handleWeekDay={this.handleWeekDay}
-                saveSchedule={this.saveSchedule}
-              />
-            </div>
-          )}
-
-          <div className="col-sm-2">
-            <SideBar page={"trainingRepo"} />
-          </div>
-          <div className={`col-sm-${showSessionCreation ? "8" : "10"}`}>
-            <form className=" mb-1 " onSubmit={this.handleFormSubmit}>
-              <div className="form-group">
-                <label htmlFor="exampleInputEmail1"></label>
-                <input
-                  type="text"
-                  className="form-control text-center"
-                  id="exampleInputEmail1"
-                  // aria-describedby="emailHelp"
-                  onChange={this.handleFormChange}
-                  placeholder="Training Session Title"
+      <React.Fragment>
+        <div className={"" + duringPopUp}>
+          <div className="row">
+            {showTraineeInfo && (
+              <div>
+                <TraineeListPopup
+                  setPopup={this.setPopup}
+                  onSelectionChange={this.onSelectionChange}
+                  onRowClicked={this.onRowClicked}
+                  // sortColumn={sortColumn}
+                  saveTrainee={this.saveTrainee}
+                  previouslySelected={this.state.finalSelectedPlayers}
                 />
-                <small id="emailHelp" class="form-text text-muted"></small>
               </div>
-            </form>
-
-            <div className="categoryLine"></div>
-            <TrainingCards handleLink={this.handleLink} />
-          </div>
-          {showSessionCreation && (
-            <div className="col-sm-2 d-flex flex-row-reverse">
-              <SessionCreation
-                handleTraineeClick={this.handleTraineeClick}
-                selectedPlayers={finalSelectedPlayers}
-                handleScheduleClick={this.handleScheduleClick}
-                schedule={schedule}
-                weekDays={weekDays}
-                scheduleAdded={scheduleAdded}
-                createSession={this.createSession}
-              />
+            )}
+            {showScheduleInfo && (
+              <div>
+                <SchedulePopup
+                  handleStartDatePicker={this.handleStartDatePicker}
+                  handleEndDatePicker={this.handleEndDatePicker}
+                  handleTrainingTime={this.handleTrainingTime}
+                  handleWeekDay={this.handleWeekDay}
+                  saveSchedule={this.saveSchedule}
+                />
+              </div>
+            )}
+            <div className="col-sm-2">
+              <SideBar page={"trainingRepo"} />
             </div>
-          )}
+            <div className={`col-sm-${showSessionCreation ? "8" : "10"}`}>
+              <form className=" mb-1 " onSubmit={this.handleFormSubmit}>
+                <div className="form-group">
+                  <label htmlFor="exampleInputEmail1"></label>
+                  <input
+                    type="text"
+                    className="form-control text-center"
+                    id="exampleInputEmail1"
+                    // aria-describedby="emailHelp"
+                    onChange={this.handleFormChange}
+                    placeholder="Training Session Title"
+                  />
+                  <small id="emailHelp" class="form-text text-muted"></small>
+                </div>
+              </form>
+              <div className="categoryLine"></div>
+              <TrainingCards handleLink={this.handleLink} />
+            </div>
+            {showSessionCreation && (
+              <div className="col-sm-2 d-flex flex-row-reverse">
+                <SessionCreation
+                  handleTraineeClick={this.handleTraineeClick}
+                  selectedPlayers={finalSelectedPlayers}
+                  handleScheduleClick={this.handleScheduleClick}
+                  schedule={schedule}
+                  weekDays={weekDays}
+                  scheduleAdded={scheduleAdded}
+                  createSession={this.createSession}
+                />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+        <ToastContainer />
+      </React.Fragment>
     );
   }
 }
