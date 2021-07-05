@@ -15,6 +15,7 @@ class TrainingCard extends Component {
   };
   render() {
     const str = "hello";
+    let selecetdTrainings = [];
     const {
       trainingImage,
       trainingTitle,
@@ -48,7 +49,8 @@ class TrainingCard extends Component {
 
       <div
         onClick={(e) => {
-          handleLink(e, linkType, trainingID);
+          selecetdTrainings.push(trainingID);
+          handleLink(e, linkType, trainingID, selecetdTrainings);
           if (e.ctrlKey || e.metaKey) {
             const isSelected = this.state.selected ? false : true;
             this.setState({ selected: isSelected });

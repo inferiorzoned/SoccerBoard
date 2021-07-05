@@ -33,11 +33,10 @@ const innerLink = {
     { label: "Forwards", link: "" },
   ],
   trainingSession: [
-    { label: "Attacker", link: "" },
-    { label: "Midfielder", link: "" },
-    { label: "Defender", link: "" },
-    { label: "Winger", link: "" },
-    { label: "Goalkeeper", link: "" },
+    { label: "Goalkeepers", link: "" },
+    { label: "Defenders", link: "" },
+    { label: "Midfielders", link: "" },
+    { label: "Forwards", link: "" },
   ],
 };
 
