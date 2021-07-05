@@ -2,11 +2,11 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "../components/commons/form";
 import { uploadTraining, uploadImage } from "../utils/trainingRepoService";
-import CommandPallette from "../components/commons/commandPallette";
-import TestCircle from "../components/testCircle";
+import TrainingEditor from "../components/trainingEditor";
 
 class CreateTraining extends Form {
   state = {
+    editorialContent: "",
     data: {
       title: "",
       difficulty: "",
@@ -56,6 +56,10 @@ class CreateTraining extends Form {
     },
   };
 
+  setEditorialContent = (content) => {
+    this.setState({ editorialContent: content });
+  }
+
   doSubmit = async () => {
     const { data } = this.state;
     const { imageFile } = data;
@@ -71,8 +75,10 @@ class CreateTraining extends Form {
       trainingDescription: description,
       trainingDifficulty: difficulty,
       mediaUrl: mediaUrl,
+      editorialContent: this.state.editorialContent
     };
     console.log(form);
+    console.log('from create training ', this.state.editorialContent);
     await uploadTraining(form);
 
     // Call the server
@@ -185,69 +191,18 @@ class CreateTraining extends Form {
                   </div>
                 </div>
                 
-                {/* <div className="row">
-                  {selectedOption === "player" && (
-                    <React.Fragment>
-                      <div className="col-sm-4">
-                        {this.renderInput("height", "Height", "number")}
-                      </div>
-                      <div className="col-sm-4">
-                        {this.renderInput("weight", "Weight", "number")}
-                      </div>
-                    </React.Fragment>
-                  )}
-                  {selectedOption === "staff" && (
-                    <React.Fragment>
-                      <div className="col-sm-8">
-                        {this.renderSelect(
-                          "staffPos",
-                          "Staff Position",
-                          staffPositions
-                        )}
-                      </div>
-                    </React.Fragment>
-                  )}
-                  <div className="col-sm-4">
-                    {this.renderSelect(
-                      "institution",
-                      "Institution/Organization",
-                      institutions
-                    )}
-                  </div>
-                </div>  */}
-                {/* <div className="row">
-                  <div className="col-sm-8">
-                    {selectedOption === "player" &&
-                      this.renderSelect(
-                        "prefPos",
-                        "Preferred Position",
-                        prefPositions,
-                        true
-                      )}
-                  </div>
-                  <div className="col-sm-4">
-                    {selectedOption === "player" &&
-                      this.renderSelect(
-                        "prefFoot",
-                        "Preferred Foot",
-                        prefFoots
-                      )}
-                  </div>
-                </div> */}
-
-                <div className="text-center py-3">
-                  {this.renderButton("CREATE", null, "btn-primary")}
-                </div>
               </form>
             </div>
           {/* </div> */}
         </div>
         <div className="row">
-          <CommandPallette/>
+          <TrainingEditor
+            setContent={this.setEditorialContent}
+          />
         </div>
-        <div className="row">    
-          <TestCircle/>
-        </div>  
+        <div className="row text-center py-3">
+            {this.renderButton("CREATE TRAINING", this.doSubmit, "btn-primary")}
+        </div>
       </div>
     );
   }

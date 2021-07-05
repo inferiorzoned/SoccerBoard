@@ -411,3 +411,9 @@ swapnils
   height: 250px;
   border: 1px solid greenyellow
 }
+
+.editorBorder{
+  min-height: 300px;
+  width: 80%;
+  border: 1px solid greenyellow
+}

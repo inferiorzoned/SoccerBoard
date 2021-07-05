@@ -18,17 +18,19 @@ class Training extends Component {
         category: training.trainingCategoryName,
         difficulty: training.trainingDifficulty,
         description: training.trainingDescription,
+        editorialContent: training.editorialContent
       });
+      document.getElementById("editorialContent").innerHTML = this.state.editorialContent;
     }
   }
 
   render() {
-    const { mediaUrl, title, category, difficulty, description } = this.state;
+    const { mediaUrl, title, category, difficulty, description, editorialContent } = this.state;
 
     return (
       <div className="container">
         <img
-          src={renderMediaUrl(mediaUrl)}
+          src={mediaUrl}
           alt=""
           id="img"
           className="img-training py-3"
@@ -37,6 +39,7 @@ class Training extends Component {
         <div className="py-3">Category : {category}</div>
         <div className="py-3">Difficulty : {difficulty}</div>
         <div className="py-3">Description : {description}</div>
+        <div className="py-3 editorBorder" id="editorialContent"></div>
       </div>
     );
   }
