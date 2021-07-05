@@ -9,6 +9,7 @@ import Squad from "../pages/squad";
 import CreateTraining from "../pages/createTraining";
 import Training from "../pages/training";
 import CreateNewSession from "../pages/createNewSession.jsx";
+import GameSquad from "./gameSquad.jsx";
 
 function Root() {
   return (
@@ -18,14 +19,17 @@ function Root() {
         <Switch>
           <Route path="/home" component={Home}></Route>
           <Route path="/Training Session" component={TrainingSession}></Route>
+          <Route path="/squad/manage-squad" component={GameSquad}></Route>
           <Route path="/Squad" component={Squad}></Route>
           <Route path="/Recruit" component={Recruit}></Route>
           <Route
-            path="/Training Repo/Create Training" exact
+            path="/Training Repo/Create Training"
+            exact
             component={CreateTraining}
           ></Route>
           <Route
-            path="/Training Repo/Create New Session" exact 
+            path="/Training Repo/Create New Session"
+            exact
             component={CreateNewSession}
           ></Route>
           <Route path="/Training Repo/:_id" component={Training}></Route>

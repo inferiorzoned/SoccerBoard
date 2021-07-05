@@ -25,6 +25,7 @@ class TableHeader extends Component {
   };
 
   render() {
+    const { sortColumn } = this.props;
     return (
       <thead>
         <tr>
@@ -32,9 +33,11 @@ class TableHeader extends Component {
             <th
               className="clickable"
               key={column.path || column.key}
-              onClick={() => this.raiseSort(column.path)}
+              onClick={
+                sortColumn ? () => this.raiseSort(column.path) : undefined
+              }
             >
-              {column.label} {column.label && this.renderSortIcon(column)}
+              {column.label} {sortColumn && this.renderSortIcon(column)}
             </th>
           ))}
         </tr>

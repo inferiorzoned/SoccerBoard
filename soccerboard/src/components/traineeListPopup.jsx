@@ -107,7 +107,7 @@ class TraineeListPopup extends Component {
                       columns={this.columns}
                       data={squadData[posType]}
                       onRowClicked={onRowClicked}
-                      sortColumn={sortColumn}
+                      // sortColumn={sortColumn}
                     />
                   )}
                 </li>

@@ -3,7 +3,6 @@ import Joi from "joi-browser";
 import Form from "../components/commons/form";
 import { uploadTraining, uploadImage } from "../utils/trainingRepoService";
 import CommandPallette from "../components/commons/commandPallette";
-import TestCircle from "../components/testCircle";
 
 class CreateTraining extends Form {
   state = {
@@ -99,10 +98,7 @@ class CreateTraining extends Form {
   };
 
   render() {
-    const {
-      difficultyLevels,
-      categories
-    } = this.state;
+    const { difficultyLevels, categories } = this.state;
     return (
       <div className="container">
         <div className="row">
@@ -113,79 +109,71 @@ class CreateTraining extends Form {
           </div> */}
           {/* <div className="col-3"></div> */}
           {/* <div className="col min-vh-100"> */}
-            <div className="container">
-              <form onSubmit={this.handleSubmit}>
-                <div className="row">
-                  <div className="col-sm-5 text-center">
-                    <div className="row image-holder m-2">
-                      <img
-                        src={this.state.data.mediaUrl}
-                        alt=""
-                        id="img"
-                        className="img-training"
-                      />
-                    </div>
-                    <div className="row">
-                      <input
-                        className="btn btn-maroon m-3"
-                        type="file"
-                        accept="image/*"
-                        name="image-upload"
-                        id="image-input"
-                        onChange={this.handleImage}
-                        hidden
-                      />
-                    </div>
-
-                    <div className="row">
-                      <div className="col-sm-2 text-center">
-                        <label
-                          htmlFor="image-input"
-                          className="btn btn-maroon m-2"
-                        >
-                        CHOOSE DEMO PICTURE
-                        </label>          
-                      </div>
-                    </div>                
-
+          <div className="container">
+            <form onSubmit={this.handleSubmit}>
+              <div className="row">
+                <div className="col-sm-5 text-center">
+                  <div className="row image-holder m-2">
+                    <img
+                      src={this.state.data.mediaUrl}
+                      alt=""
+                      id="img"
+                      className="img-training"
+                    />
                   </div>
-                  
-                  
-                  <div className="col-sm-5">
-                    <div className="row">
-                      
-                      {this.renderMultilineInput(
-                        "description",
-                        "Description"
-                      )}
+                  <div className="row">
+                    <input
+                      className="btn btn-maroon m-3"
+                      type="file"
+                      accept="image/*"
+                      name="image-upload"
+                      id="image-input"
+                      onChange={this.handleImage}
+                      hidden
+                    />
+                  </div>
+
+                  <div className="row">
+                    <div className="col-sm-2 text-center">
+                      <label
+                        htmlFor="image-input"
+                        className="btn btn-maroon m-2"
+                      >
+                        CHOOSE DEMO PICTURE
+                      </label>
                     </div>
-                      <div className="row mt-5">
-                        <div className="col">
-                          {this.renderInput("title", "Title")}
-                        </div>
-                      </div>
-                      <div className="row mb-3">
-                        {/* <div className="col">
-                          {this.renderInput("email", "Email", "email")}
-                          </div>*/}
-                        <div className="col-sm"></div>
-                        <div className="col-sm-5">
-                          {this.renderSelect(
-                            "difficulty",
-                            "Difficulty",
-                            difficultyLevels
-                          )}
-                        </div>
-                        <div className="col-sm-5">
-                          {this.renderSelect("category", "Category", categories)}
-                        </div>
-                      </div>
-                    
-                    
                   </div>
                 </div>
-                
-                {/* <div className="row">
+
+                <div className="col-sm-5">
+                  <div className="row">
+                    {this.renderMultilineInput("description", "Description")}
+                  </div>
+                  <div className="row mt-5">
+                    <div className="col">
+                      {this.renderInput("title", "Title")}
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    {/* <div className="col">
+                          {this.renderInput("email", "Email", "email")}
+                          </div>*/}
+                    <div className="col-sm"></div>
+                    <div className="col-sm-5">
+                      {this.renderSelect(
+                        "difficulty",
+                        "Difficulty",
+                        difficultyLevels
+                      )}
+                    </div>
+                    <div className="col-sm-5">
+                      {this.renderSelect("category", "Category", categories)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* <div className="row">
                   {selectedOption === "player" && (
                     <React.Fragment>
                       <div className="col-sm-4">
@@ -215,7 +203,7 @@ class CreateTraining extends Form {
                     )}
                   </div>
                 </div>  */}
-                {/* <div className="row">
+              {/* <div className="row">
                   <div className="col-sm-8">
                     {selectedOption === "player" &&
                       this.renderSelect(
@@ -235,19 +223,16 @@ class CreateTraining extends Form {
                   </div>
                 </div> */}
 
-                <div className="text-center py-3">
-                  {this.renderButton("CREATE", null, "btn-primary")}
-                </div>
-              </form>
-            </div>
+              <div className="text-center py-3">
+                {this.renderButton("CREATE", null, "btn-primary")}
+              </div>
+            </form>
+          </div>
           {/* </div> */}
         </div>
         <div className="row">
-          <CommandPallette/>
+          <CommandPallette />
         </div>
-        <div className="row">    
-          <TestCircle/>
-        </div>  
       </div>
     );
   }

@@ -7,7 +7,7 @@ export const squadPositions = [
   "Goalkeepers",
   "Defenders",
   "Midfielders",
-  "Forwards", 
+  "Forwards",
 ];
 
 function getPositionIndex(pos) {
@@ -46,6 +46,7 @@ export async function getSquadPositionData() {
         object = {
           playerImage: epMedia + httpData["data"][key]["profile"]["avatar"],
           // playerImage: epMedia,
+          _id: httpData["data"][key]["profile"]["_id"],
           kit: httpData["data"][key]["kit"],
           position: httpData["data"][key]["position"],
           name: httpData["data"][key]["profile"]["name"],
@@ -58,7 +59,7 @@ export async function getSquadPositionData() {
           cleanSheets: httpData["data"][key]["cleanSheets"],
         };
         p = position;
-        if(!squadPositionData[p]){
+        if (!squadPositionData[p]) {
           squadPositionData[p] = [];
         }
         console.log(object);
