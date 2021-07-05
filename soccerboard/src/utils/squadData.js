@@ -46,6 +46,7 @@ export async function getSquadPositionData() {
         object = {
           playerImage: epMedia + httpData["data"][key]["profile"]["avatar"],
           // playerImage: epMedia,
+          _id: httpData["data"][key]["profile"]["_id"],
           kit: httpData["data"][key]["kit"],
           position: httpData["data"][key]["position"],
           name: httpData["data"][key]["profile"]["name"],

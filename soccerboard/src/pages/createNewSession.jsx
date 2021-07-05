@@ -116,7 +116,7 @@ class CreateNewSession extends Component {
   handleWeekDay = (idx) => {
     let weekDays = [...this.state.weekDays];
     let w;
-    // let w = weekDays[idx];
+    // let w = {...weekDays[idx]};
     console.log(weekDays[idx], idx);
     if (weekDays[idx] == true) {
       w = false;
@@ -147,7 +147,7 @@ class CreateNewSession extends Component {
 
   handleFormChange = (e) => {
     // console.log(e.currentTarget.value);
-    const sessionTitle = this.state.sessionTitle;
+    let sessionTitle = this.state.sessionTitle;
     sessionTitle = e.currentTarget.value;
     this.setState({ sessionTitle });
   };
@@ -155,10 +155,18 @@ class CreateNewSession extends Component {
   createSession = () => {
     // TODO check for corner cases (no players/ no schedule)
     // send all data to servers
-
-    // TODO reset all things
-    window.location = "/Training Repo/Create New Session";
+    console.log(this.state.sessionTitle);
     console.log(this.state.trainings);
+    this.state.finalSelectedPlayers.map((p, pId) => console.log(p.name, p._id));
+    // console.log(this.state.finalSelectedPlayers);
+    console.log(this.state.schedule["startDate"]);  
+    console.log(this.state.schedule["endDate"]);
+    console.log(this.state.schedule["trainingTime"]);
+    console.log(this.state.weekDays);
+    
+    // TODO reset all things
+    // window.location = "/Training Repo/Create New Session";
+    // console.log(this.state.trainings);
   };
 
   render() {
