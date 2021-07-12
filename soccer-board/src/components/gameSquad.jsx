@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import _ from "lodash";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { toast, ToastContainer } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "react-toastify/dist/ReactToastify.min.css";
 import {
   faPlus,
@@ -24,7 +25,6 @@ import Player from "./commons/player";
 import Table from "./commons/table";
 import Instruction from "./instruction";
 import CmdButton from "./commons/cmdButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 library.add(
   faPlus,
@@ -38,7 +38,7 @@ library.add(
   faCloudUploadAlt
 );
 
-class Squad extends Component {
+class GameSquad extends Component {
   state = {
     squadId: "",
     formationId: "",
@@ -685,7 +685,7 @@ class Squad extends Component {
     return (
       <React.Fragment>
         <div className="container">
-          <div className="row w-100">
+          <div className="row w-100 my-3">
             <div className="col-5 d-flex justify-content-center align-items-center">
               {this.renderFormation()}
             </div>
@@ -758,4 +758,4 @@ class Squad extends Component {
   }
 }
 
-export default Squad;
+export default GameSquad;

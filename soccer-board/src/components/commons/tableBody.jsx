@@ -33,7 +33,7 @@ class TableBody extends Component {
               if (onRowClicked) onRowClicked(item);
             }}
             className={
-              selectedItems.find((p) => p._id === item._id)
+              selectedItems && selectedItems.find((p) => p._id === item._id)
                 ? selectedRowClass
                 : null
             }
