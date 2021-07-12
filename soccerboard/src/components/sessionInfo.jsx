@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import PopupWindow from "./commons/popupWindow";
 import { squadPositions, getSquadPositionData } from "../utils/squadData";
 import { CircularProgress } from "@material-ui/core";
 
@@ -56,6 +59,7 @@ class SessionInfo extends Component {
                     overflow: "auto",
                     border: "5px solid green",
                     borderRadius: "5px",
+                    cursor: "pointer",
                   }}
                 >
                   {selectedPlayers.map((p, pId) => (
@@ -66,7 +70,33 @@ class SessionInfo extends Component {
                           squadData[posType].map(
                             (pInstance, pInstanceId) =>
                               pInstance._id === p && (
-                                <ListItem>{pInstance.name}</ListItem>
+                                <Popup
+                                  trigger={
+                                    <ListItem>{pInstance.name}</ListItem>
+                                  }
+                                  modal
+                                >
+                                  <span>
+                                    <PopupWindow
+                                      popupImage={pInstance.playerImage}
+                                      popupTitle={pInstance.name}
+                                      popupText={`Matches: ${
+                                        pInstance.numberOfMatches | ""
+                                      }, Gametime: ${
+                                        pInstance.gameTime | ""
+                                      }, Goals: ${
+                                        pInstance.goals | ""
+                                      }, Assists: ${
+                                        pInstance.assist | ""
+                                      }, Y.Cards: ${
+                                        pInstance.yellows | ""
+                                      }, R.Cards: ${
+                                        pInstance.reds | ""
+                                      }, C.Sheets: ${pInstance.cleanSheets | ""}
+                `}
+                                    />
+                                  </span>
+                                </Popup>
                               )
                           )
                       )}
