@@ -1,0 +1,79 @@
+$_properties: (
+  (
+    "name": "maroon",
+    "color": #ffffff,
+    "background-color": #6a1c1c,
+    "border-color": #6a1c1c,
+  ),
+  (
+    "name": "green-dark",
+    "color": #f3f3f3,
+    "background-color": #034732,
+    "border-color": #034732,
+  )
+);
+
+@each $prop in $_properties {
+  $name: map-get(
+    $map: $prop,
+    $key: "name",
+  );
+  $color: map-get(
+    $map: $prop,
+    $key: "color",
+  );
+  $background-color: map-get(
+    $map: $prop,
+    $key: "background-color",
+  );
+  $border-color: map-get(
+    $map: $prop,
+    $key: "border-color",
+  );
+
+  .btn-#{$name} {
+    color: $color;
+    background-color: $background-color;
+    border-color: $border-color;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active,
+    .open .dropdown-toggle.btn-#{$name} {
+      color: $color;
+      background-color: $background-color;
+      border-color: $border-color;
+    }
+
+    &:active,
+    &.active,
+    .open .dropdown-toggle.btn-#{$name} {
+      background-image: none;
+    }
+
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] &,
+    &.disabled:hover,
+    &[disabled]:hover,
+    fieldset[disabled] &:hover,
+    &.disabled:focus,
+    &[disabled]:focus,
+    fieldset[disabled] &:focus,
+    &.disabled:active,
+    &[disabled]:active,
+    fieldset[disabled] &:active,
+    &.disabled.active,
+    &[disabled].active,
+    fieldset[disabled] &.active {
+      background-color: $background-color;
+      border-color: $border-color;
+    }
+
+    & .badge {
+      color: $background-color;
+      background-color: $color;
+    }
+  }
+}

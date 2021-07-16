@@ -1,0 +1,27 @@
+myNavbarStyle   --> navbar
+myNavbarStyle-hide   --> navbar-hide
+navButton       --> nav-button
+
+sideBar         --> sidebar
+sideBarList     --> sidebar-list
+sideBarRow      --> sidebar-row
+sideBarLine     --> sidebar-line
+
+label           --> status-label
+value           --> status-value
+
+squadCardContainer  --> squad-card-container
+cardStyle       --> squad-card
+[2nd cardStyle discarded]
+[cardImage discarded]
+myCardImg       --> squad-card-img
+cardDiff        --> squad-card-diff
+cardDesc        --> squad-card-desc
+cardKit         --> squad-card-kit
+cardPosition    --> squad-card-position
+[card-img-overlay discarded]
+popupCard       --> popup-card
+popupCardImage  --> popup-card-img
+
+[line-clamp discarded]
+categoryLine    --> category-line

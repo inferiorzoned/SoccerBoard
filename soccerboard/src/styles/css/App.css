@@ -1,0 +1,13 @@
+@import "./main.css";
+
+.App-header {
+  font-family: "Comfortaa", "Roboto";
+  font-size: 108px;
+  font-weight: 900;
+  text-align: center;
+  color: #1d4912;
+}
+
+.App-link {
+  color: #61dafb;
+}
