@@ -213,15 +213,10 @@
 }
 
 .squad-card {
-  border: 4px solid black;
-  border-radius: 5px;
-  height: 100%;
-  text-align: left;
-}
-.squad-card-container {
   position: relative;
   text-align: center;
-  border: 2px solid red;
+  border: 4px solid #217075;
+  border-radius: 8px;
   color: white;
   text-transform: capitalize;
 }
@@ -240,20 +235,17 @@
   position: absolute;
   bottom: 0;
 }
-.squad-card-desc {
-  font-size: small;
-  /* padding: 2px 15px; */
-  margin: 0px;
-  border: 0px;
+.squad-card-name {
+  font-weight: 500;
+  font-size: 1.4rem;
 }
 .squad-card-kit {
-  font-weight: 800;
-  font-size: 16px;
+  font-family: "Passero One";
+  font-size: 1.4rem;
   left: 16px;
 }
 .squad-card-position {
-  font-weight: 200;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 /* Top left text */
@@ -261,6 +253,9 @@
   position: absolute;
   top: 8px;
   left: 16px;
+  background-color: rgba(33, 34, 49, 0.7);
+  border-radius: 0.2rem;
+  padding: 0.5rem;
 }
 
 /* Top right text */
@@ -268,16 +263,20 @@
   position: absolute;
   top: 8px;
   right: 16px;
+  background-color: rgba(33, 34, 49, 0.7);
+  border-radius: 0.2rem;
+  padding: 0.5rem;
 }
 
 /* Bottom left text */
 .bottom-left {
   position: absolute;
   bottom: 8px;
-  left: 16px;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  font-weight: 1000;
-  font-size: 18px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: rgba(33, 34, 49, 0.7);
+  border-radius: 0.2rem;
+  padding: 0.5rem;
 }
 
 /* Centered text */
@@ -317,13 +316,36 @@
   /* align-items: center; */
 }
 
+.popup-content {
+  border: none !important;
+  padding: 0px !important;
+  background-color: rgba(255, 255, 255, 0) !important;
+}
+
 .popup-card {
   background-color: #212230;
+  border-radius: 8px;
   color: white;
 }
 .popup-card-img {
-  width: 50%;
+  border: solid 2px #be4e41;
+  border-radius: 4px;
+  margin: 8px;
+  width: 40%;
   height: auto;
+}
+.popup-card-table {
+  padding: 4px;
+  margin: 4px;
+}
+.popup-card-table-label {
+  font-weight: bold;
+  margin: 2px 8px 2px 8px;
+  color: #c4c4c4;
+}
+.popup-card-table-value {
+  font-family: "Passero One";
+  font-size: 1.2rem;
 }
 
 .btn-maroon {
@@ -777,7 +799,7 @@
 }
 
 .homepage-bgimage {
-  background: url("/soccerboard/src/assets/images/travel-nomades-JO19K0HDDXI-unsplash.jpg");
+  background: url("../../assets/images/travel-nomades-JO19K0HDDXI-unsplash.jpg");
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;

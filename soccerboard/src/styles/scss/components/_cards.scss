@@ -67,18 +67,12 @@
 }
 
 .squad-card {
-  border: 4px solid black;
-  border-radius: 5px;
-  height: 100%;
-  text-align: left;
-
-  &-container {
-    position: relative;
-    text-align: center;
-    border: 2px solid red;
-    color: rgb(255, 255, 255);
-    text-transform: capitalize;
-  }
+  position: relative;
+  text-align: center;
+  border: 4px solid c.$green-paste;
+  border-radius: 8px;
+  color: rgb(255, 255, 255);
+  text-transform: capitalize;
 
   &-img {
     position: relative;
@@ -97,22 +91,19 @@
     bottom: 0;
   }
 
-  &-desc {
-    font-size: small;
-    /* padding: 2px 15px; */
-    margin: 0px;
-    border: 0px;
+  &-name {
+    font-weight: 500;
+    font-size: 1.4rem;
   }
 
   &-kit {
-    font-weight: 800;
-    font-size: 16px;
+    font-family: "Passero One";
+    font-size: 1.4rem;
     left: 16px;
   }
 
   &-position {
-    font-weight: 200;
-    font-size: 16px;
+    font-size: 1rem;
   }
 }
 
@@ -121,6 +112,9 @@
   position: absolute;
   top: 8px;
   left: 16px;
+  background-color: rgb(33, 34, 49, 0.7);
+  border-radius: 0.2rem;
+  padding: 0.5rem;
 }
 
 /* Top right text */
@@ -128,17 +122,20 @@
   position: absolute;
   top: 8px;
   right: 16px;
+  background-color: rgb(33, 34, 49, 0.7);
+  border-radius: 0.2rem;
+  padding: 0.5rem;
 }
 
 /* Bottom left text */
 .bottom-left {
   position: absolute;
   bottom: 8px;
-  left: 16px;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  font-weight: 1000;
-  font-size: 18px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: rgb(33, 34, 49, 0.7);
+  border-radius: 0.2rem;
+  padding: 0.5rem;
 }
 
 /* Centered text */
@@ -178,11 +175,38 @@
   /* align-items: center; */
 }
 
+.popup-content {
+  border: none !important;
+  padding: 0px !important;
+  background-color: rgb(255, 255, 255, 0) !important;
+}
+
 .popup-card {
   background-color: #212230;
+  border-radius: 8px;
   color: white;
+
   &-img {
-    width: 50%;
+    border: solid 2px c.$maroon-light;
+    border-radius: 4px;
+    margin: 8px;
+    width: 40%;
     height: auto;
+  }
+
+  &-table {
+    padding: 4px;
+    margin: 4px;
+  }
+
+  &-table-label {
+    font-weight: bold;
+    margin: 2px 8px 2px 8px;
+    color: #c4c4c4;
+  }
+
+  &-table-value {
+    font-family: "Passero One";
+    font-size: 1.2rem;
   }
 }
