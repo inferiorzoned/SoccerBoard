@@ -142,8 +142,17 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
-  renderSelect = (fieldName, label, options, isMulti) => {
+  renderSelect = (
+    fieldName,
+    label,
+    options,
+    isMulti,
+    isDisabled,
+    isCreatable,
+    onChange = this.handleSelectChange
+  ) => {
     const { errors } = this.state;
+    // console.log(errors);
     return (
       <Select
         name={fieldName}
@@ -151,7 +160,10 @@ class Form extends Component {
         options={options}
         isMulti={isMulti}
         error={errors[fieldName]}
-        onChange={this.handleSelectChange}
+        // onChange={this.handleSelectChange}
+        onChange={onChange}
+        isDisabled={isDisabled}
+        isCreatable={isCreatable}
       />
     );
   };

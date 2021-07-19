@@ -3,56 +3,67 @@ import SideBar from "../components/sideBar";
 import InventoryList from "../components/inventoryList";
 import InfoSidebar from "../components/commons/infoSidebar";
 import InventoryItemInfo from "../components/inventoryItemInfo";
+import EditInventoryPopup from "../components/editInventoryPopup";
 
 class Inventory extends Component {
   state = {
-    // create an array named item of objects containing name and quantity
+    // create an array named item of objects containing label and quantity
     items: [
-      { name: "Ball", quantity: 5 },
-      { name: "Training Kits", quantity: 6 },
-      { name: "Cones", quantity: 10 },
+      {
+        label: "Ball",
+        quantity: 7,
+        models: [
+          {
+            avatar: "aufau",
+            label: "1",
+            "last purchased date": "7/10/2019",
+            "last purchased qty": "2",
+            "total quantity": "7",
+          },
+          {
+            avatar: "aufau",
+            label: "2",
+            "last purchased date": "21/1/2021",
+            "last purchased qty": "5",
+            "total quantity": "7",
+          },
+        ],
+      },
+      { label: "Training Kits", quantity: 6 },
+      { label: "Cones", quantity: 10 },
     ],
     inventoryInfoHeading: [
       { key: "last purchased date", label: "Last Purchased Date" },
       { key: "last purchased qty", label: "Last Purchased Quantity" },
       { key: "total quantity", label: "Total Quantity" },
     ],
-    inventoryInfoSidebardata: {
-      Ball: {
-        1: {
-          avatar: "aufau",
-          name: "1",
-          "last purchased date": "7/10/2020",
-          "last purchased qty": "2",
-          "total quantity": "5",
-        },
-        2: {
-          avatar: "aufau",
-          name: "2",
-          "last purchased date": "21/1/2021",
-          "last purchased qty": "2",
-          "total quantity": "5",
-        },
-      },
-    },
 
     showItemInfo: false,
     title: "",
-    defaultItemNo: 1,
+    defaultModelNo: 0,
+    currentItemNo: 0,
     comments: "",
-    sortColumn: { path: "name", order: "asc" },
+    showEditPopup: false,
+    sortColumn: { path: "label", order: "asc" },
   };
 
   onRowClicked = (row) => {
-    this.setState({ title: row.name });
+    // map throuh items and find the one with the same label as the row clicked and assign it to currentItem
+    const currentItem = this.state.items.find((i) => i.label === row.label);
+    this.setState({ currentItem });
+    this.setState({ title: row.label });
     this.setState({ showItemInfo: !this.state.showItemInfo });
   };
 
   leftOnClick = () => {
-    // decrease defaultItemNo by 1 if it is not 1
-    const { defaultItemNo } = this.state;
-    if (defaultItemNo !== 1) {
-      this.setState({ defaultItemNo: defaultItemNo - 1 });
+    // decrease defaultModelNo by 1 if it is not 1
+    const { defaultModelNo } = this.state;
+    if (defaultModelNo !== 0) {
+      this.setState({ defaultModelNo: defaultModelNo - 1 });
+    } else {
+      const { currentItem } = this.state;
+      const { models } = currentItem;
+      this.setState({ defaultModelNo: models.length - 1 });
     }
   };
 
@@ -66,43 +77,38 @@ class Inventory extends Component {
   };
 
   rightOnClick = () => {
-    // increase defaultItemNo by 1 if it is not the last item of infosidebardata[title]
-    const { defaultItemNo, title } = this.state;
-    const { inventoryInfoSidebardata } = this.state;
-    // find size of object inventoryInfoSidebardata[title]
-    const len = Object.keys(inventoryInfoSidebardata[title]).length;
-    console.log(len);
-    if (defaultItemNo !== len) {
-      this.setState({ defaultItemNo: defaultItemNo + 1 });
+    // increase defaultModelNo by 1 if it is not the length of currentItem[models]
+    const { currentItem, defaultModelNo } = this.state;
+    const { models } = currentItem;
+    if (defaultModelNo < models.length - 1) {
+      this.setState({ defaultModelNo: defaultModelNo + 1 });
+    } else {
+      this.setState({ defaultModelNo: 0 });
     }
+  };
+
+  handleSetPopup = (isPopup) => {
+    this.setState({ showEditPopup: isPopup });
   };
 
   onSaveClick = () => {
     // save the item to the database
     const { items } = this.state;
-    const { defaultItemNo } = this.state;
+    const { defaultModelNo } = this.state;
     const { inventoryInfoSidebardata } = this.state;
     const { title } = this.state;
     const { comments } = this.state;
     const { inventoryInfoHeading } = this.state;
     const { sortColumn } = this.state;
-    const item = items[defaultItemNo - 1];
-    const itemName = item.name;
+    const item = items[defaultModelNo - 1];
+    const itemName = item.label;
     const itemQty = item.quantity;
     const itemLastPurchasedDate = item["last purchased date"];
     const itemLastPurchasedQty = item["last purchased qty"];
     const itemTotalQuantity = item["total quantity"];
     const itemAvatar = item["avatar"];
     const itemInfo = {
-      name: itemName,
-      quantity: itemQty,
-      "last purchased date": itemLastPurchasedDate,
-      "last purchased qty": itemLastPurchasedQty,
-      "total quantity": itemTotalQuantity,
-      avatar: itemAvatar,
-    };
-    const newItem = {
-      name: itemName,
+      label: itemName,
       quantity: itemQty,
       "last purchased date": itemLastPurchasedDate,
       "last purchased qty": itemLastPurchasedQty,
@@ -119,19 +125,31 @@ class Inventory extends Component {
       title,
       inventoryInfoHeading,
       inventoryInfoSidebardata,
-      defaultItemNo,
+      defaultModelNo,
+      showEditPopup,
+      currentItem,
     } = this.state;
     return (
       <div className="row">
         <div className="col-sm-2">
           <SideBar page="inventory" />
         </div>
-        <div className="col-sm-8">
+        <div className="col-sm-8 ">
           <InventoryList
             items={items}
             sortColumn={sortColumn}
             onRowClicked={this.onRowClicked}
+            className="d-flex justify-content-center mt-4"
           />
+          {/* create an blue colored button named edit details change color to dark blue in hover*/}
+          <div className="d-flex justify-content-center mt-4">
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={() => this.handleSetPopup(true)}
+            >
+              Edit Details
+            </button>
+          </div>
           {/* create a bootstrap form which will take multiline inputs */}
           <form
             className="form-horizontal m-2 "
@@ -164,11 +182,18 @@ class Inventory extends Component {
             <InventoryItemInfo
               title={title}
               infoHeading={inventoryInfoHeading}
-              data={inventoryInfoSidebardata[title][defaultItemNo]}
+              // data={inventoryInfoSidebardata[title][defaultModelNo]}
+              data={
+                currentItem["models"] && currentItem["models"][defaultModelNo]
+              }
               leftOnClick={this.leftOnClick}
               rightOnClick={this.rightOnClick}
             />
           </div>
+        )}
+
+        {showEditPopup && (
+          <EditInventoryPopup allItems={items} setPopup={this.handleSetPopup} />
         )}
       </div>
     );

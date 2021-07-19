@@ -7,7 +7,7 @@ class InventoryList extends Component {
     {
       path: "items",
       label: "Items",
-      content: (item) => <div>{item.name}</div>,
+      content: (item) => <div>{item.label}</div>,
     },
     {
       path: "quantity",
@@ -20,7 +20,7 @@ class InventoryList extends Component {
     const { items, sortColumn, onRowClicked } = this.props;
     return (
       <div className="row">
-        <div className="col-sm-10 d-flex justify-content-center align-content-center">
+        <div className="d-flex justify-content-center align-content-center">
           <div className="itemTable">
             <Table
               columns={this.columns}

@@ -8,6 +8,10 @@ class InventoryItemInfo extends Component {
   render() {
     const { title, infoHeading, data, leftOnClick, rightOnClick } = this.props;
     console.log(data);
+    console.log(title);
+    if (!data) {
+      return null;
+    }
     return (
       <div className="sideBar" style={{ width: "300px" }}>
         <h3>{title}</h3>
@@ -30,7 +34,7 @@ class InventoryItemInfo extends Component {
             <RightAngle onClick={rightOnClick} />
           </div>
         </div>
-        <div className="text-center py-3">{data.name}</div>
+        <div className="text-center py-3">{data.label}</div>
         <div className="m-3">
           {infoHeading.map((info) => (
             <div key={info.key} className="row">
@@ -40,7 +44,6 @@ class InventoryItemInfo extends Component {
           ))}
         </div>
       </div>
-      //   </div>
     );
   }
 }
