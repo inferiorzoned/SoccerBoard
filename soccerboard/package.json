@@ -27,11 +27,15 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-draft-wysiwyg": "^1.14.7",
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
     "react-draggable": "^4.4.3",
 >>>>>>> Stashed changes
     "react-konva": "^17.0.2-4",
+=======
+    "react-draggable": "^4.4.3",
+>>>>>>> da9ba0fc10f443615cf18f1b25887e5a171a048f
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "4.0.3",

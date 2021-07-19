@@ -3,11 +3,7 @@ import Joi from "joi-browser";
 import Form from "../components/commons/form";
 import { uploadTraining, uploadImage } from "../utils/trainingRepoService";
 import TrainingEditor from "../components/trainingEditor";
-<<<<<<< Updated upstream
-
-=======
 import SideBar from "../components/sideBar";
->>>>>>> Stashed changes
 class CreateTraining extends Form {
   state = {
     editorialContent: "",
@@ -168,17 +164,7 @@ class CreateTraining extends Form {
                   
                   
                   <div className="col-sm-5">
-<<<<<<< Updated upstream
-                    <div className="row">
-                      
-                      {this.renderMultilineInput(
-                        "description",
-                        "Description"
-                      )}
-                    </div>
-=======
                     
->>>>>>> Stashed changes
                       <div className="row mt-5">
                         <div className="col">
                           {this.renderInput("title", "Title")}

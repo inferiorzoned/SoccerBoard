@@ -124,3 +124,32 @@ $_variations: (
     }
   }
 }
+
+.evaluation-table {
+  width: 100%;
+  font: normal 16px "Passero One", Roboto;
+  cursor: pointer;
+  margin: 16px;
+  border: solid 2px #561cba;
+
+  thead th {
+    text-align: center;
+    color: #585858;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  tbody td {
+    text-align: center;
+    padding: 0.4rem;
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: #ffd3cd;
+  }
+}
+
+.evaluation-marks-input:focus {
+  outline-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(0, 200, 83, 0.25);
+}
