@@ -1,8 +1,9 @@
+import React from "react";
+
 const ColoredLine = ({ color }) => (
   <hr
     style={{
       color: color,
-      //   backGroundColor: color,
       borderRadius: 5,
       height: 5,
     }}

@@ -30,13 +30,12 @@ class TrainingCards extends Component {
                 groupType={"trainingRepo"}
                 categoryName={trainingType}
                 categoryData={trainingRepoCategoryData}
-                handleLink = {handleLink}
-                linkType = {linkType}
+                handleLink={handleLink}
+                linkType={linkType}
               />
             </li>
           ))}
         </ul>
-        // <h1>hello</h1>
       );
     } else {
       return (
@@ -49,58 +48,3 @@ class TrainingCards extends Component {
 }
 
 export default TrainingCards;
-
-// import React, { Component } from "react";
-// import { render } from "react-dom";
-// import axios from "axios";
-// // import TrainingCards from "./trainingCards";
-
-// class TrainingCards extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       name: "React",
-//     };
-//     // this.getTodos = this.getTodos.bind(this);
-//   }
-
-//   async componentDidMount() {
-//     // this.getTodos();
-//     let data = await axios
-//       .get("https://jsonplaceholder.typicode.com/todos?_limit=10")
-//       .then(function (response) {
-//         return response;
-//       })
-//       .catch(function (error) {
-//         console.log(error);
-//       });
-//     this.setState({ todos: data.data });
-//   }
-
-//   async getTodos() {}
-
-//   render() {
-//     const { todos } = this.state;
-//     return (
-//       <div>
-//         <h3>Using componentDidMount for initial data render</h3>
-//         <hr />
-//         {todos &&
-//           todos.map((todo) => {
-//             return (
-//               <table>
-//                 <tr>
-//                   <td>{todo.id}</td>
-//                   <td>
-//                     <p key={todo.id}>{todo.title}</p>
-//                   </td>
-//                 </tr>
-//               </table>
-//             );
-//           })}
-//       </div>
-//     );
-//   }
-// }
-
-// export default TrainingCards;

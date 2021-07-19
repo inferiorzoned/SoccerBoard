@@ -1,0 +1,55 @@
+@use "../base/colors" as c;
+
+#upload-thumbnail {
+  position: absolute;
+  display: none;
+  z-index: 6;
+}
+
+.tr-thumbnail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+  width: auto;
+  object-fit: cover;
+
+  &:hover #upload-thumbnail {
+    display: block;
+  }
+}
+
+.tr-label {
+  font-size: 0.6rem;
+  font-weight: 300;
+  color: gray;
+  margin: 0 4px 0 4px;
+  text-transform: capitalize;
+}
+
+.tr-value {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: c.$gray-dark;
+  margin: 0 4px 0 4px;
+  padding: 4px;
+  text-transform: capitalize;
+}
+
+.tr-title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+}
+
+#tr-editor {
+  border: 2px solid c.$gray-dark;
+  border-radius: 4px;
+  margin: 8px;
+  width: 100%;
+  min-height: 260px;
+}

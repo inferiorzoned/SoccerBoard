@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { sideBarData } from "../utils/sideBarData";
-import ColoredLine from "./commons/coloredLine";
 import SideBarList from "./sideBarList";
 import auth from "../services/authService";
 
