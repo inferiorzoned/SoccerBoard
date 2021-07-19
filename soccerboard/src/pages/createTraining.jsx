@@ -3,7 +3,11 @@ import Joi from "joi-browser";
 import Form from "../components/commons/form";
 import { uploadTraining, uploadImage } from "../utils/trainingRepoService";
 import TrainingEditor from "../components/trainingEditor";
+<<<<<<< Updated upstream
 
+=======
+import SideBar from "../components/sideBar";
+>>>>>>> Stashed changes
 class CreateTraining extends Form {
   state = {
     editorialContent: "",
@@ -72,7 +76,7 @@ class CreateTraining extends Form {
     const form = {
       trainingTitle: title,
       trainingCategoryName: category,
-      trainingDescription: description,
+      trainingDescription: this.state.editorialContent,
       trainingDifficulty: difficulty,
       mediaUrl: mediaUrl,
       editorialContent: this.state.editorialContent
@@ -110,6 +114,12 @@ class CreateTraining extends Form {
       categories
     } = this.state;
     return (
+      <React.Fragment>
+        <div className="row">
+        <div className="col-2">
+        <SideBar page={"createTraining"} />
+      </div>
+      <div className="col-10">
       <div className="container">
         <div className="row">
           {/* <div className="col-sm-auto bg-light sticky-top">
@@ -158,6 +168,7 @@ class CreateTraining extends Form {
                   
                   
                   <div className="col-sm-5">
+<<<<<<< Updated upstream
                     <div className="row">
                       
                       {this.renderMultilineInput(
@@ -165,6 +176,9 @@ class CreateTraining extends Form {
                         "Description"
                       )}
                     </div>
+=======
+                    
+>>>>>>> Stashed changes
                       <div className="row mt-5">
                         <div className="col">
                           {this.renderInput("title", "Title")}
@@ -204,6 +218,9 @@ class CreateTraining extends Form {
             {this.renderButton("CREATE TRAINING", this.doSubmit, "btn-primary")}
         </div>
       </div>
+      </div>
+      </div>
+      </React.Fragment>
     );
   }
 }

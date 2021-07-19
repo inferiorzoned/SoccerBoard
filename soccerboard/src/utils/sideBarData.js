@@ -25,7 +25,16 @@ const innerLink = {
     { label: "Attack", link: "Training Repo#attack" },
     { label: "Defense", link: "Training Repo#defense" },
     { label: "Set Piece", link: "Training Repo#set-piece" },
+<<<<<<< Updated upstream
+=======
   ],
+
+  createTraining: [
+    { label: "To Create A Training Blog, \n\n Add a demo image,  \n\n  fill up the options  \n\n"+
+      "edit the editable block  \n\n as you wish."}
+>>>>>>> Stashed changes
+  ],
+
   squad: [
     { label: "Goalkeepers", link: "" },
     { label: "Defenders", link: "" },

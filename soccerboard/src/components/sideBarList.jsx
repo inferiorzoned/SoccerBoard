@@ -18,9 +18,18 @@ const SideBarList = (props) => {
     <ul className="sideBarList">
       {sideBarData[sectionType][pageName].map((data, index) => (
         <li key={index} className="sideBarRow">
+<<<<<<< Updated upstream
           <HashLink className="sideBarRow" smooth to={`/${data.link}`}>
             {data.label}
           </HashLink>
+=======
+          {data.link && <HashLink className="sideBarRow" smooth to={`/${data.link}`}>
+            {data.label}
+          </HashLink>}
+          {!data.link && <HashLink className="sideBarRow" smooth>
+            {data.label}
+          </HashLink>}
+>>>>>>> Stashed changes
         </li>
       ))}
     </ul>
