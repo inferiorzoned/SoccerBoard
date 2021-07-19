@@ -868,6 +868,11 @@
   border: 2px solid #212230;
   border-radius: 4px;
   margin: 8px;
-  width: 100%;
+  width: 99%;
   min-height: 260px;
+}
+
+.rdw-editor-main {
+  margin-left: 16px;
+  margin-right: 16px;
 }

@@ -13,12 +13,16 @@ class Training extends Component {
     if (trainingId) {
       const training = await getTraining(trainingId);
       console.log(training);
-      // const blocksFromHTML = convertFromHTML(training.trainingDescription);
+      // const blocksFromHTML = convertFromHTML(
+      //   training.trainingDescription.replace(/(<\/?)figure((?:\s+.*?)?>)/g, "")
+      // );
+      // console.log(
+      //   training.trainingDescription.replace(/(<\/?)figure((?:\s+.*?)?>)/g, "")
+      // );
       // const contentState = ContentState.createFromBlockArray(
       //   blocksFromHTML.contentBlocks,
       //   blocksFromHTML.entityMap
       // );
-
       this.setState({
         mediaUrl: training.mediaUrl,
         title: training.trainingTitle,

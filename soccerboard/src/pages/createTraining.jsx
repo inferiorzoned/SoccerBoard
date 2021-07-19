@@ -11,7 +11,6 @@ class CreateTraining extends Form {
       title: "",
       difficulty: "",
       category: "",
-      description: "",
       mediaUrl: "",
     },
     difficultyLevels: [
@@ -64,10 +63,7 @@ class CreateTraining extends Form {
     const { imageFile } = data;
     // Call the server
     const { mediaUrl } = await uploadImage(imageFile);
-    // const user =  auth.getCurrentUser();
-    // this.setState({ user });
-    // this.setState({ data: element })
-    const { title, category, difficulty, description } = data;
+    const { title, category, difficulty } = data;
     const form = {
       trainingTitle: title,
       trainingCategoryName: category,
@@ -102,88 +98,6 @@ class CreateTraining extends Form {
     };
     reader.readAsDataURL(file);
   };
-
-  renderOld() {
-    const { difficultyLevels, categories } = this.state;
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="container">
-            <form onSubmit={this.handleSubmit}>
-              <div className="row">
-                <div className="col-sm-5 text-center">
-                  <div className="row image-holder m-2">
-                    <img
-                      src={this.state.data.mediaUrl}
-                      alt=""
-                      id="img"
-                      className="img-training"
-                    />
-                  </div>
-                  <div className="row">
-                    <input
-                      className="btn btn-maroon m-3"
-                      type="file"
-                      accept="image/*"
-                      name="image-upload"
-                      id="image-input"
-                      onChange={this.handleImage}
-                      hidden
-                    />
-                  </div>
-
-                  <div className="row">
-                    <div className="col-sm-2 text-center">
-                      <label
-                        htmlFor="image-input"
-                        className="btn btn-maroon m-2"
-                      >
-                        CHOOSE DEMO PICTURE
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-5">
-                  <div className="row">
-                    {this.renderMultilineInput("description", "Description")}
-                  </div>
-                  <div className="row mt-5">
-                    <div className="col">
-                      {this.renderInput("title", "Title")}
-                    </div>
-                  </div>
-                  <div className="row mb-3">
-                    {/* <div className="col">
-                          {this.renderInput("email", "Email", "email")}
-                          </div>*/}
-                    <div className="col-sm"></div>
-                    <div className="col-sm-5">
-                      {this.renderSelect(
-                        "difficulty",
-                        "Difficulty",
-                        difficultyLevels
-                      )}
-                    </div>
-                    <div className="col-sm-5">
-                      {this.renderSelect("category", "Category", categories)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          {/* </div> */}
-        </div>
-        <div className="row">
-          <TrainingEditor setContent={this.setEditorialContent} />
-        </div>
-        <div className="row text-center py-3">
-          {this.renderButton("CREATE TRAINING", this.doSubmit, "btn-primary")}
-        </div>
-      </div>
-    );
-  }
 
   render() {
     const { difficultyLevels, categories } = this.state;
@@ -230,6 +144,7 @@ class CreateTraining extends Form {
             </div>
           </div>
         </form>
+        <div style={{ margin: "8px 8px 0 8px" }}>Details</div>
         <TrainingEditor setContent={this.setEditorialContent} />
         <div className="d-flex justify-content-center align-items-center my-5">
           {this.renderButton("CREATE TRAINING", this.doSubmit)}

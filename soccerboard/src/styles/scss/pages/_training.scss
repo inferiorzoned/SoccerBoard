@@ -50,6 +50,12 @@
   border: 2px solid c.$gray-dark;
   border-radius: 4px;
   margin: 8px;
-  width: 100%;
+  width: 99%;
   min-height: 260px;
+}
+
+// override react-draft-wysiwyg css
+.rdw-editor-main {
+  margin-left: 16px;
+  margin-right: 16px;
 }
