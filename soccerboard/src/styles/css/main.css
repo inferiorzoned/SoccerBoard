@@ -1,13 +1,15 @@
 /* other formats include: 'woff2', 'truetype, 'opentype', 'embedded-opentype', and 'svg' */
 @font-face {
   font-family: "Comfortaa";
-  src: local("Comfortaa"), url("/src/fonts/comfortaa/static/Comfortaa-Bold.ttf") format("truetype");
+  src: local("Comfortaa"),
+    url("/src/fonts/comfortaa/static/Comfortaa-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: "Passero One";
-  src: local("PasseroOne"), url("/src/fonts/passero-one/PasseroOne-Regular.ttf") format("truetype");
+  src: local("PasseroOne"),
+    url("/src/fonts/passero-one/PasseroOne-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -16,17 +18,35 @@
   background-color: #6a1c1c;
   border-color: #6a1c1c;
 }
-.btn-maroon:hover, .btn-maroon:focus, .btn-maroon:active, .btn-maroon.active,
+.btn-maroon:hover,
+.btn-maroon:focus,
+.btn-maroon:active,
+.btn-maroon.active,
 .btn-maroon .open .dropdown-toggle.btn-maroon {
   color: #ffffff;
   background-color: #6a1c1c;
   border-color: #6a1c1c;
 }
-.btn-maroon:active, .btn-maroon.active,
+.btn-maroon:active,
+.btn-maroon.active,
 .btn-maroon .open .dropdown-toggle.btn-maroon {
   background-image: none;
 }
-.btn-maroon.disabled, .btn-maroon[disabled], fieldset[disabled] .btn-maroon, .btn-maroon.disabled:hover, .btn-maroon[disabled]:hover, fieldset[disabled] .btn-maroon:hover, .btn-maroon.disabled:focus, .btn-maroon[disabled]:focus, fieldset[disabled] .btn-maroon:focus, .btn-maroon.disabled:active, .btn-maroon[disabled]:active, fieldset[disabled] .btn-maroon:active, .btn-maroon.disabled.active, .btn-maroon[disabled].active, fieldset[disabled] .btn-maroon.active {
+.btn-maroon.disabled,
+.btn-maroon[disabled],
+fieldset[disabled] .btn-maroon,
+.btn-maroon.disabled:hover,
+.btn-maroon[disabled]:hover,
+fieldset[disabled] .btn-maroon:hover,
+.btn-maroon.disabled:focus,
+.btn-maroon[disabled]:focus,
+fieldset[disabled] .btn-maroon:focus,
+.btn-maroon.disabled:active,
+.btn-maroon[disabled]:active,
+fieldset[disabled] .btn-maroon:active,
+.btn-maroon.disabled.active,
+.btn-maroon[disabled].active,
+fieldset[disabled] .btn-maroon.active {
   background-color: #6a1c1c;
   border-color: #6a1c1c;
 }
@@ -40,17 +60,35 @@
   background-color: #034732;
   border-color: #034732;
 }
-.btn-green-dark:hover, .btn-green-dark:focus, .btn-green-dark:active, .btn-green-dark.active,
+.btn-green-dark:hover,
+.btn-green-dark:focus,
+.btn-green-dark:active,
+.btn-green-dark.active,
 .btn-green-dark .open .dropdown-toggle.btn-green-dark {
   color: #f3f3f3;
   background-color: #034732;
   border-color: #034732;
 }
-.btn-green-dark:active, .btn-green-dark.active,
+.btn-green-dark:active,
+.btn-green-dark.active,
 .btn-green-dark .open .dropdown-toggle.btn-green-dark {
   background-image: none;
 }
-.btn-green-dark.disabled, .btn-green-dark[disabled], fieldset[disabled] .btn-green-dark, .btn-green-dark.disabled:hover, .btn-green-dark[disabled]:hover, fieldset[disabled] .btn-green-dark:hover, .btn-green-dark.disabled:focus, .btn-green-dark[disabled]:focus, fieldset[disabled] .btn-green-dark:focus, .btn-green-dark.disabled:active, .btn-green-dark[disabled]:active, fieldset[disabled] .btn-green-dark:active, .btn-green-dark.disabled.active, .btn-green-dark[disabled].active, fieldset[disabled] .btn-green-dark.active {
+.btn-green-dark.disabled,
+.btn-green-dark[disabled],
+fieldset[disabled] .btn-green-dark,
+.btn-green-dark.disabled:hover,
+.btn-green-dark[disabled]:hover,
+fieldset[disabled] .btn-green-dark:hover,
+.btn-green-dark.disabled:focus,
+.btn-green-dark[disabled]:focus,
+fieldset[disabled] .btn-green-dark:focus,
+.btn-green-dark.disabled:active,
+.btn-green-dark[disabled]:active,
+fieldset[disabled] .btn-green-dark:active,
+.btn-green-dark.disabled.active,
+.btn-green-dark[disabled].active,
+fieldset[disabled] .btn-green-dark.active {
   background-color: #034732;
   border-color: #034732;
 }
@@ -70,7 +108,15 @@
   box-shadow: 2px 2px 4px #808080;
   margin: 2rem;
   color: black;
+  cursor: pointer;
+  transition: 0.6s ease;
 }
+.t-card:hover {
+  transition: 0.6s ease;
+  transform: scale(0.96);
+  box-shadow: 4px 4px 8px #808080;
+}
+
 .t-card-text {
   font-family: "Roboto";
   font-style: normal;

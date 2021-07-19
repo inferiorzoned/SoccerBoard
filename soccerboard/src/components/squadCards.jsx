@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CardGroup from "./commons/cardGroup";
 import { squadPositions, getSquadPositionData } from "../utils/squadData";
 import { CircularProgress } from "@material-ui/core";
+import LoaderSoccer from "./commons/loader";
 
 class SquadCards extends Component {
   state = { name: "dummy" };
@@ -30,7 +31,8 @@ class SquadCards extends Component {
     }
     return (
       <div className="centered">
-        <CircularProgress color="secondary" />
+        {/* <CircularProgress color="secondary" /> */}
+        <LoaderSoccer />
       </div>
     );
   }

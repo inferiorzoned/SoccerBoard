@@ -5,6 +5,17 @@ import SessionCreation from "../components/sessionCreation";
 import TraineeListPopup from "../components/traineeListPopup";
 import SchedulePopup from "../components/schedulePopup";
 
+import httpService from "../services/httpService";
+
+const apiEndpoint = "/trainingSessions";
+
+export async function uploadSession(session) {
+  console.log(session);
+  const { data } = await httpService.post(apiEndpoint + "/BUET", session);
+  console.log(data);
+  return data;
+}
+
 class CreateNewSession extends Component {
   state = {
     sessionTitle: "",
@@ -56,18 +67,18 @@ class CreateNewSession extends Component {
   };
 
   handleLink = (e, linkType, trainingID, trainings) => {
-    if (linkType === "trainingRepo") {
+    if (linkType === "trainingSession") {
+      if (e.ctrlKey || e.metaKey) {
+        const t = [...this.state.trainings, trainingID];
+        this.setState({
+          showSessionCreation: true,
+          trainings: t,
+        });
+      } else {
+        window.location = "/Training Repo/" + trainingID;
+      }
+    } else {
       window.location = "/Training Repo/" + trainingID;
-    } else if (e.ctrlKey || e.metaKey) {
-      // this.setState({ showSessionCreation: true });
-      // const session = { ...session };
-      // session["trainings"].push(trainingID);
-      // this.setState({ showSessionCreation: true, session });
-      const t = [...this.state.trainings, trainingID];
-      this.setState({
-        showSessionCreation: true,
-        trainings: t,
-      });
     }
   };
 
@@ -152,18 +163,36 @@ class CreateNewSession extends Component {
     this.setState({ sessionTitle });
   };
 
-  createSession = () => {
+  createSession = async () => {
     // TODO check for corner cases (no players/ no schedule)
     // send all data to servers
     console.log(this.state.sessionTitle);
     console.log(this.state.trainings);
     this.state.finalSelectedPlayers.map((p, pId) => console.log(p.name, p._id));
     // console.log(this.state.finalSelectedPlayers);
-    console.log(this.state.schedule["startDate"]);  
+    console.log(this.state.schedule["startDate"]);
     console.log(this.state.schedule["endDate"]);
     console.log(this.state.schedule["trainingTime"]);
     console.log(this.state.weekDays);
-    
+    const {
+      sessionTitle,
+      trainings,
+      finalSelectedPlayers,
+      schedule,
+      weekDays,
+    } = this.state;
+    let selectedPlayers = [];
+    finalSelectedPlayers.map((p, pId) => selectedPlayers.push(p));
+    const session = {
+      sessionTitle: sessionTitle,
+      trainings: trainings,
+      selectedPlayers: selectedPlayers,
+      startDate: schedule["startDate"],
+      endDate: schedule["endDate"],
+      trainingTime: schedule["trainingTime"],
+      weekDays: weekDays,
+    };
+    await uploadSession(session);
     // TODO reset all things
     // window.location = "/Training Repo/Create New Session";
     // console.log(this.state.trainings);
@@ -214,7 +243,7 @@ class CreateNewSession extends Component {
           )}
 
           <div className="col-sm-2">
-            <SideBar page={"trainingRepo"} />
+            <SideBar style={{ width: "inherit" }} page={"trainingRepo"} />
           </div>
           <div className={`col-sm-${showSessionCreation ? "8" : "10"}`}>
             <form className=" mb-1 " onSubmit={this.handleFormSubmit}>
@@ -231,9 +260,14 @@ class CreateNewSession extends Component {
                 <small id="emailHelp" class="form-text text-muted"></small>
               </div>
             </form>
-
             <div className="categoryLine"></div>
-            <TrainingCards handleLink={this.handleLink} />
+            <small>
+              Click to view training, CTRL + Click to add to the session
+            </small>
+            <TrainingCards
+              handleLink={this.handleLink}
+              linkType={"trainingSession"}
+            />
           </div>
           {showSessionCreation && (
             <div className="col-sm-2 d-flex flex-row-reverse">

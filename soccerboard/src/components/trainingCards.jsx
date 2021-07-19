@@ -6,6 +6,7 @@ import {
   getTrainingRepoCategoryData,
 } from "../utils/repoElements";
 import { CircularProgress } from "@material-ui/core";
+import LoaderSoccer from "./commons/loader";
 
 class TrainingCards extends Component {
   state = { name: "dummy" };
@@ -30,8 +31,8 @@ class TrainingCards extends Component {
                 groupType={"trainingRepo"}
                 categoryName={trainingType}
                 categoryData={trainingRepoCategoryData}
-                handleLink = {handleLink}
-                linkType = {linkType}
+                handleLink={handleLink}
+                linkType={linkType}
               />
             </li>
           ))}
@@ -41,7 +42,8 @@ class TrainingCards extends Component {
     } else {
       return (
         <div className="centered">
-          <CircularProgress color="secondary" />
+          {/* <CircularProgress color="secondary" /> */}
+          <LoaderSoccer />
         </div>
       );
     }

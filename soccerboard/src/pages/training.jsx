@@ -27,12 +27,7 @@ class Training extends Component {
 
     return (
       <div className="container">
-        <img
-          src={renderMediaUrl(mediaUrl)}
-          alt=""
-          id="img"
-          className="img-training py-3"
-        />
+        <img src={mediaUrl} alt="" id="img" className="img-training py-3" />
         <div className="py-3">Title : {title}</div>
         <div className="py-3">Category : {category}</div>
         <div className="py-3">Difficulty : {difficulty}</div>

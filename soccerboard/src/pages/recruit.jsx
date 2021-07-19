@@ -83,6 +83,7 @@ class Recruit extends Component {
   render() {
     const { applicants, currentApplicant, sortColumn } = this.state;
     console.log(applicants);
+    console.log(typeof applicants);
     return (
       <React.Fragment>
         <div className="d-flex">

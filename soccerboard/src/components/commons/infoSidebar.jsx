@@ -5,6 +5,7 @@ import React from "react";
 // object must contain name, and avatar
 
 const InfoSidebar = ({ infoHeading, data }) => {
+  console.log(infoHeading, data);
   return (
     <React.Fragment>
       <div className="image-holder m-2">

@@ -3,6 +3,10 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import { squadPositions, getSquadPositionData } from "../utils/squadData";
 import { CircularProgress } from "@material-ui/core";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import PopupWindow from "./commons/popupWindow";
+import LoaderSoccer from "./commons/loader";
 
 class SessionInfo extends Component {
   state = {
@@ -44,7 +48,7 @@ class SessionInfo extends Component {
     const { squadData } = this.state;
     console.log(squadData);
     return (
-      <div className="sideBar">
+      <div className="sideBar ">
         <div style={{ color: "white", textAlign: "center", marginTop: "50px" }}>
           <div className="mt-2">
             <h1>Trainees</h1>
@@ -66,7 +70,23 @@ class SessionInfo extends Component {
                           squadData[posType].map(
                             (pInstance, pInstanceId) =>
                               pInstance._id === p && (
-                                <ListItem>{pInstance.name}</ListItem>
+                                <Popup
+                                  trigger={
+                                    <ListItem>{pInstance.name}</ListItem>
+                                  }
+                                  modal
+                                >
+                                  <span>
+                                    <PopupWindow
+                                      popupImage={pInstance.playerImage}
+                                      popupTitle={pInstance.name}
+                                      popupText={`Matches: ${
+                                        pInstance.numberOfMatches || ""
+                                      }, 
+                                      Gametime: ${pInstance.gameTime}`}
+                                    />
+                                  </span>
+                                </Popup>
                               )
                           )
                       )}
@@ -76,9 +96,10 @@ class SessionInfo extends Component {
               </div>
             )}
             {!squadData && (
-              <div className="centered">
-                <CircularProgress color="secondary" />
-              </div>
+              // <div className="centered">
+              //   <CircularProgress color="secondary" />
+              // </div>
+              <LoaderSoccer />
             )}
           </div>
           <div className="mt-5">
@@ -107,9 +128,10 @@ class SessionInfo extends Component {
               </div>
             )}
             {!(startDate && endDate && trainingTime && weekDays) && (
-              <div className="centered">
-                <CircularProgress color="secondary" />
-              </div>
+              // <div className="centered">
+              //   <CircularProgress color="secondary" />
+              // </div>
+              <LoaderSoccer />
             )}
           </div>
         </div>
