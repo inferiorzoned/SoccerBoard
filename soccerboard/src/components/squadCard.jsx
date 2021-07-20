@@ -10,7 +10,7 @@ class SquadCard extends Component {
     const {
       playerImageURL,
       playerKit,
-      playerPosition,
+      playerPositions,
       playerName,
       numberOfMatches,
       gameTime,
@@ -21,30 +21,25 @@ class SquadCard extends Component {
       cleanSheets,
     } = this.props;
 
-    // console.log(playerImageURL);
-
     const playerImageWithDetails = (
-      <div className="card squad-card">
+      <div className="squad-card">
         <img
           className="squad-card-img"
           src={playerImageURL}
           alt="Card image cap"
         />
-        <div className="top-left">
-          <ul
-            className="cardList"
-            style={{ listStyleType: "none", padding: 0 }}
-          >
-            <li className="squad-card-kit">{playerKit}</li>
-            <li className="squad-card-position">{playerPosition}</li>
-          </ul>
-        </div>
+        <div className="top-left squad-card-kit">{playerKit}</div>
+        <ul className="top-right positions">
+          {playerPositions.map((pos) => (
+            <li key={pos}>{pos}</li>
+          ))}
+        </ul>
         <div className="bottom-left">
           <div className="squad-card-name">{playerName}</div>
         </div>
       </div>
     );
-    // console.log(playerKit);
+
     return (
       <>
         <Popup trigger={playerImageWithDetails} modal className="popup-content">

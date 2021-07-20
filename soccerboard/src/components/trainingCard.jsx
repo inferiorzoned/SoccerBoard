@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import parse from "html-react-parser";
 
 class TrainingCard extends Component {
   async getImage() {}
@@ -18,6 +17,11 @@ class TrainingCard extends Component {
       handleLink,
       linkType,
     } = this.props;
+
+    // const description = trainingDescription.replace(/<figure>.*<\/figure>/, "");
+    const div = document.createElement("div");
+    div.innerHTML = trainingDescription;
+    const description = div.textContent || div.innerText || "";
 
     return (
       <div
@@ -45,9 +49,7 @@ class TrainingCard extends Component {
             </div>
           </div>
         </div>
-        <div className="t-card-text">
-          {parse(trainingDescription.replace(/<figure>.*<\/figure>/, ""))}
-        </div>
+        <div className="t-card-text">{description.substr(0, 50)}</div>
       </div>
     );
   }

@@ -20,7 +20,7 @@ class TrainingCards extends Component {
   render() {
     const { handleLink, linkType } = this.props;
     const { trainingRepoCategoryData } = this.state;
-    console.log(trainingRepoCategoryData);
+    // console.log(trainingRepoCategoryData);
     if (trainingRepoCategoryData) {
       return (
         <ul style={{ listStyleType: "none" }}>

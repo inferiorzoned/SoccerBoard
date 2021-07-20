@@ -62,7 +62,7 @@ class Training extends Component {
           </tbody>
         </table>
         {/* <Editor editorState={editorState} readOnly={true}></Editor> */}
-        <div>{description && parse(description)}</div>
+        <div id="tr-view">{description && parse(description)}</div>
       </div>
     );
   }

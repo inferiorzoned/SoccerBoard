@@ -32,15 +32,15 @@ class CardGroup extends Component {
       );
     } else if (groupType === "squad") {
       groupData = (
-        <div className="row ">
+        <div className="row">
           {categoryData[categoryName] &&
             categoryData[categoryName].map(
               (playerInstance, playerInstanceIndex) => (
-                <div className="col-xl-3 col-lg-4 col-md-6 d-flex align-items-stretch">
+                <div className="d-flex col-xxl-3 col-xl-4 col-lg-6 col-md-6">
                   <SquadCard
                     playerImageURL={playerInstance.playerImage}
                     playerKit={playerInstance.kit}
-                    playerPosition={playerInstance.position}
+                    playerPositions={playerInstance.positions}
                     playerName={playerInstance.name}
                     numberOfMatches={playerInstance.numberOfMatches}
                     gameTime={playerInstance.gameTime}

@@ -11,6 +11,7 @@ import CreateNewSession from "../pages/createNewSession.jsx";
 import GameSquad from "./gameSquad.jsx";
 import Evaluation from "../pages/evaluation.jsx";
 import EvaluationResult from "../pages/evaluationResult.jsx";
+import Test from "../tests/test";
 
 function Root() {
   return (
@@ -18,6 +19,7 @@ function Root() {
       <main className="App">
         <Navbar />
         <Switch>
+          <Route path="/test" component={Test}></Route>
           <Route path="/home" component={Home}></Route>
           <Route path="/Training Session" component={TrainingSession}></Route>
           <Route path="/squad/manage-squad" component={GameSquad}></Route>

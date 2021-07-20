@@ -294,8 +294,3 @@ swapnils
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-.editorBorder {
-  min-height: 300px;
-  width: 80%;
-  border: 1px solid greenyellow;
-}

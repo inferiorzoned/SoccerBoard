@@ -4,7 +4,7 @@
 /node_modules
 
 # testing
-/tests
+/src/tests
 
 # production
 /build
