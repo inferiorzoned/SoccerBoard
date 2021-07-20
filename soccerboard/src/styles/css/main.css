@@ -183,6 +183,10 @@
   font-size: 1.2rem;
   padding: 0.4rem 0 0.4rem 0;
 }
+.t-card-selected {
+  border: solid 4px #00c853;
+  box-shadow: 4px 4px 6px #808080;
+}
 
 .t-card-image {
   border: 2px solid #be4e41;
@@ -886,4 +890,58 @@
 .rdw-editor-main {
   margin-left: 16px;
   margin-right: 16px;
+}
+
+.wk-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  width: 2rem;
+  height: 2rem;
+  margin: 0.2rem;
+  padding: 0.2rem;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  background-color: #eee;
+  color: #212230;
+}
+.wk-day-selected {
+  background-color: #00c853;
+  color: white;
+}
+
+.session {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2rem;
+  margin: 0.2rem 0.3rem 0.2rem 0.4rem;
+  border-radius: 0.2rem;
+  color: white;
+}
+.session-date {
+  background-color: #79352d;
+}
+.session-time {
+  background-color: #034732;
+}
+
+.schedule-popup {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: #fdfffc;
+  border: none;
+  border-radius: 8px;
+  width: 50vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 4px 4px 4px #808080;
 }

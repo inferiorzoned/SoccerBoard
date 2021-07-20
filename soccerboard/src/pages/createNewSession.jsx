@@ -179,9 +179,6 @@ class CreateNewSession extends Component {
       showSessionCreation,
       showTraineeInfo,
       showScheduleInfo,
-      session,
-      sortColumn,
-      selectedPlayers,
       finalSelectedPlayers,
       schedule,
       weekDays,
@@ -233,7 +230,10 @@ class CreateNewSession extends Component {
                     onChange={this.handleFormChange}
                     placeholder="Training Session Title"
                   />
-                  <small id="emailHelp" class="form-text text-muted"></small>
+                  <small
+                    id="emailHelp"
+                    className="form-text text-muted"
+                  ></small>
                 </div>
               </form>
               <div className="category-line"></div>

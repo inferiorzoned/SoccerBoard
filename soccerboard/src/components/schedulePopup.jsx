@@ -15,34 +15,32 @@ class SchedulePopup extends Component {
     } = this.props;
     const weekDays = ["S", "S", "M", "T", "W", "T", "F"];
     return (
-      <div className="schedulePopup">
-        {/* <form className={classes.container} noValidate> */}
-        <DateTimePicker
-          changeHandler={handleStartDatePicker}
-          id={"date"}
-          label={"Start Date"}
-          type={"date"}
-          defaultValue={"2021-07-05"}
-        />
+      <div className="schedule-popup">
+        <div className="d-flex justify-content-between w-100">
+          <DateTimePicker
+            changeHandler={handleStartDatePicker}
+            id={"date"}
+            label={"Start Date"}
+            type={"date"}
+            defaultValue={"2021-07-05"}
+          />
+          <DateTimePicker
+            changeHandler={handleEndDatePicker}
+            id={"date"}
+            label={"End Date"}
+            type={"date"}
+            defaultValue={"2021-07-05"}
+          />
+          <DateTimePicker
+            changeHandler={handleTrainingTime}
+            id={"time"}
+            label={"Training Time"}
+            type={"time"}
+            defaultValue={"17:00"}
+          />
+        </div>
 
-        <DateTimePicker
-          changeHandler={handleEndDatePicker}
-          id={"date"}
-          label={"End Date"}
-          type={"date"}
-          defaultValue={"2021-07-05"}
-        />
-        <DateTimePicker
-          changeHandler={handleTrainingTime}
-          id={"time"}
-          label={"Training Time"}
-          type={"time"}
-          defaultValue={"17:00"}
-        />
-
-        <div className="flexRowBreak"></div>
-        {/* <div className="mt-3">hello</div> */}
-        <div className="justify-content-center mt-3">
+        <div className="d-flex justify-content-center align-items-center my-3">
           <DayButtonPicker
             label={weekDays[0]}
             index={0}
@@ -79,11 +77,10 @@ class SchedulePopup extends Component {
             handleWeekDay={handleWeekDay}
           />
         </div>
-        <div className="pu-content-container">
-          <button className="pu-button-prop" onClick={() => saveSchedule()}>
-            Add
-          </button>
-        </div>
+        <div className="pu-content-container"></div>
+        <button className="btn btn-green-dark" onClick={() => saveSchedule()}>
+          ADD
+        </button>
       </div>
     );
   }

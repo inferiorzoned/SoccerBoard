@@ -27,6 +27,11 @@
     font-size: 1.2rem;
     padding: 0.4rem 0 0.4rem 0;
   }
+
+  &-selected {
+    border: solid 4px c.$green-light;
+    box-shadow: 4px 4px 6px #808080;
+  }
 }
 
 .t-card-image {

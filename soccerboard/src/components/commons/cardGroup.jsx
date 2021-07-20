@@ -16,7 +16,10 @@ class CardGroup extends Component {
         <div className="row ">
           {categoryData[categoryName] &&
             categoryData[categoryName].map((trainingInstance, index) => (
-              <div className="col-xl-4 col-lg-6 col-md-6 col-sm-6" key={index}>
+              <div
+                className="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6"
+                key={index}
+              >
                 <TrainingCard
                   trainingImage={trainingInstance.mediaUrl}
                   trainingTitle={trainingInstance.trainingTitle}

@@ -1,0 +1,66 @@
+@use 'sass:math';
+@use "../base/colors" as c;
+
+$--wk-day-dim: 2rem;
+
+.wk-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: math.div($--wk-day-dim, 2.5);
+  font-weight: 500;
+  width: $--wk-day-dim;
+  height: $--wk-day-dim;
+  margin: 0.2rem;
+  padding: 0.2rem;
+  border: none;
+  border-radius: math.div($--wk-day-dim, 2);
+  cursor: pointer;
+  background-color: #eee;
+  color: c.$gray-dark;
+
+  &-selected {
+    background-color: c.$green-light;
+    color: white;
+  }
+}
+
+.session {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2rem;
+  margin: 0.2rem 0.3rem 0.2rem 0.4rem;
+  border-radius: 0.2rem;
+  color: white;
+
+  &-date {
+    background-color: c.$maroon-dark;
+  }
+
+  &-time {
+    background-color: c.$green-primary;
+  }
+}
+
+.schedule-popup {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+  padding: 2rem;
+  background-color: #fdfffc;
+
+  border: none;
+  border-radius: 8px;
+
+  width: 50vw;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  box-shadow: 4px 4px 4px #808080;
+}

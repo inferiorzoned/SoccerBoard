@@ -89,25 +89,26 @@ class SessionCreation extends Component {
             </IconButton>
             {scheduleAdded && (
               <div>
-                {/* <h1>to</h1> */}
-                <button className="buttonDate">
-                  {this.toDateStr(schedule["startDate"])}
-                </button>
-                to
-                <button className="buttonDate">
-                  {this.toDateStr(schedule["endDate"])}
-                </button>
-                <div>
+                <div className="d-flex justify-content-center align-items-center">
+                  <button className="session session-date">
+                    {this.toDateStr(schedule["startDate"])}
+                  </button>
+                  to
+                  <button className="session session-date">
+                    {this.toDateStr(schedule["endDate"])}
+                  </button>
+                </div>
+                <div className="d-flex justify-content-center align-items-center">
                   {weekDays.map((w, wId) => (
                     <button
-                      className={`${w ? "buttonEnabled" : "buttonDisabled"}`}
+                      className={`${w ? "wk-day wk-day-selected" : "wk-day"}`}
                     >
                       {this.state.wDays[wId]}
                     </button>
                   ))}
                 </div>
                 <div>
-                  <button className="buttonTime">
+                  <button className="session session-time">
                     {schedule["trainingTime"]}
                   </button>
                 </div>

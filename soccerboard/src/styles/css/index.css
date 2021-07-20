@@ -143,24 +143,6 @@ swapnils
   /* opacity: 0.5; */
 }
 
-.pu-button-prop {
-  background-color: #033300;
-  color: white;
-  /* background-color: #96f78f; */
-  border: 2px solid #033300; /* Border thickness, line style, and color */
-  border-radius: 20px; /* Adds curve to border corners */
-  text-transform: uppercase; /* Make letters uppercase */
-  padding: 0.5em 1em;
-  margin: 1.5em 0em;
-  /* margin-right: 2em; */
-  font-size: 1.25em;
-}
-
-.pu-button-prop:hover {
-  background-color: #96f78f;
-  color: black;
-}
-
 .listLine {
   color: #359b37;
   /* height: 5px; */
@@ -207,63 +189,6 @@ swapnils
 .createSession:hover {
   background-color: #319629;
   border: 5px solid #033300;
-}
-
-.schedulePopup {
-  position: fixed;
-  left: 25%;
-  top: 15%;
-  width: 50%;
-  border: 1px solid #011627;
-  border-radius: 1em;
-  box-shadow: -2px 5px 5px #120249;
-
-  padding-top: 2em;
-  padding-bottom: 2em;
-
-  background-color: #fdfffc;
-
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-
-  color: #011627;
-}
-
-.flexRowBreak {
-  /* flex-basis: 100%; */
-  width: 100%;
-  /* height: 0; */
-}
-
-.buttonEnabled {
-  padding: 0.1em 0.3em;
-  border-radius: 50%;
-  background-color: chartreuse;
-}
-
-.buttonDisabled {
-  padding: 0.1em 0.3em;
-  border-radius: 50%;
-  background-color: rgb(255, 248, 248);
-}
-
-.buttonDate {
-  /* padding: 0.2em 0.5em; */
-  border-radius: 20%;
-  background-color: rgb(146, 4, 23);
-  color: white;
-  box-shadow: none;
-}
-
-.buttonTime {
-  /* padding: 0.2em 0.5em; */
-  border-radius: 20%;
-  background-color: rgb(1, 77, 45);
-  color: white;
-  box-shadow: none;
 }
 
 .listScroll {

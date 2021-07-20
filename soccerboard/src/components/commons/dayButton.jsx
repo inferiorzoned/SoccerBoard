@@ -15,7 +15,7 @@ class DayButtonPicker extends Component {
     return (
       <button
         className={` m-1 ${
-          this.state.selected ? "buttonEnabled" : "buttonDisabled"
+          this.state.selected ? "wk-day wk-day-selected" : "wk-day"
         }`}
         onClick={() => {
           handleWeekDay(index);

@@ -9,7 +9,6 @@ const DateTimePicker = ({ changeHandler, id, label, type, defaultValue }) => {
         label={label}
         type={type}
         defaultValue={defaultValue}
-        // className={classes.textField}
         InputLabelProps={{
           style: { fontWeight: "bold" },
           shrink: true,

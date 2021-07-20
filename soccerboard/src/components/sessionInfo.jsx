@@ -111,28 +111,30 @@ class SessionInfo extends Component {
               </div>
             )}
           </div>
-          <div className="mt-5">
+          <div className="mt-3">
             <h1>Schedule</h1>
             {startDate && endDate && trainingTime && weekDays && (
               <div>
-                <button className="buttonDate">
-                  {this.toDateStr(startDate)}
-                </button>
-                to
-                <button className="buttonDate">
-                  {this.toDateStr(endDate)}
-                </button>
-                <div>
+                <div className="d-flex justify-content-center align-items-center">
+                  <div className="session session-date">
+                    {this.toDateStr(startDate)}
+                  </div>
+                  to
+                  <div className="session session-date">
+                    {this.toDateStr(endDate)}
+                  </div>
+                </div>
+                <div className="d-flex justify-content-center align-items-center">
                   {weekDays.map((w, wId) => (
-                    <button
-                      className={`${w ? "buttonEnabled" : "buttonDisabled"}`}
+                    <div
+                      className={`${w ? "wk-day wk-day-selected" : "wk-day"}`}
                     >
                       {this.state.wDays[wId]}
-                    </button>
+                    </div>
                   ))}
                 </div>
                 <div>
-                  <button className="buttonTime">{trainingTime}</button>
+                  <div className="session session-time">{trainingTime}</div>
                 </div>
               </div>
             )}

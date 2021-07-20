@@ -33,9 +33,7 @@ class TrainingCard extends Component {
             this.setState({ selected: isSelected });
           }
         }}
-        className={`t-card${
-          this.state.selected ? " border border-danger border-4" : ""
-        }`}
+        className={`t-card${this.state.selected ? " t-card-selected" : ""}`}
       >
         <div className="d-flex flex-row me-3">
           <img className="t-card-image" src={trainingImage} />
