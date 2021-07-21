@@ -61,7 +61,7 @@ class Form extends Component {
     this.doSubmit();
   };
 
-  renderInput = (fieldName, label, type = "text") => {
+  renderInput = (fieldName, label, type = "text", isDisabled = false) => {
     const { data, errors } = this.state;
     return (
       <Input
@@ -71,6 +71,7 @@ class Form extends Component {
         value={data[fieldName]}
         error={errors[fieldName]}
         onChange={this.handleChange}
+        disabled={isDisabled}
       />
     );
   };

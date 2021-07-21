@@ -147,7 +147,7 @@ class Inventory extends Component {
               className="btn btn-primary btn-sm"
               onClick={() => this.handleSetPopup(true)}
             >
-              Edit Details
+              Add Items(s)
             </button>
           </div>
           {/* create a bootstrap form which will take multiline inputs */}

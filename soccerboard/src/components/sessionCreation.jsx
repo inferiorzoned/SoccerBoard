@@ -91,11 +91,13 @@ class SessionCreation extends Component {
               <div>
                 {/* <h1>to</h1> */}
                 <button className="buttonDate">
-                  {this.toDateStr(schedule["startDate"])}
+                  {/* {this.toDateStr(schedule["startDate"])} */}
+                  {schedule["startDate"]}
                 </button>
                 to
                 <button className="buttonDate">
-                  {this.toDateStr(schedule["endDate"])}
+                  {/* {this.toDateStr(schedule["endDate"])} */}
+                  {schedule["endDate"]}
                 </button>
                 <div>
                   {weekDays.map((w, wId) => (

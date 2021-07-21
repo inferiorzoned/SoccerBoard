@@ -4,7 +4,7 @@ import TrainingCards from "../components/trainingCards";
 import SessionCreation from "../components/sessionCreation";
 import TraineeListPopup from "../components/traineeListPopup";
 import SchedulePopup from "../components/schedulePopup";
-
+import todayDate from "../components/commons/todayDate";
 import httpService from "../services/httpService";
 
 const apiEndpoint = "/trainingSessions";
@@ -26,8 +26,8 @@ class CreateNewSession extends Component {
     finalSelectedPlayers: [],
     trainings: [],
     schedule: {
-      startDate: "2021-07-05",
-      endDate: "2021-07-05",
+      startDate: todayDate,
+      endDate: todayDate,
       trainingTime: "17:00",
     },
     weekDays: [false, false, false, false, false, false, false],

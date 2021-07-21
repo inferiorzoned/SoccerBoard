@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Form from "./commons/form";
 import Joi from "joi-browser";
+import todayDate from "./commons/todayDate";
+import DateTimePicker from "./commons/dateTime";
 
 class EditInventoryPopup extends Form {
   state = {
@@ -8,10 +10,14 @@ class EditInventoryPopup extends Form {
     errors: {},
     schema: {
       label: Joi.string().required().label("Select Item"),
-      
+      modelLabel: Joi.string().required().label("Select Model"),
+      quantityValue: Joi.number().min(0).label("Quantity"),
     },
     modelsDisabled: true,
     modelsItemLabel: "",
+    othersDisabled: true,
+    modelLabel: "",
+    purchaseDate: "",
   };
 
   setData = (propData) => {
@@ -68,20 +74,49 @@ class EditInventoryPopup extends Form {
     const data = { ...this.state.data };
 
     data[name] = value;
-    console.log(name);
-    console.log(value);
-    console.log(data);
 
     this.setState({ data, errors });
+    // this.handleSelectChange(value, { name });
+    // console.log(value);
     this.setState({ modelsDisabled: false });
     this.setState({ modelsItemLabel: value });
-    console.log(this.state.modelsDisabled);
+    // console.log(this.state.modelsDisabled);
+  };
+
+  myhandleSelectChangeModel = (value, { name }) => {
+    if (value == null) return;
+    if (typeof value[Symbol.iterator] === "function")
+      value = [...value.entries()];
+    else value = value.value;
+
+    const errors = { ...this.state.errors };
+    const errorMessage = this.validateProperty({ name: name, value: value });
+    if (errorMessage) errors[name] = errorMessage;
+    else delete errors[name];
+
+    const data = { ...this.state.data };
+
+    data[name] = value;
+
+    this.setState({ data, errors });
+    // this.handleSelectChange(value, { name });
+    // console.log(value);
+    this.setState({ othersDisabled: false });
+    this.setState({ modelLabel: value });
+    // console.log(this.state.modelsDisabled);
+  };
+
+  myhandlePurchaseDate = (e) => {
+    const data = { ...this.state.data };
+    data["purchaseDate"] = e.target.value;
+    this.setState({ data });
   };
 
   render() {
     const { setPopup, allItems } = this.props;
-    const { modelsDisabled } = this.state;
-    console.log(modelsDisabled);
+    const { modelsDisabled, othersDisabled, modelsItemLabel } = this.state;
+    // console.log(modelsItemLabel);
+    // console.log(modelsDisabled);
 
     // this.renderModelsArray(allItems);
     return (
@@ -100,16 +135,34 @@ class EditInventoryPopup extends Form {
             this.myhandleSelectChangeItem
           )}
         </div>
-        {this.state.data && <h3>testing data</h3>}
         <div className="col-sm-8">
           {this.renderSelect(
-            "modelsItemLabel",
+            "modelLabel",
             "Select Model",
             this.renderModelsArray(allItems),
             false,
             modelsDisabled,
-            true
+            true,
+            this.myhandleSelectChangeModel
           )}
+        </div>
+        <div className="col-sm-8">
+          {this.renderInput(
+            "quantityValue",
+            "Quantity",
+            "number",
+            othersDisabled
+          )}
+        </div>
+        <div className="col-sm-8">
+          <DateTimePicker
+            changeHandler={this.myhandlePurchaseDate}
+            id={"date"}
+            label={"End Date"}
+            type={"date"}
+            defaultValue={todayDate}
+            isDisabled={othersDisabled}
+          />
         </div>
         <div className="pu-content-container">
           <button
