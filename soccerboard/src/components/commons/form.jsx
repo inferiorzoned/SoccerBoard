@@ -45,6 +45,7 @@ class Form extends Component {
     const data = { ...this.state.data };
 
     data[input.name] = input.value;
+    console.log(data);
 
     this.setState({ data, errors });
   };
@@ -61,7 +62,13 @@ class Form extends Component {
     this.doSubmit();
   };
 
-  renderInput = (fieldName, label, type = "text", isDisabled = false) => {
+  renderInput = (
+    fieldName,
+    label,
+    type = "text",
+    isDisabled = false,
+    defaultValue = ""
+  ) => {
     const { data, errors } = this.state;
     return (
       <Input
@@ -72,6 +79,7 @@ class Form extends Component {
         error={errors[fieldName]}
         onChange={this.handleChange}
         disabled={isDisabled}
+        defaultValue={defaultValue}
       />
     );
   };

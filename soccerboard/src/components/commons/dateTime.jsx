@@ -1,5 +1,6 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
+import { DatePicker } from "@material-ui/pickers";
 
 const DateTimePicker = ({
   changeHandler,
@@ -12,9 +13,10 @@ const DateTimePicker = ({
   return (
     <form>
       <TextField
+        style={{ backgroundColor: "#fff", color: "#FFF" }}
         id={id}
         label={label}
-        color="primary"
+        // color="blue"
         type={type}
         defaultValue={defaultValue}
         // className={classes.textField}

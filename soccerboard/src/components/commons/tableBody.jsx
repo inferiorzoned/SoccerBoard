@@ -13,20 +13,36 @@ class TableBody extends Component {
   };
 
   render() {
-    const { data, columns, onRowClicked } = this.props;
+    const { data, columns, onRowClicked, onDelete } = this.props;
 
     return (
-      <tbody>
-        {data.map((item) => (
-          <tr key={item._id} onClick={() => onRowClicked(item)}>
-            {columns.map((column) => (
-              <td key={this.createKey(item, column)}>
-                {this.renderCell(item, column)}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
+      <>
+        <tbody>
+          {data.map((item) => (
+            <tr key={item._id} className="tableRow">
+              {columns.map((column) => (
+                <td
+                  key={this.createKey(item, column)}
+                  onClick={() => onRowClicked(item)}
+                >
+                  {this.renderCell(item, column)}
+                </td>
+              ))}
+              {/* create a button named delete onclick deleteItem */}
+              {onDelete && (
+                <td key={item._id}>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => onDelete(item)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </>
     );
   }
 }

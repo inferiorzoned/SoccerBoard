@@ -3,34 +3,36 @@ import SideBar from "../components/sideBar";
 import InventoryList from "../components/inventoryList";
 import InfoSidebar from "../components/commons/infoSidebar";
 import InventoryItemInfo from "../components/inventoryItemInfo";
-import EditInventoryPopup from "../components/editInventoryPopup";
+// import EditInventoryPopup from "../components/editInventoryPopup";
+import AddInventoryPopup from "../components/addInventoryPopup";
+import todayDate from "../components/commons/todayDate";
 
 class Inventory extends Component {
   state = {
-    // create an array named item of objects containing label and quantity
+    // create an array named item of objects containing itemLabel and quantity
     items: [
       {
-        label: "Ball",
+        itemLabel: "Ball",
         quantity: 7,
         models: [
           {
             avatar: "aufau",
-            label: "1",
-            "last purchased date": "7/10/2019",
-            "last purchased qty": "2",
-            "total quantity": "7",
+            modelLabel: "1",
+            "last purchased date": "2019-10-07",
+            "last purchased qty": 2,
+            "total quantity": 7,
           },
           {
             avatar: "aufau",
-            label: "2",
-            "last purchased date": "21/1/2021",
-            "last purchased qty": "5",
-            "total quantity": "7",
+            modelLabel: "2",
+            "last purchased date": "2021-01-21",
+            "last purchased qty": 5,
+            "total quantity": 7,
           },
         ],
       },
-      { label: "Training Kits", quantity: 6 },
-      { label: "Cones", quantity: 10 },
+      { itemLabel: "Training Kits", quantity: 6, models: [] },
+      { itemLabel: "Cones", quantity: 10, models: [] },
     ],
     inventoryInfoHeading: [
       { key: "last purchased date", label: "Last Purchased Date" },
@@ -44,14 +46,16 @@ class Inventory extends Component {
     currentItemNo: 0,
     comments: "",
     showEditPopup: false,
-    sortColumn: { path: "label", order: "asc" },
+    sortColumn: { path: "itemLabel", order: "asc" },
   };
 
   onRowClicked = (row) => {
-    // map throuh items and find the one with the same label as the row clicked and assign it to currentItem
-    const currentItem = this.state.items.find((i) => i.label === row.label);
+    // map throuh items and find the one with the same itemLabel as the row clicked and assign it to currentItem
+    const currentItem = this.state.items.find(
+      (i) => i.itemLabel === row.itemLabel
+    );
     this.setState({ currentItem });
-    this.setState({ title: row.label });
+    this.setState({ title: row.itemLabel });
     this.setState({ showItemInfo: !this.state.showItemInfo });
   };
 
@@ -91,6 +95,106 @@ class Inventory extends Component {
     this.setState({ showEditPopup: isPopup });
   };
 
+  addItem = (
+    itemLabel,
+    modelQty,
+    modelAvatar,
+    modelLabel,
+    modelPurchasedDate,
+    toAddQty = true
+  ) => {
+    // check if itemLabel exists in items array as itemLabel, if dound change its attributes inside items
+    // else create a new object and add it to items array
+    const { items } = this.state;
+    const itemExists = items.find((i) => i.itemLabel === itemLabel);
+    console.log(itemExists);
+    if (itemExists) {
+      itemExists.quantity = toAddQty
+        ? itemExists.quantity + modelQty
+        : itemExists.quantity;
+      // itemExists.quantity = parseInt(itemExists.quantity) + parseInt(modelQty);
+      // check if model exists in models array as modelLabel, if found edit last purchased date and quantity
+      // else add new model to models array
+      const modelExists = itemExists.models.find(
+        (m) => m.modelLabel === modelLabel
+      );
+      if (modelExists) {
+        modelExists["last purchased date"] = modelPurchasedDate;
+        modelExists["last purchased qty"] = modelQty;
+        modelExists["total quantity"] = itemExists.quantity;
+      } else {
+        itemExists.models.push({
+          avatar: modelAvatar,
+          modelLabel: modelLabel,
+          "last purchased date": modelPurchasedDate,
+          "last purchased qty": modelQty,
+          "total quantity": itemExists.quantity,
+        });
+      }
+    } else {
+      items.push({
+        itemLabel: itemLabel,
+        quantity: modelQty,
+        models: [
+          {
+            avatar: modelAvatar,
+            modelLabel: modelLabel,
+            "last purchased date": modelPurchasedDate,
+            "last purchased qty": modelQty,
+            "total quantity": modelQty,
+          },
+        ],
+      });
+    }
+    this.setState({ items });
+  };
+
+  onSubmitEditInventory = (data, toAddQty = true) => {
+    const objectData = {
+      ...data,
+      itemLabel: {
+        label: data.itemLabel,
+        value: data.itemLabel.toLowerCase(),
+      },
+      modelLabel: {
+        label: data.modelLabel,
+        value: data.modelLabel.toLowerCase(),
+      },
+    };
+    if (!("purchaseDate" in data || "last purchased date" in data)) {
+      objectData["purchaseDate"] = todayDate;
+    }
+    this.addItem(
+      objectData.itemLabel.label,
+      objectData.quantityValue || objectData["last purchased qty"],
+      objectData.avatar,
+      objectData.modelLabel.label,
+      objectData.purchaseDate || objectData["last purchased date"],
+      toAddQty
+    );
+    console.log(objectData);
+    this.handleSetPopup(false);
+  };
+
+  handleDeleteItem = (row) => {
+    const items = this.state.items.filter((i) => row.itemLabel !== i.itemLabel);
+    this.setState({ items });
+  };
+
+  handleEditModel = (data, prevModel) => {
+    console.log(data, prevModel);
+    // for all keys in prevModel object, if the key is not in data, add the key-value pair to data
+    Object.keys(prevModel).forEach((key) => {
+      if (!(key in data)) {
+        data[key] = prevModel[key];
+      }
+    });
+    // data["last purchased qty"] -= prevModel["last purchased qty"];
+    console.log(data);
+    this.onSubmitEditInventory(data, false);
+    this.setState({ showItemInfo: false });
+  };
+
   onSaveClick = () => {
     // save the item to the database
     const { items } = this.state;
@@ -101,14 +205,14 @@ class Inventory extends Component {
     const { inventoryInfoHeading } = this.state;
     const { sortColumn } = this.state;
     const item = items[defaultModelNo - 1];
-    const itemName = item.label;
+    const itemName = item.itemLabel;
     const itemQty = item.quantity;
     const itemLastPurchasedDate = item["last purchased date"];
     const itemLastPurchasedQty = item["last purchased qty"];
     const itemTotalQuantity = item["total quantity"];
     const itemAvatar = item["avatar"];
     const itemInfo = {
-      label: itemName,
+      itemLabel: itemName,
       quantity: itemQty,
       "last purchased date": itemLastPurchasedDate,
       "last purchased qty": itemLastPurchasedQty,
@@ -139,9 +243,9 @@ class Inventory extends Component {
             items={items}
             sortColumn={sortColumn}
             onRowClicked={this.onRowClicked}
-            className="d-flex justify-content-center mt-4"
+            onDelete={this.handleDeleteItem}
           />
-          {/* create an blue colored button named edit details change color to dark blue in hover*/}
+          {/* create an blue colored button named add items change color to dark blue in hover*/}
           <div className="d-flex justify-content-center mt-4">
             <button
               className="btn btn-primary btn-sm"
@@ -169,7 +273,6 @@ class Inventory extends Component {
           </form>
           {/* create a save button at middle of the page*/}
           <div className="d-flex justify-content-center">
-            {/* <div className="col-sm-offset-2 col-sm-10"> */}
             <button className="btn btn-success" onClick={this.onSaveClick}>
               Save
             </button>
@@ -182,18 +285,22 @@ class Inventory extends Component {
             <InventoryItemInfo
               title={title}
               infoHeading={inventoryInfoHeading}
-              // data={inventoryInfoSidebardata[title][defaultModelNo]}
               data={
                 currentItem["models"] && currentItem["models"][defaultModelNo]
               }
               leftOnClick={this.leftOnClick}
               rightOnClick={this.rightOnClick}
+              handleEditModel={this.handleEditModel}
             />
           </div>
         )}
 
         {showEditPopup && (
-          <EditInventoryPopup allItems={items} setPopup={this.handleSetPopup} />
+          <AddInventoryPopup
+            allItems={items}
+            setPopup={this.handleSetPopup}
+            onSubmitEditInventory={this.onSubmitEditInventory}
+          />
         )}
       </div>
     );

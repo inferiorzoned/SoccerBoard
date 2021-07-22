@@ -4,12 +4,12 @@ import Joi from "joi-browser";
 import todayDate from "./commons/todayDate";
 import DateTimePicker from "./commons/dateTime";
 
-class EditInventoryPopup extends Form {
+class AddInventoryPopup extends Form {
   state = {
     data: {},
     errors: {},
     schema: {
-      label: Joi.string().required().label("Select Item"),
+      itemLabel: Joi.string().required().label("Select Item"),
       modelLabel: Joi.string().required().label("Select Model"),
       quantityValue: Joi.number().min(0).label("Quantity"),
     },
@@ -28,8 +28,8 @@ class EditInventoryPopup extends Form {
     const itemArray = [];
     for (let i = 0; i < allItems.length; i++) {
       itemArray.push({
-        label: allItems[i].label,
-        value: allItems[i].label.toLowerCase(),
+        label: allItems[i].itemLabel,
+        value: allItems[i].itemLabel,
       });
     }
     return itemArray;
@@ -39,25 +39,21 @@ class EditInventoryPopup extends Form {
     // take all the models's labels into an array, where items's label is modelsItemLabel
     const modelArray = [];
     for (let i = 0; i < allItems.length; i++) {
-      if (this.state.modelsItemLabel === allItems[i].label.toLowerCase()) {
+      if (
+        this.state.modelsItemLabel.toLocaleLowerCase() ===
+        allItems[i].itemLabel.toLowerCase()
+      ) {
         // iterrate through models object of allItems[i] and add it to modelArray with label as models label and lowercase label as value
         for (let key in allItems[i].models) {
           modelArray.push({
-            label: allItems[i].models[key].label,
-            value: allItems[i].models[key].label.toLowerCase(),
+            label: allItems[i].models[key].modelLabel,
+            value: allItems[i].models[key].modelLabel,
           });
         }
       }
     }
     // console.log(modelArray);
     return modelArray;
-  };
-
-  onSubmitEditInventory = () => {
-    // alert("pressed");
-    console.log("hello");
-    const { ...data } = this.state.data;
-    console.log(data);
   };
 
   myhandleSelectChangeItem = (value, { name }) => {
@@ -97,6 +93,7 @@ class EditInventoryPopup extends Form {
     const data = { ...this.state.data };
 
     data[name] = value;
+    console.log(name, value);
 
     this.setState({ data, errors });
     // this.handleSelectChange(value, { name });
@@ -112,9 +109,27 @@ class EditInventoryPopup extends Form {
     this.setState({ data });
   };
 
+  myHandleImage = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        this.setState({
+          data: {
+            ...this.state.data,
+            avatar: reader.result,
+            imageFile: file,
+          },
+        });
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   render() {
-    const { setPopup, allItems } = this.props;
-    const { modelsDisabled, othersDisabled, modelsItemLabel } = this.state;
+    const { setPopup, allItems, onSubmitEditInventory } = this.props;
+    const { data, modelsDisabled, othersDisabled, modelsItemLabel } =
+      this.state;
     // console.log(modelsItemLabel);
     // console.log(modelsDisabled);
 
@@ -126,7 +141,7 @@ class EditInventoryPopup extends Form {
         </button>
         <div className="col-sm-8">
           {this.renderSelect(
-            "label",
+            "itemLabel",
             "Select Item",
             this.renderItemArray(allItems),
             false,
@@ -147,6 +162,29 @@ class EditInventoryPopup extends Form {
           )}
         </div>
         <div className="col-sm-8">
+          <div className="image-holder m-2">
+            <img
+              src={this.state.data.avatar}
+              alt=""
+              id="img"
+              className="img-thumbnail"
+            />
+            <label htmlFor="image-input" className="btn btn-maroon m-2">
+              Choose Model Picture
+            </label>
+            <input
+              className="btn btn-maroon m-3"
+              type="file"
+              accept="image/*"
+              name="image-upload"
+              id="image-input"
+              onChange={this.myHandleImage}
+              hidden
+              disabled={othersDisabled}
+            />
+          </div>
+        </div>
+        <div className="col-sm-8">
           {this.renderInput(
             "quantityValue",
             "Quantity",
@@ -158,16 +196,17 @@ class EditInventoryPopup extends Form {
           <DateTimePicker
             changeHandler={this.myhandlePurchaseDate}
             id={"date"}
-            label={"End Date"}
+            label={"Purchase Date"}
             type={"date"}
             defaultValue={todayDate}
             isDisabled={othersDisabled}
+            disableFuture
           />
         </div>
         <div className="pu-content-container">
           <button
             className="pu-button-prop"
-            onClick={this.onSubmitEditInventory}
+            onClick={() => onSubmitEditInventory(data)}
           >
             Add
           </button>
@@ -177,4 +216,4 @@ class EditInventoryPopup extends Form {
   }
 }
 
-export default EditInventoryPopup;
+export default AddInventoryPopup;

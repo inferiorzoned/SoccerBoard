@@ -7,7 +7,7 @@ class InventoryList extends Component {
     {
       path: "items",
       label: "Items",
-      content: (item) => <div>{item.label}</div>,
+      content: (item) => <div>{item.itemLabel}</div>,
     },
     {
       path: "quantity",
@@ -17,16 +17,17 @@ class InventoryList extends Component {
   ];
 
   render() {
-    const { items, sortColumn, onRowClicked } = this.props;
+    const { items, sortColumn, onRowClicked, onDelete } = this.props;
     return (
       <div className="row">
-        <div className="d-flex justify-content-center align-content-center">
+        <div className="d-flex justify-content-center mt-4">
           <div className="itemTable">
             <Table
               columns={this.columns}
               data={items}
               sortColumn={sortColumn}
               onRowClicked={onRowClicked}
+              onDelete={onDelete}
             />
           </div>
         </div>
