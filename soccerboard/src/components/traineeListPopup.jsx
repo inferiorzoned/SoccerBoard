@@ -4,7 +4,6 @@ import { CircularProgress } from "@material-ui/core";
 import Table from "./commons/table";
 import _ from "lodash";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 
 class TraineeListPopup extends Component {
   state = {
@@ -59,7 +58,7 @@ class TraineeListPopup extends Component {
     {
       path: "position",
       label: "",
-      content: (player) => <div>{player.position}</div>,
+      content: (player) => <div>{player.positions[0]}</div>,
     },
     {
       path: "name",
@@ -70,32 +69,21 @@ class TraineeListPopup extends Component {
 
   render() {
     console.log(this.props.previouslySelected);
-    const { setPopup, onRowClicked, sortColumn, saveTrainee } = this.props;
-    const { squadData, list } = this.state;
+    const { setPopup, onRowClicked, saveTrainee } = this.props;
+    const { squadData } = this.state;
     // console.log(squadData);
     if (squadData) {
       return (
-        <div className="traineePopup">
-          <button className="popup-x" onClick={() => setPopup(false)}>
+        <div className="trainee-popup">
+          <div className="popup-x" onClick={() => setPopup(false)}>
             X
-          </button>
-          <h1>Select Players</h1>
-          <List
-            style={{
-              maxHeight: 380,
-              overflow: "auto",
-              border: "4px double",
-              borderColor: "#359b37",
-              borderRadius: "2px",
-              marginTop: "1.5em",
-              paddingLeft: "1em",
-              paddingRight: "1.5em",
-            }}
-          >
+          </div>
+          <h3>Select Players</h3>
+          <List className="trainee-list">
             <ul style={{ listStyle: "none" }}>
               {squadPositions.map((posType, posTypeId) => (
                 <li key={posTypeId}>
-                  <h4>{posType}</h4>
+                  <h5>{posType}</h5>
                   {/* <ul>
                       {squadData[posType] &&
                         squadData[posType].map((playerData, playerDataId) => (
@@ -114,9 +102,12 @@ class TraineeListPopup extends Component {
               ))}
             </ul>
           </List>
-          <div className="pu-content-container">
-            <button className="pu-button-prop" onClick={() => saveTrainee()}>
-              Add
+          <div className="d-flex justify-content-center align-items-center">
+            <button
+              className="btn btn-green-dark m-3"
+              onClick={() => saveTrainee()}
+            >
+              ADD
             </button>
           </div>
         </div>

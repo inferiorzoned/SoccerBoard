@@ -6,22 +6,29 @@ import React from "react";
 
 const InfoSidebar = ({ infoHeading, data }) => {
   return (
-    <React.Fragment>
-      <div className="image-holder m-2">
+    <div className="sidebar p-4">
+      <div className="image-holder m-2 align-self-center">
         <img src={data.avatar} alt="" id="img" className="img-thumbnail" />
       </div>
-      <div className="text-center py-3">{data.name}</div>
-      {infoHeading.map((info) => (
-        <div key={info.key} className="row">
-          <div className="col text-start">{info.label}</div>
-          {data[info.key] && data[info.key].constructor === Array ? (
-            <div className="col text-start">{data[info.key].toString()}</div>
-          ) : (
-            <div className="col text-start">{data[info.key]}</div>
-          )}
-        </div>
-      ))}
-    </React.Fragment>
+      <div className="sidebar-name">{data.name}</div>
+
+      <table style={{ tableLayout: "fixed", width: "100%" }}>
+        <tbody>
+          {infoHeading.map((info) => (
+            <tr key={info.key}>
+              <td className="sidebar-table-label">{info.label}</td>
+              {data[info.key] && data[info.key].constructor === Array ? (
+                <td className="sidebar-table-value">
+                  {data[info.key].toString().replaceAll(",", ", ")}
+                </td>
+              ) : (
+                <td className="sidebar-table-value">{data[info.key]}</td>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

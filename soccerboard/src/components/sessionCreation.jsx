@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import SideBar from "./sideBar";
 import IconButton from "@material-ui/core/IconButton";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
-// import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -55,71 +53,68 @@ class SessionCreation extends Component {
     console.log(schedule["endDate"]);
     console.log(schedule["trainingTime"]);
     return (
-      <div className="sidebar">
-        <div style={{ color: "white", textAlign: "center", marginTop: "50px" }}>
-          <div className="mt-2">
-            <h1>Trainees</h1>
-            <IconButton onClick={handleTraineeClick}>
-              <AddCircleOutlineOutlinedIcon style={{ color: "#FFFF00" }} />
-            </IconButton>
-            {selectedPlayers.length > 0 && (
-              <div>
-                <List
-                  style={{
-                    maxHeight: 180,
-                    overflow: "auto",
-                    border: "5px solid green",
-                    borderRadius: "5px",
-                  }}
-                >
-                  {selectedPlayers.map((p, pId) => (
-                    <div>
-                      <ListItem>{p.name}</ListItem>
-                      <Divider />
-                    </div>
-                  ))}
-                </List>
-              </div>
-            )}
-          </div>
-          <div className="mt-5">
-            <h1>Schedule</h1>
-            <IconButton onClick={handleScheduleClick}>
-              <AddCircleOutlineOutlinedIcon style={{ color: "#FFFF00" }} />
-            </IconButton>
-            {scheduleAdded && (
-              <div>
-                <div className="d-flex justify-content-center align-items-center">
-                  <button className="session session-date">
-                    {this.toDateStr(schedule["startDate"])}
-                  </button>
-                  to
-                  <button className="session session-date">
-                    {this.toDateStr(schedule["endDate"])}
-                  </button>
+      <div
+        className="sidebar text-center position-fixed end-0"
+        style={{ width: "16%" }}
+      >
+        <div className="mt-3">
+          <h3>Trainees</h3>
+          <IconButton onClick={handleTraineeClick}>
+            <AddCircleOutlineOutlinedIcon style={{ color: "#FFFF00" }} />
+          </IconButton>
+          {selectedPlayers.length > 0 && (
+            <div>
+              <List
+                style={{
+                  maxHeight: 180,
+                  overflow: "auto",
+                  border: "5px solid green",
+                  borderRadius: "5px",
+                }}
+              >
+                {selectedPlayers.map((p, pId) => (
+                  <div>
+                    <ListItem>{p.name}</ListItem>
+                    <Divider />
+                  </div>
+                ))}
+              </List>
+            </div>
+          )}
+        </div>
+        <div className="mt-3">
+          <h3>Schedule</h3>
+          <IconButton onClick={handleScheduleClick}>
+            <AddCircleOutlineOutlinedIcon style={{ color: "#FFFF00" }} />
+          </IconButton>
+          {scheduleAdded && (
+            <div>
+              <div className="d-flex justify-content-center align-items-center">
+                <div className="session session-date">
+                  {this.toDateStr(schedule["startDate"])}
                 </div>
-                <div className="d-flex justify-content-center align-items-center">
-                  {weekDays.map((w, wId) => (
-                    <button
-                      className={`${w ? "wk-day wk-day-selected" : "wk-day"}`}
-                    >
-                      {this.state.wDays[wId]}
-                    </button>
-                  ))}
-                </div>
-                <div>
-                  <button className="session session-time">
-                    {schedule["trainingTime"]}
-                  </button>
+                to
+                <div className="session session-date">
+                  {this.toDateStr(schedule["endDate"])}
                 </div>
               </div>
-            )}
-          </div>
-          <div className="mt-3 ">
-            <button className="createSession" onClick={createSession}>
-              Create
-            </button>
-          </div>
+              <div className="d-flex justify-content-center align-items-center">
+                {weekDays.map((w, wId) => (
+                  <div className={`${w ? "wk-day wk-day-selected" : "wk-day"}`}>
+                    {this.state.wDays[wId]}
+                  </div>
+                ))}
+              </div>
+              <div className="session session-time">
+                {schedule["trainingTime"]}
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="mt-3 ">
+          <button className="btn btn-violet" onClick={createSession}>
+            Create
+          </button>
         </div>
       </div>
     );

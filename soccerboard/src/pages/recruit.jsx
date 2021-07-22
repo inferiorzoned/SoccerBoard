@@ -74,41 +74,76 @@ class Recruit extends Component {
       if (acceptedIds.length > 0) toast.success(accepted);
       if (rejectedIds.length > 0) toast.error(rejected);
       this.setState({ applicants: applicants });
-      await processApplicants(acceptedIds, rejectedIds);
+      // await processApplicants(acceptedIds, rejectedIds);
     } catch (ex) {
       this.setState({ applicants: originalApplicants });
     }
   };
 
   render() {
-    const { applicants, currentApplicant, sortColumn } = this.state;
-    console.log(applicants);
+    const {
+      applicants,
+      currentApplicant,
+      sortColumn,
+      acceptedIds,
+      rejectedIds,
+    } = this.state;
+    // console.log(applicants);
+    const accepetedPlayers = applicants.filter((applicant) =>
+      acceptedIds.includes(applicant._id)
+    );
+    const rejectedPlayers = applicants.filter((applicant) =>
+      rejectedIds.includes(applicant._id)
+    );
+
     return (
       <React.Fragment>
-        <div className="d-flex">
-          <div className="p-5 flex-grow-1 container">
-            <RecruitTable
-              applicants={applicants}
-              sortColumn={sortColumn}
-              onRowClicked={this.onRowClicked}
-              onSelectionChange={this.onSelectionChange}
-            />
-            <div className="text-center my-3">
-              {/* TODO - Show accepted players list and update recruit table */}
-              <button
-                className="btn btn-green-dark"
-                onClick={this.onSaveClicked}
-              >
-                SAVE
-              </button>
+        <div className="row">
+          <div className="col-8">
+            <div className="p-5 flex-grow-1 container">
+              <RecruitTable
+                applicants={applicants}
+                sortColumn={sortColumn}
+                onRowClicked={this.onRowClicked}
+                onSelectionChange={this.onSelectionChange}
+              />
+              {acceptedIds.length + rejectedIds.length > 0 && (
+                <div className="row">
+                  <div className="col m-3">
+                    <div className="fw-bold">Accepted Players</div>
+                    <ol>
+                      {accepetedPlayers.map((p) => (
+                        <li key={p._id}>{p.name}</li>
+                      ))}
+                    </ol>
+                  </div>
+                  <div className="col m-3">
+                    <div className="fw-bold">Rejected Players</div>
+                    <ol>
+                      {rejectedPlayers.map((p) => (
+                        <li key={p._id}>{p.name}</li>
+                      ))}
+                    </ol>
+                  </div>
+                </div>
+              )}
+              <div className="d-flex flex-column align-items-center my-3">
+                <button
+                  className="btn btn-green-dark"
+                  onClick={this.onSaveClicked}
+                >
+                  SAVE
+                </button>
+              </div>
             </div>
           </div>
-          {/* TODO-Increase width of the side bar */}
-          <div className="vh-100 bg-light sticky-top p-5 align-items-center">
-            <InfoSidebar
-              infoHeading={this.playerInfo}
-              data={currentApplicant}
-            />
+          <div className="col-4">
+            <div className="position-fixed end-0" style={{ width: "20%" }}>
+              <InfoSidebar
+                infoHeading={this.playerInfo}
+                data={currentApplicant}
+              />
+            </div>
           </div>
         </div>
         <ToastContainer />

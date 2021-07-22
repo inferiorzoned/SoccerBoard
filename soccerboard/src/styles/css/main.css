@@ -67,16 +67,26 @@
 }
 
 .sidebar {
-  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   height: 100vh;
-  width: 200px;
+  min-width: 12rem;
   background-color: #212230;
+  color: #eeeeee;
+}
+
+.sidebar-name {
+  padding: 1rem 0 1rem 0;
+  font-weight: 500;
+  align-self: center;
 }
 
 .sidebar-list {
   height: auto;
   width: 100%;
   padding: 0;
+  list-style-type: none;
 }
 
 .sidebar-row {
@@ -111,7 +121,7 @@
   width: 240px;
   height: 240px;
   object-fit: cover;
-  border-color: #79352d;
+  border: solid 2px #79352d;
 }
 
 .form-check-input:checked {
@@ -160,7 +170,7 @@
 .t-card {
   justify-content: center;
   height: 240px;
-  width: 360px;
+  width: 100%;
   border: solid 2px #00251a;
   border-radius: 8px;
   padding: 16px;
@@ -411,6 +421,30 @@
   background-color: #f3f3f3;
 }
 
+.btn-violet {
+  color: #ffffff;
+  background-color: #3b55dd;
+  border-color: #3b55dd;
+}
+.btn-violet:hover, .btn-violet:focus, .btn-violet:active, .btn-violet.active,
+.btn-violet .open .dropdown-toggle.btn-violet {
+  color: #ffffff;
+  background-color: #3b55dd;
+  border-color: #3b55dd;
+}
+.btn-violet:active, .btn-violet.active,
+.btn-violet .open .dropdown-toggle.btn-violet {
+  background-image: none;
+}
+.btn-violet.disabled, .btn-violet[disabled], fieldset[disabled] .btn-violet, .btn-violet.disabled:hover, .btn-violet[disabled]:hover, fieldset[disabled] .btn-violet:hover, .btn-violet.disabled:focus, .btn-violet[disabled]:focus, fieldset[disabled] .btn-violet:focus, .btn-violet.disabled:active, .btn-violet[disabled]:active, fieldset[disabled] .btn-violet:active, .btn-violet.disabled.active, .btn-violet[disabled].active, fieldset[disabled] .btn-violet.active {
+  background-color: #3b55dd;
+  border-color: #3b55dd;
+}
+.btn-violet .badge {
+  color: #3b55dd;
+  background-color: #ffffff;
+}
+
 .squad-table {
   border-radius: 16px;
   border-spacing: 0;
@@ -555,6 +589,22 @@
 .evaluation-marks-input:focus {
   outline-color: #28a745;
   box-shadow: 0 0 0 0.2rem rgba(0, 200, 83, 0.25);
+}
+
+.sidebar-table-label {
+  padding: 0.5rem;
+  margin: 0.25rem 0.5rem 0.25rem 0.5rem;
+  color: #aaaaaa;
+}
+.sidebar-table-value {
+  margin: 0.25rem 1rem 0.25rem 0.5rem;
+  color: #dddddd;
+  font-family: "Passero One";
+  word-wrap: break-word;
+}
+
+.recruit-table {
+  cursor: pointer;
 }
 
 .field-container {
@@ -896,14 +946,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: 11.2px;
   font-weight: 500;
-  width: 2rem;
-  height: 2rem;
-  margin: 0.2rem;
-  padding: 0.2rem;
+  width: 28px;
+  height: 28px;
+  margin: 2.8px;
+  padding: 2.8px;
   border: none;
-  border-radius: 1rem;
+  border-radius: 14px;
   cursor: pointer;
   background-color: #eee;
   color: #212230;
@@ -944,4 +994,72 @@
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 4px 4px 4px #808080;
+}
+
+.session-creation-instruction {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 50%;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  font-weight: 300;
+  background-color: #3e3bddcc;
+  color: #ffffff;
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.trainee-popup {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  background-color: #fdfffc;
+  border-radius: 1rem;
+  box-shadow: 4px 4px 8px #808080;
+  z-index: 1;
+}
+
+.popup-x {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  background-color: #d32f2f;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0.5rem;
+  margin: 0.5rem 0.6rem 0.5rem 0.6rem;
+  border: none;
+  border-radius: 0.2rem;
+  box-shadow: 1px 1px 2px #808080;
+  cursor: pointer;
+}
+.popup-x:active {
+  transform: translateY(1px);
+}
+
+.trainee-list {
+  max-height: 26rem;
+  width: 75%;
+  overflow: auto;
+  border: double 4px #be4e41;
+  border-radius: 4px;
+  margin: 1rem !important;
+  padding: 1rem;
+}
+
+.during-popup {
+  background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35));
 }

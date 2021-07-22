@@ -116,79 +116,9 @@ swapnils
   border: 1px solid greenyellow;
 }
 
-.traineePopup {
-  position: fixed;
-
-  left: 25%;
-  top: 15%;
-
-  width: 50%;
-
-  border: 1px solid #011627;
-  border-radius: 1em;
-  box-shadow: -2px 5px 5px #120249;
-
-  background-color: #fdfffc;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  color: #011627;
-}
-
-.during-popup {
-  background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35));
-  /* opacity: 0.5; */
-}
-
 .listLine {
   color: #359b37;
   /* height: 5px; */
-}
-
-.pu-content-container {
-  width: 100%;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-.popup-x {
-  background-color: #96f78f;
-  width: 2.5em;
-  height: 1.67em;
-
-  border: none;
-  border-top-right-radius: 1em;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-
-  align-self: flex-end;
-  justify-self: flex-start;
-}
-.popup-x:hover {
-  background-color: #319629;
-}
-
-.createSession {
-  background-color: #033300;
-  color: white;
-  /* background-color: #96f78f; */
-  border: 2px solid #daf8d7;
-  border-radius: 20px;
-  /* text-transform: uppercase; */
-  padding: 0.5em 1em;
-  margin: 1.5em 0em;
-  /* margin-right: 2em; */
-  font-size: 1.25em;
-}
-
-.createSession:hover {
-  background-color: #319629;
-  border: 5px solid #033300;
 }
 
 .listScroll {

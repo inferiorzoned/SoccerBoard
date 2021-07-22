@@ -8,7 +8,7 @@ class SideBar extends Component {
     const { page } = this.props;
     const user = auth.getCurrentUser();
     return (
-      <div className="sidebar">
+      <div className="sidebar position-fixed start-0" style={{ width: "12%" }}>
         {user.isAdmin && (
           <React.Fragment>
             <SideBarList pageName={page} sectionType={"outerLink"} />

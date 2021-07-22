@@ -83,6 +83,7 @@ class RecruitTable extends Component {
         sortColumn={sortColumn}
         onSort={onSort}
         onRowClicked={onRowClicked}
+        tableClassName="table recruit-table"
       />
     );
   }

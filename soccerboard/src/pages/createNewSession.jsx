@@ -218,7 +218,7 @@ class CreateNewSession extends Component {
             <div className="col-sm-2">
               <SideBar page={"trainingRepo"} />
             </div>
-            <div className={`col-sm-${showSessionCreation ? "8" : "10"}`}>
+            <div className={`col-sm-${showSessionCreation ? "8" : "8"}`}>
               <form className=" mb-1 " onSubmit={this.handleFormSubmit}>
                 <div className="form-group">
                   <label htmlFor="exampleInputEmail1"></label>
@@ -239,8 +239,8 @@ class CreateNewSession extends Component {
               <div className="category-line"></div>
               <TrainingCards handleLink={this.handleLink} />
             </div>
-            {showSessionCreation && (
-              <div className="col-sm-2 d-flex flex-row-reverse">
+            <div className="col-sm-2 d-flex flex-row-reverse">
+              {showSessionCreation && (
                 <SessionCreation
                   handleTraineeClick={this.handleTraineeClick}
                   selectedPlayers={finalSelectedPlayers}
@@ -250,9 +250,12 @@ class CreateNewSession extends Component {
                   scheduleAdded={scheduleAdded}
                   createSession={this.createSession}
                 />
-              </div>
-            )}
+              )}
+            </div>
           </div>
+        </div>
+        <div className="session-creation-instruction">
+          Ctrl+click on a training to add that to session.
         </div>
         <ToastContainer />
       </React.Fragment>

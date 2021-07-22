@@ -6,7 +6,6 @@ class TrainingCard extends Component {
     // selected: false,
   };
   render() {
-    const str = "hello";
     let selecetdTrainings = [];
     const {
       trainingImage,

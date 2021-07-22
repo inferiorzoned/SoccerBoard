@@ -9,7 +9,7 @@
   width: 240px;
   height: 240px;
   object-fit: cover;
-  border-color: c.$maroon-dark;
+  border: solid 2px c.$maroon-dark;
 }
 
 .form-check-input:checked {

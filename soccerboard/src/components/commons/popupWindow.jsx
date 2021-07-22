@@ -8,11 +8,7 @@ class PopupWindow extends Component {
     console.log(stats);
     return (
       <div className="d-flex flex-column align-items-center justify-content-center popup-card">
-        <img
-          className="popup-card-img"
-          src={popupImage}
-          alt={`Picture of ${popupTitle}`}
-        />
+        <img className="popup-card-img" src={popupImage} alt={popupTitle} />
         <h3>{popupTitle}</h3>
         <table className="popup-card-table">
           <tbody>
