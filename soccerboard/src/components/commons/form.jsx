@@ -71,16 +71,21 @@ class Form extends Component {
   ) => {
     const { data, errors } = this.state;
     return (
-      <Input
-        type={type}
-        name={fieldName}
-        label={label}
-        value={data[fieldName]}
-        error={errors[fieldName]}
-        onChange={this.handleChange}
-        disabled={isDisabled}
-        defaultValue={defaultValue}
-      />
+      console.log(defaultValue),
+      (
+        <Input
+          type={type}
+          name={fieldName}
+          label={label}
+          // value={data[fieldName]}
+          error={errors[fieldName]}
+          onChange={this.handleChange}
+          disabled={isDisabled}
+          // key={defaultValue}
+          defaultValue={defaultValue}
+          // defaultValue="testing"
+        />
+      )
     );
   };
 
@@ -158,10 +163,11 @@ class Form extends Component {
     isMulti,
     isDisabled,
     isCreatable,
-    onChange = this.handleSelectChange
+    onChange = this.handleSelectChange,
+    defaultValue = ""
   ) => {
     const { errors } = this.state;
-    // console.log(errors);
+    console.log(defaultValue);
     return (
       <Select
         name={fieldName}
@@ -173,6 +179,7 @@ class Form extends Component {
         onChange={onChange}
         isDisabled={isDisabled}
         isCreatable={isCreatable}
+        defaultValue={defaultValue}
       />
     );
   };

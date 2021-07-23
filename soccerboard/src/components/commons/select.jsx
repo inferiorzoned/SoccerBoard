@@ -13,6 +13,7 @@ const Select = ({
   onChange,
   isDisabled = false,
   isCreatable = false,
+  defaultValue,
 }) => {
   const selectClass = error ? "is-invalid" : "";
   if (isCreatable) {
@@ -28,6 +29,7 @@ const Select = ({
           onChange={onChange}
           isMulti={isMulti}
           isDisabled={isDisabled}
+          defaultValue={defaultValue}
         />
       </div>
     );
@@ -44,6 +46,7 @@ const Select = ({
         onChange={onChange}
         className={selectClass}
         isDisabled={isDisabled}
+        defaultValue={defaultValue}
       />
       {error && <div className="invalid-feedback">{error}</div>}
     </div>

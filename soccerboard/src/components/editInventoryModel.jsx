@@ -97,9 +97,6 @@ class EditInventoryModel extends Form {
             }}
             // autoOk
             label="Last Purchased Date"
-            hintText="Date of purchase"
-            hintStyle={{ color: "whitesmoke" }}
-            inputStyle={{ color: "whitesmoke" }}
             // format="yyyy-MM-dd"
             clearable
             disableFuture

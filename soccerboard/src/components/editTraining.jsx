@@ -1,10 +1,9 @@
-import React from "react";
-import Joi from "joi-browser";
-import Form from "../components/commons/form";
-import { uploadTraining, uploadImage } from "../utils/trainingRepoService";
+import React, { Component } from "react";
+import CreateTraining from "../pages/createTraining";
 import TrainingEditor from "../components/trainingEditor";
+import Joi from "joi-browser";
 
-class CreateTraining extends Form {
+class EditTraining extends CreateTraining {
   state = {
     editorialContent: "",
     data: {
@@ -54,57 +53,17 @@ class CreateTraining extends Form {
     },
   };
 
-  setEditorialContent = (content) => {
-    this.setState({ editorialContent: content });
-  };
-
-  doSubmit = async () => {
-    const { data } = this.state;
-    const { imageFile } = data;
-    // Call the server
-    const { mediaUrl } = await uploadImage(imageFile);
-    const { title, category, difficulty } = data;
-    const form = {
-      trainingTitle: title,
-      trainingCategoryName: category,
-      trainingDescription: this.state.editorialContent,
-      trainingDifficulty: difficulty,
-      mediaUrl: mediaUrl,
-      // editorialContent: this.state.editorialContent,
-    };
-    console.log(form);
-    console.log("from create training ", this.state.editorialContent);
-    await uploadTraining(form);
-
-    // Call the server
-
-    console.log("Submitted");
-    window.location = "/Training Repo";
-  };
-
-  handleImage = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        this.setState({
-          data: {
-            ...this.state.data,
-            mediaUrl: reader.result,
-            imageFile: file,
-          },
-        });
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
   render() {
+    const { mediaUrl, title, category, difficulty, description, doneEditing } =
+      this.props;
+    console.log(this.props.title);
+
     const { difficultyLevels, categories } = this.state;
 
     const thumnailClasses = this.state.data.mediaUrl
       ? "tr-thumbnail"
       : "tr-thumbnail bg-gray";
+
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit}>
@@ -112,6 +71,14 @@ class CreateTraining extends Form {
             {this.state.data.mediaUrl && (
               <img
                 src={this.state.data.mediaUrl}
+                alt=""
+                id="img"
+                style={{ maxWidth: "100%", maxHeight: "100%" }}
+              />
+            )}
+            {!this.state.data.mediaUrl && (
+              <img
+                src={mediaUrl}
                 alt=""
                 id="img"
                 style={{ maxWidth: "100%", maxHeight: "100%" }}
@@ -134,24 +101,45 @@ class CreateTraining extends Form {
               UPLOAD THUMBNAIL
             </label>
           </div>
-          <div>{this.renderInput("title", "Title")}</div>
+          <div>{this.renderInput("title", "Title", "text", false, title)}</div>
           <div className="row">
             <div className="col-sm-6">
-              {this.renderSelect("difficulty", "Difficulty", difficultyLevels)}
+              {this.renderSelect(
+                "difficulty",
+                "Difficulty",
+                difficultyLevels,
+                false,
+                false,
+                false,
+                this.handleSelectChange,
+                { label: difficulty, value: difficulty.toLowerCase() }
+              )}
             </div>
             <div className="col-sm-6">
-              {this.renderSelect("category", "Category", categories)}
+              {this.renderSelect(
+                "category",
+                "Category",
+                categories,
+                false,
+                false,
+                false,
+                this.handleSelectChange,
+                { label: category, value: category.toLowerCase() }
+              )}
             </div>
           </div>
         </form>
         <div style={{ margin: "8px 8px 0 8px" }}>Details</div>
-        <TrainingEditor setContent={this.setEditorialContent} />
+        <TrainingEditor
+          setContent={this.setEditorialContent}
+          description={description}
+        />
         <div className="d-flex justify-content-center align-items-center my-5">
-          {this.renderButton("CREATE TRAINING", this.doSubmit)}
+          {this.renderButton("Save", doneEditing)}
         </div>
       </div>
     );
   }
 }
 
-export default CreateTraining;
+export default EditTraining;

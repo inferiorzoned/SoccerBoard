@@ -164,3 +164,54 @@ fieldset[disabled] .btn-green-dark.active {
 .t-difficulty-badge-amateur {
   background-color: #6c4ae7cc;
 }
+
+.tr-thumbnail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+  width: auto;
+  object-fit: cover;
+}
+.tr-thumbnail:hover #upload-thumbnail {
+  display: block;
+}
+
+.tr-label {
+  font-size: 0.6rem;
+  font-weight: 300;
+  color: gray;
+  margin: 0 4px 0 4px;
+  text-transform: capitalize;
+}
+
+.tr-value {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #212230;
+  margin: 0 4px 0 4px;
+  padding: 4px;
+  text-transform: capitalize;
+}
+
+.tr-title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+}
+
+#tr-editor {
+  border: 2px solid #212230;
+  border-radius: 4px;
+  margin: 8px;
+  width: 99%;
+  min-height: 260px;
+}
+
+#tr-view {
+  margin: 8px;
+}

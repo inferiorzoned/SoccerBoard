@@ -101,7 +101,8 @@ class Inventory extends Component {
     modelAvatar,
     modelLabel,
     modelPurchasedDate,
-    toAddQty = true
+    toAddQty = true,
+    prevModelLabel
   ) => {
     // check if itemLabel exists in items array as itemLabel, if dound change its attributes inside items
     // else create a new object and add it to items array
@@ -115,10 +116,18 @@ class Inventory extends Component {
       // itemExists.quantity = parseInt(itemExists.quantity) + parseInt(modelQty);
       // check if model exists in models array as modelLabel, if found edit last purchased date and quantity
       // else add new model to models array
-      const modelExists = itemExists.models.find(
-        (m) => m.modelLabel === modelLabel
-      );
+      let modelExists;
+      if (toAddQty) {
+        modelExists = itemExists.models.find(
+          (m) => m.modelLabel === modelLabel
+        );
+      } else {
+        modelExists = itemExists.models.find(
+          (m) => m.modelLabel === prevModelLabel
+        );
+      }
       if (modelExists) {
+        modelExists["modelLabel"] = modelLabel;
         modelExists["last purchased date"] = modelPurchasedDate;
         modelExists["last purchased qty"] = modelQty;
         modelExists["total quantity"] = itemExists.quantity;
@@ -149,7 +158,7 @@ class Inventory extends Component {
     this.setState({ items });
   };
 
-  onSubmitEditInventory = (data, toAddQty = true) => {
+  onSubmitEditInventory = (data, toAddQty = true, prevModelLabel) => {
     const objectData = {
       ...data,
       itemLabel: {
@@ -170,7 +179,8 @@ class Inventory extends Component {
       objectData.avatar,
       objectData.modelLabel.label,
       objectData.purchaseDate || objectData["last purchased date"],
-      toAddQty
+      toAddQty,
+      prevModelLabel
     );
     console.log(objectData);
     this.handleSetPopup(false);
@@ -189,9 +199,10 @@ class Inventory extends Component {
         data[key] = prevModel[key];
       }
     });
+    const prevModelLabel = prevModel.modelLabel;
     // data["last purchased qty"] -= prevModel["last purchased qty"];
     console.log(data);
-    this.onSubmitEditInventory(data, false);
+    this.onSubmitEditInventory(data, false, prevModelLabel);
     this.setState({ showItemInfo: false });
   };
 
