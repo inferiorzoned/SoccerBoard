@@ -8,8 +8,8 @@ import GameSquad from "./components/gameSquad";
 import Recruit from "./components/recruit";
 import Home from "./pages/home";
 import Test from "./test/test";
-import EvaluationTable from "./components/evaluationTable";
 import EvaluationResultTable from "./components/evaluationResultTable";
+import Evaluation from "./pages/evaluation";
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
             path="/evaluation-result"
             component={EvaluationResultTable}
           ></Route>
-          <Route path="/evaluation" component={EvaluationTable}></Route>
+          <Route path="/evaluation" component={Evaluation}></Route>
           <Route path="/squad" component={GameSquad}></Route>
           <Route path="/recruit" component={Recruit}></Route>
           <Route path="/" component={Login}></Route>

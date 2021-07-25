@@ -25,7 +25,8 @@ class Recruit extends Component {
   ];
 
   async componentDidMount() {
-    const epMedia = "http://localhost:3900/api/medias/image?mediaUrl=";
+    // const epMedia = "http://localhost:3900/api/medias/image?mediaUrl=";
+    const epMedia = "";
     let applicants = await getApplicants();
     if (applicants) {
       applicants.forEach((applicant) => {

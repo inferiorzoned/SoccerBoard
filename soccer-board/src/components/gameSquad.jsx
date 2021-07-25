@@ -15,16 +15,15 @@ import {
   faArrowRight,
   faCloudUploadAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  getSquad,
-  orderSquadPositions,
-  getFormations,
-} from "../services/squad";
+import { getSquad, orderSquadPositions } from "../services/squad";
+import mss from "../services/manageSquadService";
+import { getFormations } from "../services/manageSquadService";
 import field from "../assets/images/field.svg";
 import Player from "./commons/player";
 import Table from "./commons/table";
 import Instruction from "./instruction";
 import CmdButton from "./commons/cmdButton";
+import { testApply } from "../services/testServices";
 
 library.add(
   faPlus,
@@ -89,11 +88,14 @@ class GameSquad extends Component {
     },
   ];
 
-  componentDidMount() {
+  async componentDidMount() {
     const squad = getSquad();
+    // const squad = await mss.getSquads();
     const { _id: squadId, formationId, players } = squad;
-    const formations = [...getFormations()];
-    const formation = formations.find((f) => f._id === formationId);
+    // const formations = [...getFormations()];
+    const formations = await getFormations();
+    // const formation = formations.find((f) => f._id === formationId);
+    const formation = formations[0];
     const mainPlayers = orderSquadPositions(
       players.filter((p) => p.partOf === "main")
     );
@@ -104,8 +106,10 @@ class GameSquad extends Component {
       players.filter((p) => p.partOf === "reserved")
     );
     // console.log(formation);
+    // console.log(mainPlayers, subPlayers, reservedPlayers);
+
     const positions = this.setupPositions(mainPlayers, formation);
-    // console.log(formation);
+
     this.setState({
       squadId: squadId,
       formationId: formationId,
@@ -118,7 +122,6 @@ class GameSquad extends Component {
   }
 
   setupPositions = (_mainPlayers, _formation) => {
-    // const mainPlayers = _.cloneDeep(_mainPlayers);
     const mainPlayers = _mainPlayers;
     const formation = _.cloneDeep(_formation);
 
@@ -131,7 +134,10 @@ class GameSquad extends Component {
         (pos) => pos.label === mp.position
       );
 
-      if (positionInFormation) {
+      if (
+        positionInFormation &&
+        !positionMatchMap.find((pmm) => pmm.label === positionInFormation.label)
+      ) {
         positionMatchMap.push(positionInFormation);
 
         positionInFormation.kit = mp.kit;
@@ -140,6 +146,7 @@ class GameSquad extends Component {
         playerUnmatched.push(mp);
       }
     });
+
     const positionUnmatched = formation.positions.filter(
       (pos) => positionMatchMap.findIndex((pm) => pm.label === pos.label) < 0
     );
@@ -152,10 +159,6 @@ class GameSquad extends Component {
     _positions.push(...positionUnmatched);
     _positions = orderSquadPositions(_positions, "label");
 
-    // let positions = this.state.positions;
-    // while (positions.length > 0) positions.pop();
-    // positions.push(..._positions);
-    // return _.cloneDeep(positions);
     return _positions;
   };
 
@@ -197,10 +200,10 @@ class GameSquad extends Component {
 
   renderBadge = (label, iconName, onClick) => {
     return (
-      <div className="btn-badge">
+      <div className="btn-badge" onClick={onClick}>
         {label}
         <div className="btn-badge-icon">
-          <FontAwesomeIcon icon={iconName} onClick={onClick} />
+          <FontAwesomeIcon icon={iconName} />
         </div>
       </div>
     );
@@ -343,7 +346,7 @@ class GameSquad extends Component {
   renderInstructions = () => {
     const { instructions } = this.state.selectedPlayer;
     return (
-      <div className="my-5">
+      <div className="my-3">
         <div className="squad-table-caption text-center">Instructions</div>
         <div className="i-container">
           <div className="command-pallette">
@@ -690,10 +693,15 @@ class GameSquad extends Component {
               {this.renderFormation()}
             </div>
             <div className="col-4 d-flex justify-content-center align-items-center">
-              {this.renderBadge("SAVE", faCloudUploadAlt, null)}
+              {this.renderBadge("SAVE", faCloudUploadAlt, async () => {
+                const squads = await mss.getSquads();
+                console.log(JSON.stringify(squads));
+              })}
             </div>
             <div className="col-3 d-flex justify-content-center align-items-center">
-              {this.renderBadge("WHITEBOARD", faArrowRight, null)}
+              {this.renderBadge("WHITEBOARD", faArrowRight, async () => {
+                testApply();
+              })}
             </div>
           </div>
           <div className="row">

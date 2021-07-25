@@ -1,6 +1,6 @@
 @use 'sass:math';
 
-$--content-size: 1.4rem;
+$--content-size: 1.2rem;
 
 .btn-badge {
   display: flex;
@@ -27,8 +27,8 @@ $--content-size: 1.4rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: $--content-size * 2;
-    height: $--content-size * 2;
+    width: $--content-size * 1.6;
+    height: $--content-size * 1.6;
     border-radius: math.div($--content-size, 3);
     margin: math.div($--content-size, 6);
     color: white;
@@ -36,17 +36,27 @@ $--content-size: 1.4rem;
   }
 }
 
+$--formation-size: 1.2rem;
 .formation-select select {
-  font-size: $--content-size;
-  padding: math.div($--content-size, 2);
+  font-size: $--formation-size;
+  padding: math.div($--formation-size, 3);
   font-family: "Passero One";
   font-weight: normal;
   font-style: normal;
   border: 4px solid #217075;
-  border-radius: $--content-size;
+  border-radius: $--formation-size;
   background-color: #212230;
   color: #f0fdfb;
 
   outline: none;
-  //   appearance: none;
+}
+
+.session-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  font-family: "Passero One";
+  font-size: 1.6rem;
+  text-transform: capitalize;
 }
