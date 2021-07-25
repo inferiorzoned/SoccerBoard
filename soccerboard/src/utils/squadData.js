@@ -12,9 +12,8 @@ export const squadPositions = [
 
 function getPositionIndex(pos) {
   // gk = 0 ; def = 1 ; mid = 2 ; for = 3
-  // const pos = ["GK", "RB", "RCB", "CB", "LCB", "LB", "RM", "CDM", "CM", "LM", "CAM", "RW",
-  //             "ST",  "LW"];
-  console.log(pos);
+
+  // console.log(pos);
   if (pos === "GK") return 0;
   else if (pos[pos.length - 1] === "B") return 1;
   else if (pos[pos.length - 1] === "M") return 2;
@@ -24,31 +23,27 @@ function getPositionIndex(pos) {
 export async function getSquadPositionData() {
   // let epMedia = "http://localhost:3900/api/medias/image?mediaUrl=";
   let epMedia = "";
-  // epMedia += "/media/hisham/New Volume1/soccerboard_api/uploads/iniesta.jpg";
-  // let avatar = await http.get(epMedia);
-  // console.log(avatar);
-
-  console.log("function er vi");
+  
   const httpData = await http.get(apiEndpoint);
-  console.log(httpData["data"]);
+  // console.log(httpData["data"]);
   let squadPositionData = {};
 
   Object.keys(httpData["data"]).forEach((key) => {
-    console.log(httpData["data"][key]);
+    // console.log(httpData["data"][key]);
     let object = {};
     let p = "";
     squadPositions.forEach((position) => {
       // let pos = httpData["data"][key]["position"];
       if (
         position ===
-        squadPositions[getPositionIndex(httpData["data"][key]["position"])]
+        squadPositions[getPositionIndex(httpData["data"][key]["position"][0])]
       ) {
         object = {
           playerImage: epMedia + httpData["data"][key]["profile"]["avatar"],
           // playerImage: epMedia,
-          _id: httpData["data"][key]["profile"]["_id"],
+          _id: httpData["data"][key]["_id"],
           kit: httpData["data"][key]["kit"],
-          position: httpData["data"][key]["position"],
+          position: httpData["data"][key]["position"][0],
           name: httpData["data"][key]["profile"]["name"],
           numberOfMatches: httpData["data"][key]["numberOfMatches"],
           gameTime: httpData["data"][key]["gameTime"],
@@ -67,7 +62,7 @@ export async function getSquadPositionData() {
     });
     squadPositionData[p].push(object);
   });
-  console.log(squadPositionData);
+  // console.log(squadPositionData);
   return squadPositionData;
 }
 

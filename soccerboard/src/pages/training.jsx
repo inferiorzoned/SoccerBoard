@@ -19,7 +19,7 @@ class Training extends Component {
     if (trainingId) {
       this.setState({ trainingId });
       const training = await getTraining(trainingId);
-      console.log(training);
+      // console.log(training);
       this.setState({
         mediaUrl: training.mediaUrl,
         title: training.trainingTitle,
@@ -39,7 +39,27 @@ class Training extends Component {
     this.setState({ toEditFlag: flag });
   };
 
-  doneEditing = () => {
+  doneEditing = (data, descriptionContent) => {
+    console.log(data);
+    // check if "title" is not in as a key of  the data object
+    if (!data.title) {
+      data["title"] = this.state.title;
+    }
+    if (!data.category) {
+      data["category"] = this.state.category;
+    }
+    if (!data.difficulty) {
+      data["difficulty"] = this.state.difficulty;
+    }
+    if (!data.mediaUrl) {
+      data["mediaUrl"] = this.state.mediaUrl;
+    }
+    if (!descriptionContent) {
+      data["description"] = this.state.description;
+    } else {
+      data["description"] = descriptionContent;
+    }
+    console.log(data);
     this.editFlag(false);
   };
 

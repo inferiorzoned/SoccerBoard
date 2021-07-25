@@ -20,10 +20,10 @@ export async function getTrainingRepoCategoryData() {
   let trainingRepoCategoryData = {};
   let epMedia = "http://localhost:3900/api/medias/image?mediaUrl=";
 
-  console.log(httpData);
-  console.log(httpData["data"]);
-  console.log(typeof httpData);
-  console.log(typeof httpData["data"]);
+  // console.log(httpData);
+  // console.log(httpData["data"]);
+  // console.log(typeof httpData);
+  // console.log(typeof httpData["data"]);
   // httpData = JSON.parse(httpData["data"]);
   Object.keys(httpData["data"]).forEach((key) => {
     console.log(httpData["data"][key]);
@@ -44,6 +44,6 @@ export async function getTrainingRepoCategoryData() {
   //   });
   // });
 
-  console.log("hello ", trainingRepoCategoryData);
+  // console.log("hello ", trainingRepoCategoryData);
   return trainingRepoCategoryData;
 }

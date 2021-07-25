@@ -5,12 +5,12 @@ import Joi from "joi-browser";
 
 class EditTraining extends CreateTraining {
   state = {
-    editorialContent: "",
+    // editorialContent: "",
     data: {
-      title: "",
-      difficulty: "",
-      category: "",
-      mediaUrl: "",
+      // title: "",
+      // difficulty: "",
+      // category: "",
+      // mediaUrl: "",
     },
     difficultyLevels: [
       {
@@ -135,7 +135,15 @@ class EditTraining extends CreateTraining {
           description={description}
         />
         <div className="d-flex justify-content-center align-items-center my-5">
-          {this.renderButton("Save", doneEditing)}
+          {/* {this.renderButton("Save", doneEditing)} */}
+          <button
+            // disabled={this.validate()}
+            onClick={() =>
+              doneEditing(this.state.data, this.state.editorialContent)
+            }
+          >
+            Save
+          </button>
         </div>
       </div>
     );

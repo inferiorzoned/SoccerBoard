@@ -151,8 +151,8 @@ class ApplicationForm extends Form {
     const { imageFile, prefPos, ...data } = this.state.data;
     const positions = prefPos.map((pos) => pos[1].label);
     // Call the server
-    const { mediaUrl } = await uploadImage(imageFile);
-    // const mediaUrl = "dummy";
+    // const { mediaUrl } = await uploadImage(imageFile);
+    const mediaUrl = "dummy";
     const form = {
       ...data,
       prefPosition: positions,
@@ -160,15 +160,16 @@ class ApplicationForm extends Form {
       appType: this.state.selectedOption,
     };
     // console.log(form);
-    try {
-      const response = await uploadForm(form);
-      if (response) {
-        toast.success("Application Submitted");
-        window.location = "/application-status";
-      }
-    } catch (ex) {
-      toast.error("Something Wrong!");
-    }
+    // try {
+    //   const response = await uploadForm(form);
+    //   if (response) {
+    //     toast.success("Application Submitted");
+    //     window.location = "/application-status";
+    //   }
+    // } catch (ex) {
+    //   toast.error("Something Wrong!");
+    // }
+    console.log(form);
   };
 
   handleOptionChange = (e) => {

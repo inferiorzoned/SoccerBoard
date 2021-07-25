@@ -5,6 +5,7 @@ import SessionInfo from "../components/sessionInfo";
 import TrainingCard from "../components/trainingCard";
 import { CircularProgress } from "@material-ui/core";
 import LoaderSoccer from "../components/commons/loader";
+import { getAllSessions } from "../services/sessionServices";
 
 import {
   trainingCategories,
@@ -39,6 +40,12 @@ class TrainingSession extends Component {
     const trainingRepoCategoryData = await getTrainingRepoCategoryData();
     // const trainingCategories = trainingCategories;
     this.setState({ trainingRepoCategoryData });
+
+    const allSessionsData = await getAllSessions();
+    // console.log(allSessionsData);
+    this.setState({ sessionData: allSessionsData[0] });
+    this.setState({ allSessionsData });
+    // console.log(this.state.sessionData);
   }
 
   handleLink = (e, linkType, trainingID, trainings) => {

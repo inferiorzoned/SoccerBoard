@@ -28,11 +28,15 @@ class CardGroup extends Component {
     const { groupType, categoryName, categoryData } = this.props;
 
     let groupData;
-    console.log(categoryName);
-    console.log(categoryData);
-    console.log(categoryData[categoryName]);
+    // console.log(categoryName);
+    // console.log(categoryData);
+    // console.log(categoryData[categoryName]);
 
     if (groupType === "trainingRepo") {
+      /*
+       * categoryName={trainingType}
+       * categoryData={trainingRepoCategoryData}
+       */
       groupData = (
         <div className="row ">
           {categoryData[categoryName] &&
@@ -45,15 +49,18 @@ class CardGroup extends Component {
                   trainingDifficulty={trainingInstance.trainingDifficulty}
                   trainingDescription={trainingInstance.trainingDescription}
                   trainingID={trainingInstance._id}
-                  handleLink = {this.props.handleLink}
-                  linkType = {this.props.linkType}
+                  handleLink={this.props.handleLink}
+                  linkType={this.props.linkType}
                 />
               </div>
             ))}
         </div>
       );
     } else if (groupType === "squad") {
-      // groupData = <SquadCard />;
+      /*
+       * categoryName={positionType}
+       * categoryData={squadPositionData}
+       */
       groupData = (
         <div className="row ">
           {categoryData[categoryName] &&
@@ -73,6 +80,7 @@ class CardGroup extends Component {
                     yellows={playerInstance.yellows}
                     reds={playerInstance.reds}
                     cleanSheets={playerInstance.cleanSheets}
+                    allKits={this.props.allKits}
                   />
                 </div>
               )

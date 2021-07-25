@@ -5,16 +5,8 @@ import SessionCreation from "../components/sessionCreation";
 import TraineeListPopup from "../components/traineeListPopup";
 import SchedulePopup from "../components/schedulePopup";
 import todayDate from "../components/commons/todayDate";
-import httpService from "../services/httpService";
-
-const apiEndpoint = "/trainingSessions";
-
-export async function uploadSession(session) {
-  console.log(session);
-  const { data } = await httpService.post(apiEndpoint + "/BUET", session);
-  console.log(data);
-  return data;
-}
+import { uploadSession } from "../services/sessionServices";
+import Joi from "joi-browser";
 
 class CreateNewSession extends Component {
   state = {
@@ -39,6 +31,17 @@ class CreateNewSession extends Component {
     },
     currentPlayer: {},
     sortColumn: { path: "position", order: "asc" },
+    schema: {
+      sessionTitle: Joi.string().required().label("Session Title"),
+      trainings: Joi.any(),
+      selectedPlayers: Joi.any(),
+      schedule: Joi.any(),
+      startDate: Joi.any(),
+      endDate: Joi.any(),
+      trainingTime: Joi.any(),
+      weekDays: Joi.any(),
+    },
+    errors: {},
   };
 
   onRowClicked = (player) => {
@@ -163,6 +166,22 @@ class CreateNewSession extends Component {
     this.setState({ sessionTitle });
   };
 
+  validate = (session) => {
+    const option = {
+      abortEarly: false,
+    };
+    const { error } = Joi.validate(session, this.state.schema, option);
+
+    if (!error) return null;
+
+    console.log(error);
+    const errors = {};
+    for (let item of error.details) {
+      errors[item.path[0]] = item.message;
+    }
+    return errors;
+  };
+
   createSession = async () => {
     // TODO check for corner cases (no players/ no schedule)
     // send all data to servers
@@ -182,7 +201,7 @@ class CreateNewSession extends Component {
       weekDays,
     } = this.state;
     let selectedPlayers = [];
-    finalSelectedPlayers.map((p, pId) => selectedPlayers.push(p));
+    finalSelectedPlayers.map((p, pId) => selectedPlayers.push(p._id));
     const session = {
       sessionTitle: sessionTitle,
       trainings: trainings,
@@ -192,6 +211,14 @@ class CreateNewSession extends Component {
       trainingTime: schedule["trainingTime"],
       weekDays: weekDays,
     };
+    console.log(session);
+    const errors = this.validate(session);
+    this.setState({ errors: errors || {} });
+    console.log(this.state.errors.sessionTitle);
+    if (errors) {
+      return;
+    }
+    console.log(session);
     await uploadSession(session);
     // TODO reset all things
     // window.location = "/Training Repo/Create New Session";
@@ -258,6 +285,11 @@ class CreateNewSession extends Component {
                   placeholder="Training Session Title"
                 />
                 <small id="emailHelp" class="form-text text-muted"></small>
+                {this.state.errors.sessionTitle && (
+                  <div className="alert alert-danger">
+                    {this.state.errors.sessionTitle}
+                  </div>
+                )}
               </div>
             </form>
             <div className="categoryLine"></div>

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import PopupWindow from "./commons/popupWindow";
+import Form from "./commons/form";
+import Joi from "joi-browser";
+import { Button } from "@material-ui/core";
 /*
 input: 
   playerImage
@@ -16,8 +19,14 @@ input:
       reds
       cleanSheets
 */
-class SquadCard extends Component {
-  state = {};
+class SquadCard extends Form {
+  state = {
+    data: {},
+    errors: [],
+    schema: {
+      kit: Joi.number().integer().required(),
+    },
+  };
 
   // async componentDidMount() {
   //   const epMedia = "http://localhost:3900/api/medias/image?mediaUrl=";
@@ -29,6 +38,31 @@ class SquadCard extends Component {
   //   }
   //   this.setState({ playerImage: [...applicants] });
   // }
+
+  getAvaiableKits(bookedKits) {
+    // create a list of 1 to 100
+    // remove the ones that are already booked
+    // return the list
+    let kitList = [];
+    for (let i = 1; i <= 100; i++) {
+      kitList.push({ label: i, value: "kit" + i });
+    }
+    for (let i = 1; i <= 100; i++) {
+      bookedKits.map((kit) => {
+        // remove from kitList where kit["label"] = i
+        kitList = kitList.filter((k) => {
+          return kit["label"] !== k["label"];
+        });
+      });
+    }
+    return kitList;
+  }
+
+  saveKit = () => {
+    const kit = {
+      kit: this.state.data.kit,
+    };
+  };
 
   render() {
     const {
@@ -44,8 +78,6 @@ class SquadCard extends Component {
       reds,
       cleanSheets,
     } = this.props;
-
-    console.log(playerImageURL);
 
     const playerImageWithDetails = (
       <div className="card squadCardContainer">
@@ -65,25 +97,38 @@ class SquadCard extends Component {
       </div>
       // <img src={playerImageURL} />
     );
-    console.log(playerKit);
+
+    const selectKitRender = (
+      <div>
+        {/* <div> */}
+        {this.renderSelect(
+          "kit",
+          "Select Kit",
+          // this.props.allKits,
+          this.getAvaiableKits(this.props.allKits),
+          false,
+          false,
+          true,
+          this.handleSelectChange,
+          { label: playerKit, value: "playerKit" }
+        )}
+
+        <button
+          className="btn btn-outline-light"
+          onClick={() => {
+            alert("clicked");
+          }}
+        >
+          Save
+        </button>
+      </div>
+    );
+
+    // console.log(playerKit);
+    // console.log(this.props.allKits);
     return (
       //   <div className="card">
       <>
-        {/* <div className="card" style={{ height: "18rem", width: "auto" }}>
-          <div className="squadCardContainer container-fluid p-0 cardStyle">
-            <img src={playerImage} />
-            <div className="top-left">
-              <ul className=""></ul>
-              <li>{playerKit}</li>
-              <li>{playerPosition}</li>
-            </div>
-            <div className="bottom-right"></div>
-          </div>
-        </div> */}
-
-        {/* <Popup trigger={playerImageWithDetails} modal>
-          <span>hello hisham</span>
-        </Popup> */}
         <Popup trigger={playerImageWithDetails} modal>
           <span>
             <PopupWindow
@@ -95,37 +140,12 @@ class SquadCard extends Component {
                 yellows | ""
               }, R.Cards: ${reds | ""}, C.Sheets: ${cleanSheets | ""}
                 `}
+              // allKits={this.props.allKits}
+              // currentPlayerKit={playerKit}
+              buttonsRendered={selectKitRender}
             />
           </span>
         </Popup>
-
-        {/* <div className="card squadCardContainer">
-          <img className="myCardImg" src={playerImage} alt="Card image cap" />
-          <div className="top-left">
-            <ul className=""></ul>
-            <li className="cardKit">{playerKit}</li>
-            <li className="cardPosition">{playerPosition}</li>
-          </div>
-          <div className="row" style={{ backgroundColor: "blue" }}>
-            <div className=" bottom-left">{playerName}</div>
-          </div>
-        </div>
-
-        <Popup trigger={<button className="button"> Open Modal </button>} modal>
-          <span> Modal content </span>
-        </Popup> */}
-        {/* <div class="card bg-dark text-white">
-          <img className="card-img" src={playerImage} alt="Card image cap" />
-          <div class="card-img-overlay">
-          
-            <div className="top-left">
-              <ul className=""></ul>
-              <li className="cardKit">{playerKit}</li>
-              <li className="cardPosition">{playerPosition}</li>
-            </div>
-            <div className="card-footer next-bottom-centered">{playerName}</div>
-          </div>
-        </div> */}
       </>
     );
   }

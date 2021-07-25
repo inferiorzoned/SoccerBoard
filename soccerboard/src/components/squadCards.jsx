@@ -11,10 +11,28 @@ class SquadCards extends Component {
     this.setState({ squadPositionData });
   }
 
+  getAllKits = (squaddPositionData, squadPositions) => {
+    // console.log(squadPositiondData);
+    const allKits = [];
+    squadPositions.map((positionType, positionTypeIndex) => {
+      const positionTypeData = squaddPositionData[positionType];
+      console.log(positionTypeData);
+      positionTypeData.map((player, playerIdx) => {
+        allKits.push({
+          label: player["kit"],
+          value: "kit",
+        });
+      });
+    });
+    return allKits;
+  };
+
   render() {
     const { squadPositionData } = this.state;
-    console.log(squadPositionData);
+    // console.log(squadPositionData);
     if (squadPositionData) {
+      const allKits = this.getAllKits(squadPositionData, squadPositions);
+      console.log(allKits);
       return (
         <ul style={{ listStyleType: "none" }}>
           {squadPositions.map((positionType, positionTypeIndex) => (
@@ -23,6 +41,7 @@ class SquadCards extends Component {
                 groupType={"squad"}
                 categoryName={positionType}
                 categoryData={squadPositionData}
+                allKits={allKits}
               />
             </li>
           ))}

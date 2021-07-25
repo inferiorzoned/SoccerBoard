@@ -39,6 +39,7 @@ class Inventory extends Component {
       { key: "last purchased qty", label: "Last Purchased Quantity" },
       { key: "total quantity", label: "Total Quantity" },
     ],
+    comments: "",
 
     showItemInfo: false,
     title: "",
