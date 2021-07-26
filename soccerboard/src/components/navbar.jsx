@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { styles } from "./commons/styles";
 import NavButtons from "./navbuttons";
 import LogOut from "./commons/logOut";
 import NotificationBadge from "./commons/notificationBadge";
 import { NavLink } from "react-router-dom";
-import TrainingCard from "./trainingCard";
 import managerAvatar from "../assets/images/manager.png";
+import auth from "../services/authService";
 
 class Navbar extends Component {
   state = {
@@ -29,8 +28,8 @@ class Navbar extends Component {
 
   handleLogOut = () => {
     this.setState({ currentPage: "Home" });
+    auth.logout();
     window.location = "/";
-    // TODO actually log out
   };
 
   render() {

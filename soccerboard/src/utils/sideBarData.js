@@ -4,7 +4,7 @@ const outerLink = {
     { label: "Create New Session", link: "Training Repo/Create New Session" },
   ],
   squad: [
-    { label: "Manage Squad", link: "squad/manage-squad" },
+    { label: "Manage Squad", link: "squad/game-squad" },
     { label: "Squad Status", link: "" },
   ],
   home: [

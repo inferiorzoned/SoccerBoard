@@ -5,8 +5,10 @@ import ApplicationForm from "./components/applicationForm";
 import ApplicationStatusForm from "./components/applicationStatusForm";
 import Login from "./pages/login";
 import Root from "./components/root";
+import auth from "./services/authService";
 
 function App() {
+  const user = auth.getCurrentUser();
   return (
     <div>
       <main className="App">
@@ -17,7 +19,8 @@ function App() {
           ></Route>
           <Route path="/" exact component={Login}></Route>
           <Route path="/application" component={ApplicationForm}></Route>
-          <Root />
+
+          {user ? <Root /> : <Route path="/" exact component={Login}></Route>}
         </Switch>
       </main>
     </div>

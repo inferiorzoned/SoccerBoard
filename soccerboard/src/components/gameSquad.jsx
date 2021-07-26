@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import _ from "lodash";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { toast, ToastContainer } from "react-toastify";
+import CreatableSelect from "react-select/creatable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "react-toastify/dist/ReactToastify.min.css";
 import {
@@ -12,19 +13,27 @@ import {
   faSyncAlt,
   faAngleDoubleRight,
   faAngleDoubleLeft,
-  faArrowRight,
-  faCloudUploadAlt,
+  faPlusSquare,
+  faSave,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   getSquad,
   orderSquadPositions,
-  getFormations,
+  // getFormations,
 } from "../services/squad";
+import {
+  getFormations,
+  getCurrentSquad,
+  updateSquad,
+  createSquad,
+} from "../services/gameSquadService";
 import field from "../assets/images/field.svg";
 import Player from "./commons/player";
 import Table from "./commons/table";
 import Instruction from "./instruction";
 import CmdButton from "./commons/cmdButton";
+import auth from "../services/authService";
+import Select from "./commons/select";
 
 library.add(
   faPlus,
@@ -34,8 +43,8 @@ library.add(
   faSyncAlt,
   faAngleDoubleRight,
   faAngleDoubleLeft,
-  faArrowRight,
-  faCloudUploadAlt
+  faPlusSquare,
+  faSave
 );
 
 class GameSquad extends Component {
@@ -89,11 +98,15 @@ class GameSquad extends Component {
     },
   ];
 
-  componentDidMount() {
-    const squad = getSquad();
+  async componentDidMount() {
+    // const squad = getSquad();
+    const squad = await getCurrentSquad();
     const { _id: squadId, formationId, players } = squad;
-    const formations = [...getFormations()];
-    const formation = formations.find((f) => f._id === formationId);
+    // const formations = [...getFormations()];
+    let formations = await getFormations();
+    formations = formations.map((f) => ({ ...f, value: f._id }));
+    // const formation = formations.find((f) => f._id === formationId);
+    const formation = formations.find((f) => f._id === squad.formationId);
     const mainPlayers = orderSquadPositions(
       players.filter((p) => p.partOf === "main")
     );
@@ -107,6 +120,7 @@ class GameSquad extends Component {
     const positions = this.setupPositions(mainPlayers, formation);
     // console.log(formation);
     this.setState({
+      user: auth.getCurrentUser(),
       squadId: squadId,
       formationId: formationId,
       formations: formations,
@@ -131,7 +145,10 @@ class GameSquad extends Component {
         (pos) => pos.label === mp.position
       );
 
-      if (positionInFormation) {
+      if (
+        positionInFormation &&
+        !positionMatchMap.find((pmm) => pmm.label === positionInFormation.label)
+      ) {
         positionMatchMap.push(positionInFormation);
 
         positionInFormation.kit = mp.kit;
@@ -161,46 +178,56 @@ class GameSquad extends Component {
 
   renderFormation = () => {
     const { formations, formationId } = this.state;
+    const currentFormation = formations.find((f) => f._id === formationId);
     return (
-      <div className="formation-select">
-        <select
-          name="formation"
-          onChange={({ currentTarget: input }) => {
-            const { formations, main: mainPlayers } = this.state;
-            const formationId = input.value;
-            const formation = formations.find((f) => f._id === formationId);
-            const positions = this.setupPositions(mainPlayers, formation);
+      <Select
+        isCreatable={true}
+        isClearable={false}
+        name="formation"
+        label="Formation"
+        options={formations}
+        onChange={(selectedFormation) => {
+          let formation = {};
+          if (selectedFormation.__isNew__) {
+            formation._id = Date.now().toString();
+            formation.label = selectedFormation.label;
+            formation.positions = _.cloneDeep(currentFormation.positions);
+            formation.value = formation._id;
+            formations.push(formation);
+          } else {
+            formation = selectedFormation;
+            formation.value = selectedFormation._id;
+          }
 
-            const orderedMain = orderSquadPositions(mainPlayers);
+          // console.log(formation);
+          const { main: mainPlayers } = this.state;
+          const formationId = formation._id;
+          const positions = this.setupPositions(mainPlayers, formation);
 
-            this.setState({ positions: [] }, () =>
-              this.setState({
-                positions: positions,
-                formationId: formationId,
-                main: orderedMain,
-              })
-            );
+          const orderedMain = orderSquadPositions(mainPlayers);
 
-            // console.log(this.state);
-          }}
-          value={formationId}
-        >
-          {formations.map((f) => (
-            <option key={f._id} value={f._id}>
-              {f.label}
-            </option>
-          ))}
-        </select>
-      </div>
+          this.setState({ positions: [] }, () =>
+            this.setState({
+              positions: positions,
+              formationId: formationId,
+              formations: formations,
+              main: orderedMain,
+            })
+          );
+
+          // console.log(this.state);
+        }}
+        defaultValue={currentFormation}
+      />
     );
   };
 
   renderBadge = (label, iconName, onClick) => {
     return (
-      <div className="btn-badge">
+      <div className="btn-badge" onClick={onClick}>
         {label}
         <div className="btn-badge-icon">
-          <FontAwesomeIcon icon={iconName} onClick={onClick} />
+          <FontAwesomeIcon icon={iconName} />
         </div>
       </div>
     );
@@ -264,9 +291,19 @@ class GameSquad extends Component {
   handleAdd = () => {
     let { selectedPlayer, selectedInstruction } = this.state;
     if (Object.keys(selectedPlayer).length === 0) return;
-    const lastInstruction =
-      selectedPlayer.instructions[selectedPlayer.instructions.length - 1];
-    if (lastInstruction.type === "text" && lastInstruction.content !== "") {
+
+    if (selectedPlayer.instructions.length > 0) {
+      const lastInstruction =
+        selectedPlayer.instructions[selectedPlayer.instructions.length - 1];
+      if (lastInstruction.type === "text" && lastInstruction.content !== "") {
+        selectedPlayer.instructions.push({ type: "text", content: "" });
+        selectedInstruction = {
+          ...selectedInstruction,
+          index: selectedPlayer.instructions.length - 1,
+          isEditable: true,
+        };
+      }
+    } else {
       selectedPlayer.instructions.push({ type: "text", content: "" });
       selectedInstruction = {
         ...selectedInstruction,
@@ -342,36 +379,39 @@ class GameSquad extends Component {
 
   renderInstructions = () => {
     const { instructions } = this.state.selectedPlayer;
+    const { user } = this.state;
     return (
-      <div className="my-5">
+      <div className="my-2">
         <div className="squad-table-caption text-center">Instructions</div>
         <div className="i-container">
-          <div className="command-pallette">
-            <CmdButton
-              faIcon={faPlus}
-              iconClasses="fa-icon-white"
-              buttonClasses="btn-cmd-add"
-              onClick={this.handleAdd}
-            />
-            <CmdButton
-              faIcon={faPen}
-              iconClasses="fa-icon-white"
-              buttonClasses="btn-cmd-edit"
-              onClick={this.handleEdit}
-            />
-            <CmdButton
-              faIcon={faTrash}
-              iconClasses="fa-icon-white"
-              buttonClasses="btn-cmd-delete"
-              onClick={this.handleDelete}
-            />
-            <CmdButton
-              faIcon={faMicrophoneAlt}
-              iconClasses="fa-icon-white"
-              buttonClasses="btn-cmd-record"
-              onClick={this.handleRecord}
-            />
-          </div>
+          {user && (user.userType !== "player" || user.isAdmin) && (
+            <div className="command-pallette">
+              <CmdButton
+                faIcon={faPlus}
+                iconClasses="fa-icon-white"
+                buttonClasses="btn-cmd-add"
+                onClick={this.handleAdd}
+              />
+              <CmdButton
+                faIcon={faPen}
+                iconClasses="fa-icon-white"
+                buttonClasses="btn-cmd-edit"
+                onClick={this.handleEdit}
+              />
+              <CmdButton
+                faIcon={faTrash}
+                iconClasses="fa-icon-white"
+                buttonClasses="btn-cmd-delete"
+                onClick={this.handleDelete}
+              />
+              <CmdButton
+                faIcon={faMicrophoneAlt}
+                iconClasses="fa-icon-white"
+                buttonClasses="btn-cmd-record"
+                onClick={this.handleRecord}
+              />
+            </div>
+          )}
           <div className="i-list">
             {instructions &&
               instructions.map((i, index) => (
@@ -673,8 +713,47 @@ class GameSquad extends Component {
     this.setState({ audioDetails: reset });
   }
 
+  handleUpdateSquad = async () => {
+    const { main, sub, reserved, squadId, formationId } = this.state;
+    const players = [...main, ...sub, ...reserved];
+    const squad = {
+      formationId: formationId,
+      players: players,
+    };
+    console.log(this.state);
+    await updateSquad(squadId, squad);
+    // console.log(this.state.audioDetails);
+    // await uploadAudio(this.state.audioDetails.blob);
+  };
+
+  handleCreateSquad = async () => {
+    const { formations, positions, main, sub, reserved, formationId } =
+      this.state;
+    const currentFormation = formations.find((f) => f._id === formationId);
+
+    const formation = {
+      label: currentFormation.label,
+      positions: positions.map((pos) => ({
+        _id: pos._id,
+        left: pos.left,
+        top: pos.top,
+        label: pos.label,
+      })),
+    };
+
+    const players = [...main, ...sub, ...reserved];
+    const squad = {
+      players: players,
+    };
+
+    await createSquad(formation, squad);
+
+    console.log(this.state);
+  };
+
   render() {
     const {
+      user,
       main,
       sub,
       reserved,
@@ -682,22 +761,27 @@ class GameSquad extends Component {
       selectedSubPlayers,
       selectedReservedPlayers,
     } = this.state;
+
     return (
       <React.Fragment>
         <div className="container">
-          <div className="row w-100 my-3">
-            <div className="col-5 d-flex justify-content-center align-items-center">
-              {this.renderFormation()}
+          {user && (user.userType !== "player" || user.isAdmin) && (
+            <div className="row w-100 my-3">
+              <div className="col-5">{this.renderFormation()}</div>
+              <div className="col-4 d-flex justify-content-center align-items-center">
+                {this.renderBadge(
+                  "CREATE NEW",
+                  faPlusSquare,
+                  this.handleCreateSquad
+                )}
+              </div>
+              <div className="col-3 d-flex justify-content-center align-items-center">
+                {this.renderBadge("UPDATE", faSave, this.handleUpdateSquad)}
+              </div>
             </div>
-            <div className="col-4 d-flex justify-content-center align-items-center">
-              {this.renderBadge("SAVE", faCloudUploadAlt, null)}
-            </div>
-            <div className="col-3 d-flex justify-content-center align-items-center">
-              {this.renderBadge("WHITEBOARD", faArrowRight, null)}
-            </div>
-          </div>
+          )}
           <div className="row">
-            <div className="col-sm-5">{this.renderField()}</div>
+            <div className="col-sm-5 pt-3">{this.renderField()}</div>
             <div className="col-sm-7">
               <div className="row justify-content-center align-items-center">
                 <div className="col-sm-6 d-flex flex-column justify-content-center align-items-center">
@@ -717,26 +801,28 @@ class GameSquad extends Component {
                   )}
                 </div>
                 <div className="col-sm-1">
-                  <div className="d-flex flex-row flex-md-column justify-content-center align-items-center">
-                    <CmdButton
-                      faIcon={faSyncAlt}
-                      buttonClasses="btn-cmd-square"
-                      iconClasses="fa-icon-white"
-                      onClick={this.exchangePlayers}
-                    />
-                    <CmdButton
-                      faIcon={faAngleDoubleRight}
-                      buttonClasses="btn-cmd-square"
-                      iconClasses="fa-icon-white"
-                      onClick={this.toReserved}
-                    />
-                    <CmdButton
-                      faIcon={faAngleDoubleLeft}
-                      buttonClasses="btn-cmd-square"
-                      iconClasses="fa-icon-white"
-                      onClick={this.fromReserved}
-                    />
-                  </div>
+                  {user && (user.userType !== "player" || user.isAdmin) && (
+                    <div className="d-flex flex-row flex-md-column justify-content-center align-items-center">
+                      <CmdButton
+                        faIcon={faSyncAlt}
+                        buttonClasses="btn-cmd-square"
+                        iconClasses="fa-icon-white"
+                        onClick={this.exchangePlayers}
+                      />
+                      <CmdButton
+                        faIcon={faAngleDoubleRight}
+                        buttonClasses="btn-cmd-square"
+                        iconClasses="fa-icon-white"
+                        onClick={this.toReserved}
+                      />
+                      <CmdButton
+                        faIcon={faAngleDoubleLeft}
+                        buttonClasses="btn-cmd-square"
+                        iconClasses="fa-icon-white"
+                        onClick={this.fromReserved}
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="col-sm-5">
                   {this.renderSquad(

@@ -17,20 +17,22 @@ class NavButtons extends Component {
   componentDidMount() {
     const user = auth.getCurrentUser();
     // console.log(user);
-    if (user.isAdmin) {
-      this.setState({
-        ButtonLabels: [
-          "Training Session",
-          "Squad",
-          "Home",
-          "Recruit",
-          "Training Repo",
-        ],
-      });
-    } else if (!user.isAdmin) {
-      this.setState({
-        ButtonLabels: ["Training Session", "Squad", "Home", "Training Repo"],
-      });
+    if (user) {
+      if (user.isAdmin) {
+        this.setState({
+          ButtonLabels: [
+            "Training Session",
+            "Squad",
+            "Home",
+            "Recruit",
+            "Training Repo",
+          ],
+        });
+      } else if (!user.isAdmin) {
+        this.setState({
+          ButtonLabels: ["Training Session", "Squad", "Home", "Training Repo"],
+        });
+      }
     }
   }
 

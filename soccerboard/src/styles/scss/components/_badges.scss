@@ -1,6 +1,6 @@
 @use 'sass:math';
 
-$--content-size: 1.4rem;
+$--content-size: 1.2rem;
 
 .btn-badge {
   display: flex;
@@ -48,7 +48,6 @@ $--content-size: 1.4rem;
   color: #f0fdfb;
 
   outline: none;
-  //   appearance: none;
 }
 
 .notif-badge:hover {

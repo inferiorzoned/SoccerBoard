@@ -61,16 +61,24 @@ class Form extends Component {
     this.doSubmit();
   };
 
-  renderInput = (fieldName, label, type = "text") => {
-    const { data, errors } = this.state;
+  renderInput = (
+    fieldName,
+    label,
+    type = "text",
+    isDisabled = false,
+    defaultValue = ""
+  ) => {
+    const { errors } = this.state;
     return (
       <Input
         type={type}
         name={fieldName}
         label={label}
-        value={data[fieldName]}
+        // value={data[fieldName]}
         error={errors[fieldName]}
         onChange={this.handleChange}
+        disabled={isDisabled}
+        defaultValue={defaultValue}
       />
     );
   };
@@ -142,7 +150,16 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
-  renderSelect = (fieldName, label, options, isMulti) => {
+  renderSelect = (
+    fieldName,
+    label,
+    options,
+    isMulti,
+    isDisabled,
+    isCreatable,
+    onChange = this.handleSelectChange,
+    defaultValue = ""
+  ) => {
     const { errors } = this.state;
     return (
       <Select
@@ -151,7 +168,10 @@ class Form extends Component {
         options={options}
         isMulti={isMulti}
         error={errors[fieldName]}
-        onChange={this.handleSelectChange}
+        onChange={onChange}
+        isDisabled={isDisabled}
+        isCreatable={isCreatable}
+        defaultValue={defaultValue}
       />
     );
   };

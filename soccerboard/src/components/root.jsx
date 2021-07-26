@@ -1,5 +1,6 @@
 import Navbar from "../components/navbar.jsx";
 import { Route, Switch } from "react-router-dom";
+import Login from "../pages/login";
 import Home from "../pages/home";
 import TrainingSession from "../pages/trainingSession";
 import TrainingRepo from "../pages/trainingRepo";
@@ -22,7 +23,7 @@ function Root() {
           <Route path="/test" component={Test}></Route>
           <Route path="/home" component={Home}></Route>
           <Route path="/Training Session" component={TrainingSession}></Route>
-          <Route path="/squad/manage-squad" component={GameSquad}></Route>
+          <Route path="/squad/game-squad" component={GameSquad}></Route>
           <Route path="/Squad" component={Squad}></Route>
           <Route path="/Recruit" component={Recruit}></Route>
           <Route path="/evaluation-result" component={EvaluationResult}></Route>

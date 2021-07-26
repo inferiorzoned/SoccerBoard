@@ -40,6 +40,7 @@ const squad = {
       prefPosition: "RM",
       kit: 6,
       partOf: "reserved",
+      instructions: [],
     },
     {
       _id: "4",

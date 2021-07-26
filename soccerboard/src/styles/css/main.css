@@ -660,7 +660,7 @@
   border-radius: 8px;
   min-width: 40%;
   max-width: 100%;
-  min-height: 40%;
+  min-height: 20vh;
   max-height: 60%;
   padding: 0.6rem;
   margin: 1rem;
@@ -811,13 +811,13 @@
   align-items: center;
   text-align: center;
   color: black;
-  padding: 0.4666666667rem;
+  padding: 0.4rem;
   font-family: "Passero One";
   font-style: normal;
   font-weight: normal;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   border: 4px solid #034732;
-  border-radius: 0.4666666667rem;
+  border-radius: 0.4rem;
   box-shadow: 2px 2px 4px #808080;
   cursor: pointer;
 }
@@ -829,22 +829,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 2.8rem;
-  height: 2.8rem;
-  border-radius: 0.4666666667rem;
-  margin: 0.2333333333rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 0.4rem;
+  margin: 0.2rem;
   color: white;
   background-color: #00c853;
 }
 
 .formation-select select {
-  font-size: 1.4rem;
-  padding: 0.7rem;
+  font-size: 1.2rem;
+  padding: 0.6rem;
   font-family: "Passero One";
   font-weight: normal;
   font-style: normal;
   border: 4px solid #217075;
-  border-radius: 1.4rem;
+  border-radius: 1.2rem;
   background-color: #212230;
   color: #f0fdfb;
   outline: none;

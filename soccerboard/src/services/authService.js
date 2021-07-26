@@ -12,8 +12,12 @@ export function getJwt() {
 }
 
 export async function login(email, password) {
-  const { data: jwt } = await http.post(apiEndpoint, { email, password });
-  localStorage.setItem(tokenKey, jwt);
+  try {
+    const { data: jwt } = await http.post(apiEndpoint, { email, password });
+    localStorage.setItem(tokenKey, jwt);
+  } catch (error) {
+    console.log("Login failed!");
+  }
 }
 
 export async function loginWithJwt(jwt) {
