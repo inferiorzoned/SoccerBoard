@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import _ from "lodash";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { toast, ToastContainer } from "react-toastify";
-import CreatableSelect from "react-select/creatable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "react-toastify/dist/ReactToastify.min.css";
 import {

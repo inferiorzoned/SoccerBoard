@@ -41,6 +41,7 @@ class CardGroup extends Component {
               (playerInstance, playerInstanceIndex) => (
                 <div className="d-flex col-xxl-3 col-xl-4 col-lg-6 col-md-6">
                   <SquadCard
+                    playerId={playerInstance._id}
                     playerImageURL={playerInstance.playerImage}
                     playerKit={playerInstance.kit}
                     playerPositions={playerInstance.positions}
@@ -52,6 +53,7 @@ class CardGroup extends Component {
                     yellows={playerInstance.yellows}
                     reds={playerInstance.reds}
                     cleanSheets={playerInstance.cleanSheets}
+                    allKits={this.props.allKits}
                   />
                 </div>
               )

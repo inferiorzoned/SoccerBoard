@@ -1,4 +1,4 @@
-import http from "../services/httpService";
+import http from "./httpService";
 
 const apiEndpoint = "/repos";
 
@@ -9,6 +9,20 @@ export async function uploadTraining(trainingRepo) {
 
 export async function getTraining(_id) {
   const { data } = await http.get(apiEndpoint + "/" + _id);
+  return data;
+}
+
+export async function editTraining(trainingRepo, _id) {
+  console.log("editTraining", trainingRepo);
+  const { data } = await http.put(apiEndpoint + "/" + _id, trainingRepo);
+  console.log(data);
+  return data;
+}
+
+export async function deleteTraining(_id) {
+  console.log("deleteTraining", _id);
+  const { data } = await http.delete(apiEndpoint + "/" + _id);
+  console.log(data);
   return data;
 }
 

@@ -1,15 +1,32 @@
 import React, { Component } from "react";
-import { convertToRaw, EditorState } from "draft-js";
+import {
+  convertToRaw,
+  EditorState,
+  ContentState,
+  convertFromHTML,
+} from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import parse from "html-react-parser";
 
 class TrainingEditor extends Component {
   constructor(props) {
     super(props);
-    this.setState({
-      editorState: EditorState.createEmpty(),
-    });
+
+    if (props.description) {
+      console.log(props.description);
+      console.log(parse(props.description));
+      this.state = {
+        editorState: EditorState.createWithContent(
+          ContentState.createFromBlockArray(convertFromHTML(props.description))
+        ),
+      };
+    } else {
+      this.setState({
+        editorState: EditorState.createEmpty(),
+      });
+    }
   }
 
   onEditorStateChange = (editorState) => {

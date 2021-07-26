@@ -1,4 +1,11 @@
 import React, { Component } from "react";
+/*
+input: 
+  trainingImage
+  trainingTitle
+  trainingDifficulty
+  trainingDescription
+*/
 
 class TrainingCard extends Component {
   async getImage() {}

@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 import CardGroup from "./commons/cardGroup";
 import {
   trainingCategories,
   getTrainingRepoCategoryData,
 } from "../utils/repoElements";
-import { CircularProgress } from "@material-ui/core";
+import LoaderSoccer from "./commons/loaderSoccer";
 
 class TrainingCards extends Component {
   state = { name: "dummy" };
@@ -40,7 +39,7 @@ class TrainingCards extends Component {
     } else {
       return (
         <div className="centered">
-          <CircularProgress color="secondary" />
+          <LoaderSoccer />
         </div>
       );
     }

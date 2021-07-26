@@ -16,6 +16,14 @@ const Select = ({
   defaultValue,
 }) => {
   const selectClass = error ? "is-invalid" : "";
+  const styles = {
+    option: (provided, state) => ({
+      ...provided,
+      fontWeight: state.isSelected ? "bold" : "normal",
+      color: "black",
+    }),
+  };
+
   return (
     <div className="form-group p-2">
       {isCreatable ? (
@@ -31,6 +39,7 @@ const Select = ({
             isMulti={isMulti}
             isDisabled={isDisabled}
             defaultValue={defaultValue}
+            styles={styles}
           />
         </>
       ) : (
