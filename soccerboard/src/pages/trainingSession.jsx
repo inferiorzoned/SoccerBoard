@@ -6,6 +6,8 @@ import TrainingCard from "../components/trainingCard";
 import { CircularProgress } from "@material-ui/core";
 import LoaderSoccer from "../components/commons/loader";
 import { getAllSessions } from "../services/sessionServices";
+import LeftAngle from "../components/commons/leftAngle";
+import RightAngle from "../components/commons/rightAngle";
 
 import {
   trainingCategories,
@@ -43,6 +45,8 @@ class TrainingSession extends Component {
 
     const allSessionsData = await getAllSessions();
     // console.log(allSessionsData);
+    this.setState({ currentSessionNo: 0 });
+    this.setState({ totalSessions: allSessionsData.length });
     this.setState({ sessionData: allSessionsData[0] });
     this.setState({ allSessionsData });
     // console.log(this.state.sessionData);
@@ -54,6 +58,30 @@ class TrainingSession extends Component {
     }
   };
 
+  onDecrease = () => {
+    if (this.state.currentSessionNo > 0) {
+      this.setState({ currentSessionNo: this.state.currentSessionNo - 1 });
+    }
+    else {
+      this.setState({ currentSessionNo: this.state.totalSessions - 1 });
+    }
+    this.setState({
+      sessionData: this.state.allSessionsData[this.state.currentSessionNo],
+    });
+  };
+  onIncrease = () => {
+    console.log(this.state.totalSessions);
+    if (this.state.currentSessionNo < this.state.totalSessions - 1) {
+      this.setState({ currentSessionNo: this.state.currentSessionNo + 1 });
+    }
+    else {
+      this.setState({ currentSessionNo: 0 });
+    }
+    this.setState({
+      sessionData: this.state.allSessionsData[this.state.currentSessionNo],
+    });
+  };
+
   render() {
     const { sessionData, trainingRepoCategoryData } = this.state;
     return (
@@ -63,7 +91,11 @@ class TrainingSession extends Component {
         </div>
         <div className="col-sm-8">
           <div>
-            <h2 className="text-center mt-2"> {sessionData.sessionTitle} </h2>
+            <h1 className="text-center mt-2">
+              <LeftAngle onClick={this.onDecrease} />
+              {sessionData.sessionTitle}
+              <RightAngle onClick={this.onIncrease} />
+            </h1>
             <div className="categoryLine"></div>
           </div>
           <div className="row">

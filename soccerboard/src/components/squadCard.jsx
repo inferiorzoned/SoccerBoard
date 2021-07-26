@@ -5,6 +5,7 @@ import PopupWindow from "./commons/popupWindow";
 import Form from "./commons/form";
 import Joi from "joi-browser";
 import { Button } from "@material-ui/core";
+import { setKit } from "../services/squadPlayerService";
 /*
 input: 
   playerImage
@@ -45,7 +46,7 @@ class SquadCard extends Form {
     // return the list
     let kitList = [];
     for (let i = 1; i <= 100; i++) {
-      kitList.push({ label: i, value: "kit" + i });
+      kitList.push({ label: i, value: i });
     }
     for (let i = 1; i <= 100; i++) {
       bookedKits.map((kit) => {
@@ -58,14 +59,19 @@ class SquadCard extends Form {
     return kitList;
   }
 
-  saveKit = () => {
+  saveKit = async (playerId) => {
+    // console.log(this.state.data.kit);
     const kit = {
       kit: this.state.data.kit,
     };
+    console.log(kit, playerId);
+    await setKit(kit, playerId);
+    window.location.reload();
   };
 
   render() {
     const {
+      playerId,
       playerImageURL,
       playerKit,
       playerPosition,
@@ -115,9 +121,7 @@ class SquadCard extends Form {
 
         <button
           className="btn btn-outline-light"
-          onClick={() => {
-            alert("clicked");
-          }}
+          onClick={() => this.saveKit(this.props.playerId)}
         >
           Save
         </button>
@@ -143,6 +147,7 @@ class SquadCard extends Form {
               // allKits={this.props.allKits}
               // currentPlayerKit={playerKit}
               buttonsRendered={selectKitRender}
+              playerId={playerId}
             />
           </span>
         </Popup>

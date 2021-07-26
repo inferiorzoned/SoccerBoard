@@ -34,7 +34,7 @@ export async function serveEvents(month, year) {
   }
   const start = new Date(year, month, 1).getDay(); //0=>sun,1=>mon,...
   const end = getMonthsLastDate(month, year) + start;
-  console.log(start, end);
+  // console.log(start, end);
 
   var events = [];
   let i = 0;
@@ -68,7 +68,7 @@ export async function serveEvents(month, year) {
     });
     i++;
   }
-  console.log("i = > ", i);
+  // console.log("i = > ", i);
   const fin = i > 35 ? 42 : 35;
   while (i < fin) {
     events.push({
@@ -136,7 +136,7 @@ export async function serveEvents(month, year) {
   const res = await getEvents(getMonthName(month), year);
   const servedEvents = res.data;
 
-  console.log("served ", servedEvents);
+  // console.log("served ", servedEvents);
   for (let j = 0; j < servedEvents.length; j++) {
     for (let k = 0; k < events.length; k++) {
       let eventDate = new Date(servedEvents[j].time);
@@ -150,7 +150,7 @@ export async function serveEvents(month, year) {
       }
     }
   }
-  console.log(events, new Date(1618434400000));
+  // console.log(events, new Date(1618434400000));
   return { events, month: getMonthNameCap(month) };
 }
 

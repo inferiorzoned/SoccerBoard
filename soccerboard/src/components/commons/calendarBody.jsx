@@ -6,7 +6,7 @@ class CalendarBody extends Component {
     
     //to work with the dynamic cells we can code like this
     renderCell = (item, column) => {
-        console.log(item);
+        // console.log(item);
         // if(column.content) {
         //     return column.content(item);
         // }
@@ -20,7 +20,7 @@ class CalendarBody extends Component {
 
     render() { 
         const { data, cellSelected, onCellSelected} = this.props;
-        console.log('data=>',data);
+        // console.log('data=>',data);
 
         const rows = [];
         for (const [index, row] of data.entries()) {
@@ -41,7 +41,7 @@ class CalendarBody extends Component {
                 </tr> )
         }
 
-        console.log('rows ',rows);
+        // console.log('rows ',rows);
         return ( 
             <tbody>
                 {rows}

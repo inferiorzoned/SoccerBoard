@@ -69,6 +69,7 @@ class CardGroup extends Component {
                 <div className="col-xl-3 col-lg-4 col-md-6 d-flex align-items-stretch">
                   {/* {trainingInstance.trainingDescription} */}
                   <SquadCard
+                    playerId={playerInstance._id}
                     playerImageURL={playerInstance.playerImage}
                     playerKit={playerInstance.kit}
                     playerPosition={playerInstance.position}

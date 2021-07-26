@@ -9,7 +9,7 @@ class CalendarHeader extends Component {
 
     render() { 
         const { columns } = this.props;
-        console.log(columns);
+        // console.log(columns);
         return ( 
             <thead>
                 <tr>

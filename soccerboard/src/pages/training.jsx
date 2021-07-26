@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { getTraining } from "../utils/trainingRepoService";
 import parse from "html-react-parser";
 import EditTraining from "../components/editTraining";
+import { editTraining, uploadImage } from "../utils/trainingRepoService";
 import {
   trainingCategories,
   getTrainingRepoCategoryData,
@@ -39,7 +40,7 @@ class Training extends Component {
     this.setState({ toEditFlag: flag });
   };
 
-  doneEditing = (data, descriptionContent) => {
+  doneEditing = async (data, descriptionContent) => {
     console.log(data);
     // check if "title" is not in as a key of  the data object
     if (!data.title) {
@@ -51,16 +52,44 @@ class Training extends Component {
     if (!data.difficulty) {
       data["difficulty"] = this.state.difficulty;
     }
-    if (!data.mediaUrl) {
-      data["mediaUrl"] = this.state.mediaUrl;
-    }
+    const { imageFile } = data;
+    // let mediaUrl = "";
+    // if (!data.mediaUrl) {
+    //   // data["mediaUrl"] = this.state.mediaUrl;
+    //   mediaUrl = this.state.mediaUrl;
+    // } else {
+    //   const { mediaUrl } = await uploadImage(imageFile);
+    //   console.log(mediaUrl);
+    // }
     if (!descriptionContent) {
       data["description"] = this.state.description;
     } else {
       data["description"] = descriptionContent;
     }
-    console.log(data);
+    const { title, category, difficulty, description } = data;
+
+    let { mediaUrl } = imageFile
+      ? await uploadImage(imageFile)
+      : this.state.mediaUrl;
+    if (!imageFile) {
+      mediaUrl = this.state.mediaUrl;
+    }
+    console.log(mediaUrl);
+
+    const form = {
+      trainingTitle: title,
+      trainingCategoryName: category,
+      trainingDescription: description,
+      trainingDifficulty: difficulty,
+      mediaUrl: mediaUrl,
+      // mediaUrl: data.mediaUrl ? mediaUrl : this.state.mediaUrl,
+      institution: "BUET",
+      // editorialContent: this.state.editorialContent,
+    };
+    console.log(form);
+    await editTraining(form, this.state.trainingId);
     this.editFlag(false);
+    window.location.reload();
   };
 
   render() {

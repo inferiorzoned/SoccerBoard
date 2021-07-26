@@ -26,7 +26,7 @@ class HomeCalendar extends Component {
     const year = today.getFullYear();
     const m = today.getMonth();
     const { events, month } = await serveEvents(m, year);
-    console.log(events);
+    // console.log(events);
     this.setState({ events, month, year });
   }
 
@@ -37,7 +37,7 @@ class HomeCalendar extends Component {
   // }
 
   handleEventSelected = (event) => {
-    console.log("event required ", event);
+    // console.log("event required ", event);
     this.setState({ selectedEvent: event, searchQuery: "", currentPage: 1 });
     //starting ending
   };
@@ -59,10 +59,10 @@ class HomeCalendar extends Component {
       "December",
     ];
     const index = monthNames.indexOf(this.state.month);
-    console.log("index", index, this.state.month);
+    // console.log("index", index, this.state.month);
     const year = index === 11 ? this.state.year + 1 : this.state.year;
     const { events, month } = await serveEvents((index + 1) % 12, year);
-    console.log(events);
+    // console.log(events);
     this.setState({ events, month, year });
     //starting ending
   };
@@ -88,7 +88,7 @@ class HomeCalendar extends Component {
     const year = index === 0 ? this.state.year - 1 : this.state.year;
     index = index === 0 ? 11 : index - 1;
     const { events, month } = await serveEvents(index, year);
-    console.log(events);
+    // console.log(events);
     this.setState({ events, month, year });
     //starting ending
   };
@@ -133,7 +133,7 @@ class HomeCalendar extends Component {
     //const { data: movies, totalCount, currentPageCount } = this.getPageData();
     //const { user } = this.props;
 
-    console.log("events ", eventsArray);
+    // console.log("events ", eventsArray);
     return (
       <div>
         <div className="row">

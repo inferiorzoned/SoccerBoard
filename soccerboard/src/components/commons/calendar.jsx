@@ -6,7 +6,7 @@ import RightAngle from './rightAngle';
 
 const Calendar = (props) => {
     const { columns, onCellSelected, cellSelected, data, month, onIncrease, onDecrease } = props;
-    console.log('calendar ', data);
+    // console.log('calendar ', data);
     return ( 
         <div className="calendar">
             <br></br>

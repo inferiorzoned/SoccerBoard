@@ -12,6 +12,13 @@ export async function getTraining(_id) {
   return data;
 }
 
+export async function editTraining(trainingRepo, _id) {
+  console.log("editTraining", trainingRepo);
+  const { data } = await http.put(apiEndpoint + "/" + _id, trainingRepo);
+  console.log(data);
+  return data;
+}
+
 const epUploadImage = "/medias";
 
 export async function uploadImage(file) {

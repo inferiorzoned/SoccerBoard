@@ -298,6 +298,16 @@ code {
 } */
 
 .popupCard {
+  /* position: fixed; */
+
+  /* position: inherit; */
+  /* left: 25%; */
+  /* top: 25%; */
+
+  /* width: 70%; */
+  height: 80%;
+  overflow-y: auto;
+
   background-color: #212230;
   /* color: white; */
   color: white;
@@ -305,7 +315,11 @@ code {
 
 .popupCardImage {
   /* justify-content: center; */
-  width: 50%;
+  width: 208px;
+  height: 160px;
+  object-fit: cover;
+  border-color: #6a1c1c;
+  /* width: 50%; */
   height: auto;
 }
 
@@ -626,4 +640,21 @@ my new style of inventory table
 .tableRow:hover {
   background-color: #cef1ed;
   cursor: pointer;
+}
+
+.navbarImage {
+  width: 140px;
+  height: 65px;
+  object-fit: cover;
+  border-color: #6a1c1c;
+}
+
+.username {
+  text-align: center;
+  margin: 8px;
+  border: 4px solid rgb(0, 126, 98);
+  border-radius: 8px;
+  background-color: rgba(1, 161, 63, 0.7);
+  color: rgb(255, 255, 255);
+  text-transform: capitalize;
 }
