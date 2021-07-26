@@ -3,7 +3,11 @@ import React, { Component } from "react";
 import { getTraining } from "../utils/trainingRepoService";
 import parse from "html-react-parser";
 import EditTraining from "../components/editTraining";
-import { editTraining, uploadImage } from "../utils/trainingRepoService";
+import {
+  editTraining,
+  uploadImage,
+  deleteTraining,
+} from "../utils/trainingRepoService";
 import {
   trainingCategories,
   getTrainingRepoCategoryData,
@@ -32,8 +36,11 @@ class Training extends Component {
     }
   }
 
-  handleDelete = () => {
-    alert("Deleted " + this.state.trainingId);
+  handleDelete = async () => {
+    // alert("Deleted " + this.state.trainingId);
+    const trainingId = this.state.trainingId;
+    await deleteTraining(trainingId);
+    // window.location = "/Training Repo";
   };
 
   editFlag = (flag) => {
@@ -52,29 +59,20 @@ class Training extends Component {
     if (!data.difficulty) {
       data["difficulty"] = this.state.difficulty;
     }
-    const { imageFile } = data;
-    // let mediaUrl = "";
-    // if (!data.mediaUrl) {
-    //   // data["mediaUrl"] = this.state.mediaUrl;
-    //   mediaUrl = this.state.mediaUrl;
-    // } else {
-    //   const { mediaUrl } = await uploadImage(imageFile);
-    //   console.log(mediaUrl);
-    // }
     if (!descriptionContent) {
       data["description"] = this.state.description;
     } else {
       data["description"] = descriptionContent;
     }
     const { title, category, difficulty, description } = data;
-
+    const { imageFile } = data;
     let { mediaUrl } = imageFile
       ? await uploadImage(imageFile)
       : this.state.mediaUrl;
     if (!imageFile) {
       mediaUrl = this.state.mediaUrl;
     }
-    console.log(mediaUrl);
+    // console.log(mediaUrl);
 
     const form = {
       trainingTitle: title,
@@ -86,7 +84,7 @@ class Training extends Component {
       institution: "BUET",
       // editorialContent: this.state.editorialContent,
     };
-    console.log(form);
+    // console.log(form);
     await editTraining(form, this.state.trainingId);
     this.editFlag(false);
     window.location.reload();

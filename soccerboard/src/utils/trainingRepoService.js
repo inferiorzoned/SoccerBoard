@@ -13,8 +13,15 @@ export async function getTraining(_id) {
 }
 
 export async function editTraining(trainingRepo, _id) {
-  console.log("editTraining", trainingRepo);
+  // console.log("editTraining", trainingRepo);
   const { data } = await http.put(apiEndpoint + "/" + _id, trainingRepo);
+  // console.log(data);
+  return data;
+}
+
+export async function deleteTraining(_id) {
+  console.log("deleteTraining", _id);
+  const { data } = await http.delete(apiEndpoint + "/" + _id);
   console.log(data);
   return data;
 }
