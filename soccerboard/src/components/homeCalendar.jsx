@@ -18,6 +18,7 @@ class HomeCalendar extends Component {
     year: new Date().getFullYear(),
     selectedEvent: null,
     searchQuery: "",
+    eventDictionary: {},
     sortColumn: { path: "title", order: "asc" },
   };
 
@@ -25,9 +26,9 @@ class HomeCalendar extends Component {
     const today = new Date();
     const year = today.getFullYear();
     const m = today.getMonth();
-    const { events, month } = await serveEvents(m, year);
-    console.log(events);
-    this.setState({ events, month, year });
+    const { eventDictionary, events, month } = await serveEvents(m, year);
+    console.log(events, eventDictionary);
+    this.setState({ events, month, year, eventDictionary });
   }
 
   // handlePageChange = (page) => {
@@ -38,7 +39,14 @@ class HomeCalendar extends Component {
 
   handleEventSelected = (event) => {
     console.log("event required ", event);
-    this.setState({ selectedEvent: event, searchQuery: "", currentPage: 1 });
+    const { eventDictionary } = this.state;
+    let date = event.date;
+    console.log("event got", eventDictionary[date]);
+    this.setState({
+      selectedEvent: eventDictionary[date],
+      searchQuery: "",
+      currentPage: 1,
+    });
     //starting ending
   };
 
@@ -61,9 +69,18 @@ class HomeCalendar extends Component {
     const index = monthNames.indexOf(this.state.month);
     console.log("index", index, this.state.month);
     const year = index === 11 ? this.state.year + 1 : this.state.year;
-    const { events, month } = await serveEvents((index + 1) % 12, year);
-    console.log(events);
-    this.setState({ events, month, year });
+    const { eventDictionary, events, month } = await serveEvents(
+      (index + 1) % 12,
+      year
+    );
+    console.log(events, eventDictionary);
+    this.setState({
+      events,
+      month,
+      year,
+      eventDictionary,
+      selectedEvent: null,
+    });
     //starting ending
   };
 
@@ -87,9 +104,15 @@ class HomeCalendar extends Component {
 
     const year = index === 0 ? this.state.year - 1 : this.state.year;
     index = index === 0 ? 11 : index - 1;
-    const { events, month } = await serveEvents(index, year);
-    console.log(events);
-    this.setState({ events, month, year });
+    const { eventDictionary, events, month } = await serveEvents(index, year);
+    console.log(events, eventDictionary);
+    this.setState({
+      events,
+      month,
+      year,
+      eventDictionary,
+      selectedEvent: null,
+    });
     //starting ending
   };
 
@@ -125,8 +148,7 @@ class HomeCalendar extends Component {
     // var { length: count } = this.state.movies;
     //if(count === 0) return <p>There are no movies</p>;
 
-    const { month, pageSize, sortColumn, events, selectedEvent, searchQuery } =
-      this.state;
+    const { month, pageSize, sortColumn, events, selectedEvent } = this.state;
 
     const eventsArray = this.getCalendarData();
     if (!eventsArray) return null;

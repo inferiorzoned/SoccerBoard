@@ -10,10 +10,26 @@ class Navbar extends Component {
   state = {
     currentPage: null,
     notiCount: 0,
+    user: auth.getCurrentUser(),
   };
 
   componentDidMount() {
-    this.setState({ currentPage: "Home", notiCount: 5 });
+    // take a string, remove its starting "/", and replace all "%20" with space
+    const pagename = window.location.pathname
+      .replace("/", "")
+      .replace("%20", " ");
+    // console.log(pagename);
+    let currentPage = pagename.split("/")[0];
+    // console.log(currentPage);
+    if (currentPage === "home") {
+      currentPage = "Home";
+    }
+    // const user = auth.getCurrentUser();
+    // user.avatar = user.isAdmin
+    //   ? managerAvatar
+    //   : "https://www.shutterstock.com/image-photo/one-caucasian-soccer-player-man-happy-637186171";
+    // console.log(user);
+    this.setState({ currentPage });
   }
 
   handleCurrentPage = (page) => {
@@ -33,17 +49,22 @@ class Navbar extends Component {
   };
 
   render() {
-    const { currentPage, notiCount } = this.state;
+    const { currentPage, notiCount, user } = this.state;
+
+    let avatar =
+      "https://media.istockphoto.com/photos/football-or-soccer-player-in-action-on-stadium-with-flashlights-ball-picture-id1219371112";
+    if (user.isAdmin) {
+      avatar = managerAvatar;
+    }
+    if (user.avatar) avatar = user.avatar;
+
     return (
       <nav className="navbar sticky-top navbar-expand-sm navbar-light">
         <div className="row w-100">
           <div className="col-sm-2 d-flex justify-content-center align-items-center">
-            <NavLink className="navbar-brand" to="/home">
-              <img
-                style={{ height: "60%", width: "60%", objectFit: "cover" }}
-                src={managerAvatar}
-                alt="SoccerBoard"
-              />
+            <NavLink className="navbar-brand" to="/Home">
+              <img className="navbar-image" src={avatar} alt={user.name} />
+              <span className="username mx-3">{user.name}</span>
             </NavLink>
           </div>
           <div className="col-sm-8 d-flex align-items-center justify-content-center">

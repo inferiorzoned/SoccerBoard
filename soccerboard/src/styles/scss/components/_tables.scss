@@ -172,3 +172,10 @@ $_variations: (
 .recruit-table {
   cursor: pointer;
 }
+
+.trainee-table {
+  cursor: pointer;
+  tbody tr:hover {
+    background-color: hsla(143, 100%, 75%, 0.75);
+  }
+}

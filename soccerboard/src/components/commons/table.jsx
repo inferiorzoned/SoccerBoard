@@ -8,6 +8,7 @@ const Table = ({
   onSort,
   data,
   onRowClicked,
+  onDelete,
   onRowCtrlClicked,
   tableClassName,
   themeClassName,
@@ -25,6 +26,7 @@ const Table = ({
         columns={columns}
         data={data}
         onRowClicked={onRowClicked}
+        onDelete={onDelete}
         onRowCtrlClicked={onRowCtrlClicked}
         themeClassName={themeClassName}
         selectedItems={selectedItems}

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { squadPositions, getSquadPositionData } from "../utils/squadData";
-import { CircularProgress } from "@material-ui/core";
 import Table from "./commons/table";
 import _ from "lodash";
 import List from "@material-ui/core/List";
+import LoaderSoccer from "./commons/loaderSoccer";
 
 class TraineeListPopup extends Component {
   state = {
@@ -69,7 +69,7 @@ class TraineeListPopup extends Component {
 
   render() {
     console.log(this.props.previouslySelected);
-    const { setPopup, onRowClicked, saveTrainee } = this.props;
+    const { setPopup, onRowClicked, sortColumn, saveTrainee } = this.props;
     const { squadData } = this.state;
     // console.log(squadData);
     if (squadData) {
@@ -95,7 +95,8 @@ class TraineeListPopup extends Component {
                       columns={this.columns}
                       data={squadData[posType]}
                       onRowClicked={onRowClicked}
-                      // sortColumn={sortColumn}
+                      sortColumn={sortColumn}
+                      tableClassName="table trainee-table"
                     />
                   )}
                 </li>
@@ -115,7 +116,7 @@ class TraineeListPopup extends Component {
     }
     return (
       <div className="centered">
-        <CircularProgress color="secondary" />
+        <LoaderSoccer />
       </div>
     );
   }

@@ -11,6 +11,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import EditTraining from "../components/editTraining";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import CmdButton from "../components/commons/cmdButton";
+import auth from "../services/authService";
 
 library.add(faEdit, faTrash);
 
@@ -18,6 +19,7 @@ class Training extends Component {
   state = {
     editorState: EditorState.createEmpty(),
     toEditFlag: false,
+    user: auth.getCurrentUser(),
   };
 
   async componentDidMount() {
@@ -103,6 +105,7 @@ class Training extends Component {
 
   render() {
     const {
+      user,
       mediaUrl,
       title,
       category,
@@ -150,18 +153,23 @@ class Training extends Component {
         </table>
         {/* <Editor editorState={editorState} readOnly={true}></Editor> */}
         <div id="tr-view">{description && parse(description)}</div>
-        <div className="d-flex justify-content-center mt-3">
-          <CmdButton
-            faIcon={faEdit}
-            buttonClasses="btn-cmd-mini btn-cmd-edit"
-            onClick={() => this.editFlag(true)}
-          />
-          <CmdButton
-            faIcon={faTrash}
-            buttonClasses="btn-cmd-mini btn-cmd-delete"
-            onClick={() => this.editFlag(true)}
-          />
-        </div>
+        {user &&
+          (user.userType === "manager" ||
+            user.userType === "assistant-manager" ||
+            user.isAdmin) && (
+            <div className="d-flex justify-content-center mt-3">
+              <CmdButton
+                faIcon={faEdit}
+                buttonClasses="btn-cmd-mini btn-cmd-edit"
+                onClick={() => this.editFlag(true)}
+              />
+              <CmdButton
+                faIcon={faTrash}
+                buttonClasses="btn-cmd-mini btn-cmd-delete"
+                onClick={() => this.editFlag(true)}
+              />
+            </div>
+          )}
       </div>
     );
   }

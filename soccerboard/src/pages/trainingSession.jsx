@@ -3,7 +3,10 @@ import React, { Component } from "react";
 import SideBar from "../components/sideBar";
 import SessionInfo from "../components/sessionInfo";
 import TrainingCard from "../components/trainingCard";
-import { CircularProgress } from "@material-ui/core";
+import LoaderSoccer from "../components/commons/loaderSoccer";
+import { getAllSessions } from "../services/sessionServices";
+import LeftAngle from "../components/commons/leftAngle";
+import RightAngle from "../components/commons/rightAngle";
 
 import {
   trainingCategories,
@@ -12,32 +15,49 @@ import {
 
 class TrainingSession extends Component {
   state = {
-    sessionData: {
-      sessionTitle: "Session  1",
-      trainings: [
-        "60bcaedb5de9dd090c5d8a21",
-        "60e2a5db75c3c30015713730",
-        "60bcb13e66267d15d86443f9",
-        "60e2b69e75c3c30015713732",
-      ],
-      selectedPlayers: [
-        "60bdb74ab7b4014a3ea46b1b",
-        "60bdce758f54be1b10fdd0bf",
-        "60bdb9c2b7b4014a3ea46b20",
-        "60bde718e564a9367eb950ef",
-      ],
-      startDate: "2021-07-05",
-      endDate: "2021-07-19",
-      trainingTime: "17:00",
-      weekDays: [false, false, false, false, false, true, true],
-    },
+    //   sessionData: {
+    //     sessionTitle: "Session  1",
+    //     trainings: [
+    //       "60bcaedb5de9dd090c5d8a21",
+    //       "60e2a5db75c3c30015713730",
+    //       "60bcb13e66267d15d86443f9",
+    //       "60e2b69e75c3c30015713732",
+    //     ],
+    //     selectedPlayers: [
+    //       "60bdb74ab7b4014a3ea46b1b",
+    //       "60bdce758f54be1b10fdd0bf",
+    //       "60bdb9c2b7b4014a3ea46b20",
+    //       "60bde718e564a9367eb950ef",
+    //     ],
+    //     startDate: "2021-07-05",
+    //     endDate: "2021-07-19",
+    //     trainingTime: "17:00",
+    //     weekDays: [false, false, false, false, false, true, true],
+    //   },
   };
 
   async componentDidMount() {
     // const { trainingRepoCategoryData, trainingCategories } = this.state;
     const trainingRepoCategoryData = await getTrainingRepoCategoryData();
     // const trainingCategories = trainingCategories;
-    this.setState({ trainingRepoCategoryData });
+    const allSessionsData = await getAllSessions();
+
+    // console.log(trainingRepoCategoryData);
+    // console.log(allSessionsData);
+    console.log(this.props.sessionId);
+    const sessionIndex = allSessionsData.findIndex(
+      (asd) => asd._id === this.props.sessionId
+    );
+    console.log(sessionIndex);
+    if (sessionIndex < 0) sessionIndex = 0;
+
+    this.setState({
+      trainingRepoCategoryData: trainingRepoCategoryData,
+      currentSessionNo: sessionIndex,
+      totalSessions: allSessionsData.length,
+      sessionData: allSessionsData[sessionIndex],
+      allSessionsData,
+    });
   }
 
   handleLink = (e, linkType, trainingID, trainings) => {
@@ -46,9 +66,32 @@ class TrainingSession extends Component {
     }
   };
 
+  onDecrease = () => {
+    if (this.state.currentSessionNo > 0) {
+      this.setState({ currentSessionNo: this.state.currentSessionNo - 1 });
+    } else {
+      this.setState({ currentSessionNo: this.state.totalSessions - 1 });
+    }
+    this.setState({
+      sessionData: this.state.allSessionsData[this.state.currentSessionNo],
+    });
+  };
+  onIncrease = () => {
+    console.log(this.state.totalSessions);
+    if (this.state.currentSessionNo < this.state.totalSessions - 1) {
+      this.setState({ currentSessionNo: this.state.currentSessionNo + 1 });
+    } else {
+      this.setState({ currentSessionNo: 0 });
+    }
+    this.setState({
+      sessionData: this.state.allSessionsData[this.state.currentSessionNo],
+    });
+  };
+
   render() {
     const { sessionData, trainingRepoCategoryData } = this.state;
-    return (
+
+    return sessionData && trainingRepoCategoryData ? (
       <>
         <div className="row">
           <div className="col-sm-2">
@@ -56,7 +99,11 @@ class TrainingSession extends Component {
           </div>
           <div className="col-sm-8">
             <div>
-              <h2 className="text-center mt-2"> {sessionData.sessionTitle} </h2>
+              <h1 className="text-center mt-2">
+                <LeftAngle onClick={this.onDecrease} />
+                {sessionData.sessionTitle}
+                <RightAngle onClick={this.onIncrease} />
+              </h1>
               <div className="category-line"></div>
             </div>
             <div className="row">
@@ -90,11 +137,11 @@ class TrainingSession extends Component {
             </div>
             {!trainingRepoCategoryData && (
               <div className="centered">
-                <CircularProgress color="secondary" />
+                <LoaderSoccer />
               </div>
             )}
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-2 d-flex flex-row-reverse">
             <SessionInfo
               selectedPlayers={sessionData.selectedPlayers}
               startDate={sessionData.startDate}
@@ -105,6 +152,10 @@ class TrainingSession extends Component {
           </div>
         </div>
       </>
+    ) : (
+      <div className="centered">
+        <LoaderSoccer />
+      </div>
     );
   }
 }

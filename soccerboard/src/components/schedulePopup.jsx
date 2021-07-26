@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import DateTimePicker from "./commons/dateTime";
 import DayButtonPicker from "./commons/dayButton";
+import todayDate from "./commons/todayDate";
 
 class SchedulePopup extends Component {
   state = {};
@@ -13,7 +14,7 @@ class SchedulePopup extends Component {
       handleWeekDay,
       saveSchedule,
     } = this.props;
-    const weekDays = ["S", "S", "M", "T", "W", "T", "F"];
+    const weekDays = ["S", "M", "T", "W", "T", "F", "S"];
     return (
       <div className="schedule-popup">
         <div className="d-flex justify-content-between w-100">
@@ -22,14 +23,14 @@ class SchedulePopup extends Component {
             id={"date"}
             label={"Start Date"}
             type={"date"}
-            defaultValue={"2021-07-05"}
+            defaultValue={todayDate}
           />
           <DateTimePicker
             changeHandler={handleEndDatePicker}
             id={"date"}
             label={"End Date"}
             type={"date"}
-            defaultValue={"2021-07-05"}
+            defaultValue={todayDate}
           />
           <DateTimePicker
             changeHandler={handleTrainingTime}

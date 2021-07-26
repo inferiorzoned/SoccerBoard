@@ -17,6 +17,7 @@ class TableBody extends Component {
       data,
       columns,
       onRowClicked,
+      onDelete,
       onRowCtrlClicked,
       selectedItems,
       selectedRowClassName,
@@ -43,6 +44,16 @@ class TableBody extends Component {
                 {this.renderCell(item, column)}
               </td>
             ))}
+            {onDelete && (
+              <td key={item._id}>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => onDelete(item)}
+                >
+                  Delete
+                </button>
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

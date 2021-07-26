@@ -47,7 +47,10 @@ class SessionInfo extends Component {
     const { squadData } = this.state;
     console.log(squadData);
     return (
-      <div className="sidebar" style={{ width: "inherit" }}>
+      <div
+        className="sidebar position-fixed end-0"
+        style={{ width: "inherit" }}
+      >
         <div style={{ color: "white", textAlign: "center", marginTop: "50px" }}>
           <div className="mt-2">
             <h1>Trainees</h1>

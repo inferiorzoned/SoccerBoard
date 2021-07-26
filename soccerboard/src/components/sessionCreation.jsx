@@ -22,7 +22,7 @@ class SessionCreation extends Component {
       11: "Nov",
       12: "Dec",
     },
-    wDays: ["S", "S", "M", "T", "W", "T", "F"],
+    wDays: ["S", "M", "T", "W", "T", "F", "S"],
   };
 
   toDateStr = (date) => {
@@ -91,11 +91,13 @@ class SessionCreation extends Component {
             <div>
               <div className="d-flex justify-content-center align-items-center">
                 <div className="session session-date">
-                  {this.toDateStr(schedule["startDate"])}
+                  {/* {this.toDateStr(schedule["startDate"])} */}
+                  {schedule["startDate"]}
                 </div>
                 to
                 <div className="session session-date">
-                  {this.toDateStr(schedule["endDate"])}
+                  {/* {this.toDateStr(schedule["endDate"])} */}
+                  {schedule["endDate"]}
                 </div>
               </div>
               <div className="d-flex justify-content-center align-items-center">

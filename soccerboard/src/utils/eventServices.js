@@ -1,5 +1,6 @@
 // import http from "..services/httpService";
 import http from "../services/httpService";
+import { getCurrentUser } from "../services/authService";
 
 const apiEndpoint = "/events";
 
@@ -35,7 +36,7 @@ export async function serveEvents(month, year) {
   const start = new Date(year, month, 1).getDay(); //0=>sun,1=>mon,...
   const end = getMonthsLastDate(month, year) + start;
   console.log(start, end);
-
+  console.log("bog ", new Date().getDay());
   var events = [];
   let i = 0;
   while (i < start) {
@@ -60,7 +61,7 @@ export async function serveEvents(month, year) {
       day: day,
       _id: i,
       date: i + 1 - start,
-      title: i % 5 === 0 ? "session " + i : "",
+      title: "",
       description: "",
       eventType: "",
       color: 4,
@@ -79,86 +80,65 @@ export async function serveEvents(month, year) {
     i++;
   }
   //now get events from the server
-  //const servedEvents = await http.get(apiEndPoint);
-  // const servedEvents = [
-  //     {
-  //         _id: "60b96df886f0732d980ce804",
-  //         title: "Training 1",
-  //         day: "fri",
-  //         date: 4,
-  //         month: "June",
-  //         year: 2021,
-  //         description: "foot work",
-  //         eventType: "training"
-  //     },
-  //     {
-  //         _id: "60b96e2886f0732d980ce805",
-  //         title: "Training 2",
-  //         day: "fri",
-  //         date: 6,
-  //         month: "June",
-  //         year: 2021,
-  //         description: "passing work",
-  //         eventType: "training"
-  //     },
-  //     {
-  //         _id: "60b96ef386f0732d980ce806",
-  //         title: "Practice Match 1",
-  //         day: "tue",
-  //         date: 13,
-  //         month: "June",
-  //         year: 2021,
-  //         description: "game work",
-  //         eventType: "match"
-  //     },
-  //     {
-  //         _id: "60b96f1986f0732d980ce807",
-  //         title: "Team Dinner",
-  //         day: "tue",
-  //         date: 1,
-  //         month: "June",
-  //         year: 2021,
-  //         description: "game work",
-  //         eventType: "off-field"
-  //     },
-  //     {
-  //         _id: "60b96f2686f0732d980ce808",
-  //         title: "Team Dinner",
-  //         day: "wed",
-  //         date: 30,
-  //         month: "June",
-  //         year: 2021,
-  //         description: "game work",
-  //         eventType: "off-field"
-  //     }
-  // ];
 
   const res = await getEvents(getMonthName(month), year);
   const servedEvents = res.data;
 
+  let eventDictionary = {};
   console.log("served ", servedEvents);
   for (let j = 0; j < servedEvents.length; j++) {
     for (let k = 0; k < events.length; k++) {
       let eventDate = new Date(servedEvents[j].time);
       if (eventDate.getDate() === events[k].date) {
-        events[k].title = servedEvents[j].title;
+        if (events[k].title) {
+          events[k].title = events[k].title + "\n" + servedEvents[j].title;
+        } else {
+          events[k].title = servedEvents[j].title;
+        }
         events[k].description = servedEvents[j].description;
         events[k].eventType = servedEvents[j].eventType;
         events[k]._id = servedEvents[j]._id;
         events[k].time = renderTimeString(eventDate);
         events[k].color = 2;
+        let event = {
+          date: events[k].date,
+          title: servedEvents[j].title,
+          _id: servedEvents[j]._id,
+          eventType: servedEvents[j].eventType,
+          description: servedEvents[j].description,
+          eventId: servedEvents[j].eventId,
+          time: renderTimeString(eventDate),
+          color: 2,
+        };
+        let tempList = [];
+        if (eventDictionary[eventDate.getDate().toString()]) {
+          tempList = [...eventDictionary[eventDate.getDate().toString()]];
+        }
+        tempList.push(event);
+        eventDictionary[eventDate.getDate().toString()] = tempList;
       }
     }
   }
+  console.log("event dictionary ", eventDictionary);
   console.log(events, new Date(1618434400000));
-  return { events, month: getMonthNameCap(month) };
+  return { eventDictionary, events, month: getMonthNameCap(month) };
+}
+
+export function renderSpecificEvent(event) {
+  console.log(getCurrentUser());
+  const institution = getCurrentUser().institution;
+  if (event.eventType === "Training Session") {
+    //console.log(getCurrentUser());
+    //the institution is not needed that much actually
+    window.location = `/Training Session/${event.eventId}`;
+  }
 }
 
 function renderTimeString(event) {
   let min = event.getMinutes();
-  min = min.length < 2 ? "0" + min : min;
+  min = min.toString().length < 2 ? "0" + min.toString() : min.toString();
   let hr = event.getHours();
-  hr = hr.length < 2 ? "0" + hr : hr;
+  hr = hr.toString().length < 2 ? "0" + hr.toString() : hr.toString();
   return hr + ":" + min + " hrs";
   // const hr = time.getHours()%12;
   // const min = time.getMinutes();

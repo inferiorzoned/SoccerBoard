@@ -6,6 +6,9 @@ import TrainingCards from "../components/trainingCards";
 import SessionCreation from "../components/sessionCreation";
 import TraineeListPopup from "../components/traineeListPopup";
 import SchedulePopup from "../components/schedulePopup";
+import todayDate from "../components/commons/todayDate";
+import { uploadSession } from "../services/sessionServices";
+import Joi from "joi-browser";
 
 class CreateNewSession extends Component {
   state = {
@@ -17,8 +20,8 @@ class CreateNewSession extends Component {
     finalSelectedPlayers: [],
     trainings: [],
     schedule: {
-      startDate: "2021-07-05",
-      endDate: "2021-07-05",
+      startDate: todayDate,
+      endDate: todayDate,
       trainingTime: "17:00",
     },
     weekDays: [false, false, false, false, false, false, false],
@@ -30,6 +33,17 @@ class CreateNewSession extends Component {
     },
     currentPlayer: {},
     sortColumn: { path: "position", order: "asc" },
+    schema: {
+      sessionTitle: Joi.string().required().label("Session Title"),
+      trainings: Joi.any(),
+      selectedPlayers: Joi.any(),
+      schedule: Joi.any(),
+      startDate: Joi.any(),
+      endDate: Joi.any(),
+      trainingTime: Joi.any(),
+      weekDays: Joi.any(),
+    },
+    errors: {},
   };
 
   onRowClicked = (player) => {
@@ -58,18 +72,18 @@ class CreateNewSession extends Component {
   };
 
   handleLink = (e, linkType, trainingID, trainings) => {
-    if (linkType === "trainingRepo") {
+    if (linkType === "trainingSession") {
+      if (e.ctrlKey || e.metaKey) {
+        const t = [...this.state.trainings, trainingID];
+        this.setState({
+          showSessionCreation: true,
+          trainings: t,
+        });
+      } else {
+        window.location = "/Training Repo/" + trainingID;
+      }
+    } else {
       window.location = "/Training Repo/" + trainingID;
-    } else if (e.ctrlKey || e.metaKey) {
-      // this.setState({ showSessionCreation: true });
-      // const session = { ...session };
-      // session["trainings"].push(trainingID);
-      // this.setState({ showSessionCreation: true, session });
-      const t = [...this.state.trainings, trainingID];
-      this.setState({
-        showSessionCreation: true,
-        trainings: t,
-      });
     }
   };
 
@@ -154,17 +168,62 @@ class CreateNewSession extends Component {
     this.setState({ sessionTitle });
   };
 
-  createSession = () => {
+  validate = (session) => {
+    const option = {
+      abortEarly: false,
+    };
+    const { error } = Joi.validate(session, this.state.schema, option);
+
+    if (!error) return null;
+
+    console.log(error);
+    const errors = {};
+    for (let item of error.details) {
+      errors[item.path[0]] = item.message;
+    }
+    return errors;
+  };
+
+  createSession = async () => {
     // TODO check for corner cases (no players/ no schedule)
     // send all data to servers
     console.log(this.state.sessionTitle);
     console.log(this.state.trainings);
-    this.state.finalSelectedPlayers.map((p, pId) => console.log(p.name, pId));
+    this.state.finalSelectedPlayers.map((p, pId) => console.log(p.name, p._id));
+
     // console.log(this.state.finalSelectedPlayers);
     console.log(this.state.schedule["startDate"]);
     console.log(this.state.schedule["endDate"]);
     console.log(this.state.schedule["trainingTime"]);
     console.log(this.state.weekDays);
+
+    const {
+      sessionTitle,
+      trainings,
+      finalSelectedPlayers,
+      schedule,
+      weekDays,
+    } = this.state;
+    let selectedPlayers = [];
+    finalSelectedPlayers.map((p, pId) => selectedPlayers.push(p._id));
+    const session = {
+      sessionTitle: sessionTitle,
+      trainings: trainings,
+      selectedPlayers: selectedPlayers,
+      startDate: schedule["startDate"],
+      endDate: schedule["endDate"],
+      trainingTime: schedule["trainingTime"],
+      weekDays: weekDays,
+    };
+    console.log(session);
+    const errors = this.validate(session);
+    this.setState({ errors: errors || {} });
+    console.log(this.state.errors.sessionTitle);
+    if (errors) {
+      return;
+    }
+    console.log(session);
+    await uploadSession(session);
 
     // TODO reset all things
     toast.success("Training Session created!");
@@ -179,6 +238,7 @@ class CreateNewSession extends Component {
       showSessionCreation,
       showTraineeInfo,
       showScheduleInfo,
+      sortColumn,
       finalSelectedPlayers,
       schedule,
       weekDays,
@@ -198,7 +258,7 @@ class CreateNewSession extends Component {
                   setPopup={this.setPopup}
                   onSelectionChange={this.onSelectionChange}
                   onRowClicked={this.onRowClicked}
-                  // sortColumn={sortColumn}
+                  sortColumn={sortColumn}
                   saveTrainee={this.saveTrainee}
                   previouslySelected={this.state.finalSelectedPlayers}
                 />
@@ -234,10 +294,18 @@ class CreateNewSession extends Component {
                     id="emailHelp"
                     className="form-text text-muted"
                   ></small>
+                  {this.state.errors.sessionTitle && (
+                    <div className="alert alert-danger">
+                      {this.state.errors.sessionTitle}
+                    </div>
+                  )}
                 </div>
               </form>
               <div className="category-line"></div>
-              <TrainingCards handleLink={this.handleLink} />
+              <TrainingCards
+                handleLink={this.handleLink}
+                linkType={"trainingSession"}
+              />
             </div>
             <div className="col-sm-2 d-flex flex-row-reverse">
               {showSessionCreation && (
