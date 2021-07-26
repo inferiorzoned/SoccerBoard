@@ -20,7 +20,7 @@ class InventoryItemInfo extends Component {
       rightOnClick,
       handleEditModel,
     } = this.props;
-    // console.log(data);
+    console.log(data);
     // console.log(title);
     if (!data) {
       return null;

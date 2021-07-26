@@ -116,7 +116,7 @@ class EditInventoryModel extends Form {
         <button
           className="btn btn-primary"
           onClick={() => {
-            handleEditModel(this.state.data, modelData);
+            handleEditModel(this.state.data, modelData, this.handle);
           }}
         >
           Save

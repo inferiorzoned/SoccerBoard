@@ -9,6 +9,7 @@ import DetailsBox from "./detailsBox";
 import { Link } from "react-router-dom";
 //import { toast } from 'react-toastify';
 import _ from "lodash";
+import LoaderSoccer from "../components/commons/loader";
 
 class HomeCalendar extends Component {
   state = {
@@ -134,21 +135,28 @@ class HomeCalendar extends Component {
     //const { user } = this.props;
 
     // console.log("events ", eventsArray);
+    if (events && month) {
+      return (
+        <div>
+          <div className="row">
+            <EventsCalendar
+              events={eventsArray}
+              cellSelected={selectedEvent}
+              onCellSelected={this.handleEventSelected}
+              month={month}
+              onIncrease={this.handleMonthIncrease}
+              onDecrease={this.handleMonthDecrease}
+            />
+          </div>
+          <div className="row">
+            <DetailsBox eventSelected={selectedEvent} month={month} />
+          </div>
+        </div>
+      );
+    }
     return (
-      <div>
-        <div className="row">
-          <EventsCalendar
-            events={eventsArray}
-            cellSelected={selectedEvent}
-            onCellSelected={this.handleEventSelected}
-            month={month}
-            onIncrease={this.handleMonthIncrease}
-            onDecrease={this.handleMonthDecrease}
-          />
-        </div>
-        <div className="row">
-          <DetailsBox eventSelected={selectedEvent} month={month} />
-        </div>
+      <div className="centered">
+        <LoaderSoccer />
       </div>
     );
   }
