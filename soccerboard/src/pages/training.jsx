@@ -53,7 +53,7 @@ class Training extends Component {
     // alert("Deleted " + this.state.trainingId);
     const trainingId = this.state.trainingId;
     await deleteTraining(trainingId);
-    // window.location = "/Training Repo";
+    window.location = "/Training Repo";
   };
 
   editFlag = (flag) => {

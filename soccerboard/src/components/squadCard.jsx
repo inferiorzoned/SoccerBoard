@@ -5,6 +5,7 @@ import Joi from "joi-browser";
 import PopupWindow from "./commons/popupWindow";
 import Form from "./commons/form";
 import { setKit } from "../services/squadPlayerService";
+import auth from "../services/authService";
 
 /*
 input: 
@@ -27,6 +28,7 @@ class SquadCard extends Form {
     schema: {
       kit: Joi.number().integer().required(),
     },
+    user: auth.getCurrentUser(),
   };
 
   getAvaiableKits(bookedKits) {
@@ -60,6 +62,7 @@ class SquadCard extends Form {
 
   render() {
     const {
+      user,
       playerId,
       playerImageURL,
       playerKit,
@@ -93,30 +96,33 @@ class SquadCard extends Form {
       </div>
     );
 
-    const selectKitRender = (
-      <div>
-        {this.renderSelect(
-          "kit",
-          "Select Kit",
-          // this.props.allKits,
-          this.getAvaiableKits(this.props.allKits),
-          false,
-          false,
-          true,
-          this.handleSelectChange,
-          { label: playerKit, value: "playerKit" }
-        )}
+    const selectKitRender =
+      user && (user.isAdmin || user.userType !== "player") ? (
+        <div>
+          {this.renderSelect(
+            "kit",
+            "Select Kit",
+            // this.props.allKits,
+            this.getAvaiableKits(this.props.allKits),
+            false,
+            false,
+            true,
+            this.handleSelectChange,
+            { label: playerKit, value: "playerKit" }
+          )}
 
-        <div className="d-flex justify-content-center align-items center">
-          <button
-            className="btn btn-outline-light"
-            onClick={() => this.saveKit(this.props.playerId)}
-          >
-            Save
-          </button>
+          <div className="d-flex justify-content-center align-items center">
+            <button
+              className="btn btn-outline-light"
+              onClick={() => this.saveKit(this.props.playerId)}
+            >
+              Save
+            </button>
+          </div>
         </div>
-      </div>
-    );
+      ) : (
+        <></>
+      );
     return (
       <>
         <Popup trigger={playerImageWithDetails} modal className="popup-content">

@@ -5,6 +5,7 @@ import { serveEvents } from "../utils/eventServices";
 // import { paginate } from '../utils/paginate';
 import EventsCalendar from "./eventCalendar";
 import DetailsBox from "./detailsBox";
+import LoaderSoccer from "./commons/loaderSoccer";
 // import SearchBox from './common/searchBox';
 import { Link } from "react-router-dom";
 //import { toast } from 'react-toastify';
@@ -156,21 +157,28 @@ class HomeCalendar extends Component {
     //const { user } = this.props;
 
     console.log("events ", eventsArray);
+    if (events && month) {
+      return (
+        <div>
+          <div className="row">
+            <EventsCalendar
+              events={eventsArray}
+              cellSelected={selectedEvent}
+              onCellSelected={this.handleEventSelected}
+              month={month}
+              onIncrease={this.handleMonthIncrease}
+              onDecrease={this.handleMonthDecrease}
+            />
+          </div>
+          <div className="row">
+            <DetailsBox eventSelected={selectedEvent} month={month} />
+          </div>
+        </div>
+      );
+    }
     return (
-      <div>
-        <div className="row">
-          <EventsCalendar
-            events={eventsArray}
-            cellSelected={selectedEvent}
-            onCellSelected={this.handleEventSelected}
-            month={month}
-            onIncrease={this.handleMonthIncrease}
-            onDecrease={this.handleMonthDecrease}
-          />
-        </div>
-        <div className="row">
-          <DetailsBox eventSelected={selectedEvent} month={month} />
-        </div>
+      <div className="centered">
+        <LoaderSoccer />
       </div>
     );
   }

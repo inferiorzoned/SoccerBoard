@@ -21,6 +21,12 @@ export async function getFormation(formationId) {
 
 export async function getCurrentSquad() {
   const { data } = await http.get(epSquad + "/" + user.institution);
+  for (const player of data.players) {
+    for (const instruction of player.instructions) {
+      instruction.type = instruction.contentType;
+      delete instruction.contentType;
+    }
+  }
   return data;
 }
 

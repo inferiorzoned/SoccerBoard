@@ -45,7 +45,7 @@ class TrainingSession extends Component {
     // console.log(trainingRepoCategoryData);
     // console.log(allSessionsData);
     console.log(this.props.sessionId);
-    const sessionIndex = allSessionsData.findIndex(
+    let sessionIndex = allSessionsData.findIndex(
       (asd) => asd._id === this.props.sessionId
     );
     console.log(sessionIndex);

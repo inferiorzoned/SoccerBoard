@@ -75,7 +75,7 @@ class Recruit extends Component {
       if (rejectedIds.length > 0) toast.error(rejected);
       this.setState({ applicants: applicants });
       // TODO - navigate if response ok!
-      // await processApplicants(acceptedIds, rejectedIds);
+      await processApplicants(acceptedIds, rejectedIds);
     } catch (ex) {
       this.setState({ applicants: originalApplicants });
     }

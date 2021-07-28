@@ -10,7 +10,7 @@ const Evaluation = () => {
           <SideBar page={"evaluation"} />
         </div>
         <div className="col-sm-10 mt-5">
-          <EvaluationTable />
+          <EvaluationTable sessionId={"60fe4ff9fb5917001532c799"} />
         </div>
       </div>
     </React.Fragment>

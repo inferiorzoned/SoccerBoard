@@ -1,3 +1,5 @@
+@use "../base/colors" as c;
+
 .navbar {
   background-color: #217075;
   position: sticky;
@@ -5,10 +7,18 @@
 }
 
 .navbar-image {
-  width: 140px;
-  height: 65px;
   object-fit: cover;
   border-color: #6a1c1c;
+  border: solid c.$maroon-light 1px;
+  border-radius: 8px;
+  &-manager {
+    width: 140px;
+    height: 65px;
+  }
+  &-player {
+    width: 70px;
+    height: 70px;
+  }
 }
 
 .navbar-hide {

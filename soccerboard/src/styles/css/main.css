@@ -22,10 +22,18 @@
 }
 
 .navbar-image {
-  width: 140px;
-  height: 65px;
   object-fit: cover;
   border-color: #6a1c1c;
+  border: solid #be4e41 1px;
+  border-radius: 8px;
+}
+.navbar-image-manager {
+  width: 140px;
+  height: 65px;
+}
+.navbar-image-player {
+  width: 70px;
+  height: 70px;
 }
 
 .navbar-hide {
@@ -949,6 +957,16 @@
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
+}
+
+.session-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  font-family: "Passero One";
+  font-size: 1.6rem;
+  text-transform: capitalize;
 }
 
 .homepage-bgimage {

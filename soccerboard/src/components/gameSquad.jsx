@@ -128,6 +128,7 @@ class GameSquad extends Component {
       sub: subPlayers,
       reserved: reservedPlayers,
     });
+    console.log(this.state);
   }
 
   setupPositions = (_mainPlayers, _formation) => {

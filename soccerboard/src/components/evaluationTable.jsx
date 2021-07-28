@@ -3,12 +3,17 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import _ from "lodash";
 import Table from "./commons/table";
+import {
+  getSessionNPlayers,
+  uploadEvaluation,
+} from "../services/evaluationService";
 import { getPlayers } from "../services/trainingSessionService";
 
 class EvaluationTable extends Component {
   state = {
     presents: [],
     players: [],
+    session: {},
   };
 
   columns = [
@@ -49,14 +54,16 @@ class EvaluationTable extends Component {
     },
   ];
 
-  componentDidMount() {
-    let players = [...getPlayers()];
+  async componentDidMount() {
+    const sessionNPlayers = await getSessionNPlayers(this.props.sessionId);
+    // let players = [...getPlayers()];
+    let { players, session } = sessionNPlayers;
     players = players.map((player) => {
       player.present = false;
       player.marks = "";
       return player;
     });
-    this.setState({ players: players });
+    this.setState({ players: players, session: session });
   }
 
   handleCheckboxChange = (player, e) => {
@@ -69,27 +76,32 @@ class EvaluationTable extends Component {
   handleChange = (player, e) => {
     const { players } = this.state;
     const _player = players.find((p) => p._id === player._id);
-    _player.marks = e.target.value;
+    _player.marks = parseFloat(e.target.value);
     this.setState({ players: players });
   };
 
   render() {
-    const { players } = this.state;
+    const { players, session } = this.state;
     return (
       <div className="container">
+        <div className="session-title">{session.sessionTitle}</div>
         <Table
           columns={this.columns}
           data={players}
           tableClassName="evaluation-table"
         />
-        <div className="text-center p-3">
+        <div className="d-flex justify-content-center align-items-center p-3">
           <button
             className="btn btn-maroon"
-            onClick={() => {
-              toast.success("Evaluation submitted.");
-              setTimeout(() => {
-                window.location = "/home";
-              }, 1000);
+            onClick={async () => {
+              console.log(this.state);
+              const { players, presents, session } = this.state;
+              const evaluation = {
+                sessionId: session._id,
+                sessionTitle: session.sessionTitle,
+                sessionStats: players.map((p) => {}),
+              };
+              // await uploadEvaluation()
             }}
           >
             SUBMIT

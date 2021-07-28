@@ -30,7 +30,13 @@ class NavButtons extends Component {
         });
       } else if (!user.isAdmin) {
         this.setState({
-          ButtonLabels: ["Training Session", "Squad", "Home", "Training Repo"],
+          ButtonLabels: [
+            "Training Session",
+            "Squad",
+            "Home",
+            "Training Repo",
+            "Game Squad",
+          ],
         });
       }
     }

@@ -50,20 +50,22 @@ class Navbar extends Component {
 
   render() {
     const { currentPage, notiCount, user } = this.state;
-
+    console.log(user.isAdmin || user.userType !== "player");
     let avatar =
       "https://media.istockphoto.com/photos/football-or-soccer-player-in-action-on-stadium-with-flashlights-ball-picture-id1219371112";
     if (user.isAdmin) {
       avatar = managerAvatar;
-    }
-    if (user.avatar) avatar = user.avatar;
-
+    } else if (user.avatar) avatar = user.avatar;
+    let imgClass = "navbar-image";
+    if (user.isAdmin || user.userType !== "player") {
+      imgClass += " navbar-image-manager";
+    } else imgClass += " navbar-image-player";
     return (
       <nav className="navbar sticky-top navbar-expand-sm navbar-light">
         <div className="row w-100">
           <div className="col-sm-2 d-flex justify-content-center align-items-center">
             <NavLink className="navbar-brand" to="/Home">
-              <img className="navbar-image" src={avatar} alt={user.name} />
+              <img className={imgClass} src={avatar} alt={user.name} />
               <span className="username mx-3">{user.name}</span>
             </NavLink>
           </div>

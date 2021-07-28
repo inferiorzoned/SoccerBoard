@@ -14,6 +14,9 @@ import EvaluationResult from "../pages/evaluationResult.jsx";
 import Test from "../tests/test";
 import ViewTrainingSession from "../pages/ViewTrainingSession.jsx";
 import auth from "../services/authService.js";
+import ReportTable from "./reportTable.jsx";
+import ReportForm from "./reportForm.jsx";
+import Inventory from "../pages/inventory";
 
 function Root() {
   const user = auth.getCurrentUser();
@@ -23,11 +26,13 @@ function Root() {
         <Navbar />
         <Switch>
           <Route path="/test" component={Test}></Route>
+          <Route path="/home/inventory" component={Inventory}></Route>
           <Route path="/home" component={Home}></Route>
           <Route
             path="/Training Session"
             component={ViewTrainingSession}
           ></Route>
+          <Route path="/Game Squad" component={GameSquad}></Route>
           <Route path="/squad/game-squad" component={GameSquad}></Route>
           <Route path="/Squad" component={Squad}></Route>
           {user && (user.userType !== "player" || user.isAdmin) && (
@@ -47,6 +52,11 @@ function Root() {
           ></Route>
           <Route path="/Training Repo/:_id" component={Training}></Route>
           <Route path="/Training Repo" exact component={TrainingRepo}></Route>
+          {user && (user.userType !== "player" || user.isAdmin) ? (
+            <Route path="/report" exact component={ReportTable}></Route>
+          ) : (
+            <Route path="/report" exact component={ReportForm}></Route>
+          )}
         </Switch>
       </main>
     </div>

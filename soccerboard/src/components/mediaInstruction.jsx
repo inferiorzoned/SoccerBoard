@@ -14,16 +14,22 @@ const MediaInstruction = ({
 }) => {
   let iClasses = "i-badge";
   if (isSelected) iClasses += " i-badge-selected";
+
+  let audioUrl = mediaData.url;
+  if (mediaData) {
+    if (!mediaData.url) audioUrl = mediaData;
+  }
+
   return (
     <div className={iClasses}>
-      {mediaData.url ? (
+      {audioUrl ? (
         <div className="i-badge-record" onClick={onBadgeClicked}>
-          <AudioPlayer uri={mediaData.url} />
+          <AudioPlayer uri={audioUrl} />
         </div>
       ) : (
         <div className="d-flex flex-row">
           <AudioRecorder
-            audioURL={mediaData.url}
+            audioURL={audioUrl}
             handleAudioStop={handleMediaStop}
             handleReset={handleMediaReset}
             mimeTypeToUseWhenRecording={`audio/webm`} // For specific mimetype.

@@ -13,7 +13,14 @@ const outerLink = {
     { label: "Create Training Session", link: "" },
     { label: "Send Instruction", link: "" },
     { label: "View Reports", link: "" },
-    { label: "Inventory", link: "" },
+    { label: "Inventory", link: "home/inventory" },
+  ],
+  inventory: [
+    { label: "Manage Squad", link: "" },
+    { label: "Squad Status", link: "" },
+    { label: "Create Training Session", link: "" },
+    { label: "Send Instruction", link: "" },
+    { label: "View Reports", link: "" },
   ],
   trainingSession: [{ label: "Evaluation", link: "evaluation" }],
   evaluation: [],
@@ -32,6 +39,7 @@ const innerLink = {
     { label: "Defense", link: "Training Repo#defense" },
     { label: "Set Piece", link: "Training Repo#set-piece" },
   ],
+  home: [{ label: "Report", link: "report" }],
   squad: [
     { label: "Goalkeepers", link: "" },
     { label: "Defenders", link: "" },
