@@ -99,6 +99,7 @@
   min-width: 12rem;
   background-color: #212230;
   color: #eeeeee;
+  overflow-y: auto;
 }
 
 .sidebar-name {
@@ -1128,6 +1129,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  overflow-y: auto;
   width: 50%;
   background-color: #fdfffc;
   border-radius: 1rem;

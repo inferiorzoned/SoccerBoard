@@ -14,6 +14,7 @@ import {
   uploadItems,
   uploadImage,
 } from "../services/inventoryServices";
+import Logs from "../components/commons/logs";
 
 class Inventory extends Component {
   state = {
@@ -55,11 +56,15 @@ class Inventory extends Component {
     currentItemNo: 0,
     comments: "",
     showEditPopup: false,
+    showLogPopup: false,
     sortColumn: { path: "itemLabel", order: "asc" },
     errors: {},
   };
 
   async componentDidMount() {
+    const inventoryHistory = await getAllItems();
+    this.setState({ inventoryHistory });
+    console.log(inventoryHistory);
     const inventoryItems = await getLatestItems();
     console.log(inventoryItems);
     const items = inventoryItems.items;
@@ -116,6 +121,28 @@ class Inventory extends Component {
     this.setState({ showEditPopup: isPopup });
   };
 
+  handleLogPopup = (isPopup) => {
+    this.setState({ showLogPopup: isPopup });
+  };
+
+  createLogs = () => {
+    const { inventoryHistory } = this.state;
+    const logs = [];
+    inventoryHistory.forEach((inventory) => {
+      // append the logs of each item to the logs array
+      // use string
+      logs.push({
+        info: `${inventory.items.map(
+          (item) => `${item.itemLabel} ${item.quantity}`
+        )}`,
+        description: `Comment: ${inventory.comment}`,
+      });
+    });
+
+    console.log(logs);
+    return logs;
+  };
+
   addItem = async (
     itemLabel,
     modelQty,
@@ -132,10 +159,9 @@ class Inventory extends Component {
     const itemExists = items.find((i) => i.itemLabel === itemLabel);
     console.log(itemExists);
     if (itemExists) {
-      itemExists.quantity = toAddQty
-        ? parseInt(itemExists.quantity) + parseInt(modelQty)
-        : itemExists.quantity;
-      // itemExists.quantity = parseInt(itemExists.quantity) + parseInt(modelQty);
+      // itemExists.quantity = toAddQty
+      //   ? parseInt(itemExists.quantity) + parseInt(modelQty)
+      //   : itemExists.quantity;
       // check if model exists in models array as modelLabel, if found edit last purchased date and quantity
       // else add new model to models array
       let modelExists;
@@ -148,10 +174,17 @@ class Inventory extends Component {
           (m) => m.modelLabel === prevModelLabel
         );
       }
+      itemExists.quantity = !modelExists
+        ? parseInt(itemExists.quantity) + parseInt(modelQty)
+        : itemExists.quantity +
+          parseInt(modelQty) -
+          modelExists.lastPurchasedQty;
+
       if (modelExists) {
         modelExists["modelLabel"] = modelLabel;
         modelExists["lastPurchasedDate"] = modelPurchasedDate;
         modelExists["lastPurchasedQty"] = modelQty;
+        modelExists["avatar"] = modelAvatar;
       } else {
         const { imageFile } = data;
         const { mediaUrl } = await uploadImage(imageFile);
@@ -221,20 +254,23 @@ class Inventory extends Component {
   handleEditModel = async (data, prevModel) => {
     console.log(data, prevModel);
     // for all keys in prevModel object, if the key is not in data, add the key-value pair to data
-
     Object.keys(prevModel).forEach((key) => {
       if (!(key in data)) {
         data[key] = prevModel[key];
       }
     });
+    console.log(data);
     const prevModelLabel = prevModel.modelLabel;
 
-    const { imageFile } = data;
-    const { mediaUrl } = await uploadImage(imageFile);
-    data[mediaUrl] = mediaUrl;
+    // update an image only if the image is not the same as the previous image
+    if (data.imageFile) {
+      const { imageFile } = data;
+      const { mediaUrl } = await uploadImage(imageFile);
+      data[mediaUrl] = mediaUrl;
+    }
     // data["last purchased qty"] -= prevModel["last purchased qty"];
-    console.log(data);
-    this.onSubmitEditInventory(data, true, prevModelLabel);
+    // console.log(data);
+    this.onSubmitEditInventory(data, false, prevModelLabel);
     this.setState({ showItemInfo: false });
   };
 
@@ -265,85 +301,102 @@ class Inventory extends Component {
       inventoryInfoSidebardata,
       defaultModelNo,
       showEditPopup,
+      showLogPopup,
       currentItem,
     } = this.state;
+    const duringPopUp = showLogPopup ? " during-popup" : "";
     if (items) {
       return (
-        <div className="row">
-          <div className="col-sm-2">
-            <SideBar page="inventory" />
-          </div>
-          <div className="col-sm-8 ">
-            <InventoryList
-              items={items}
-              sortColumn={sortColumn}
-              onRowClicked={this.onRowClicked}
-              onDelete={this.handleDeleteItem}
-            />
-            {/* create an blue colored button named add items change color to dark blue in hover*/}
-            <div className="d-flex justify-content-center mt-4">
-              <button
-                className="btn btn-primary btn-sm"
-                onClick={() => this.handleSetPopup(true)}
-              >
-                Add Items(s)
-              </button>
+        <div className={"" + duringPopUp}>
+          <div className="row">
+            <div className="col-sm-2">
+              <SideBar page="inventory" />
             </div>
-            {/* create a bootstrap form which will take multiline inputs */}
-            <form
-              className="form-horizontal m-2 "
-              onSubmit={this.handleFormSubmit}
-            >
-              <div className="form-group">
-                <label className="col-sm-2 control-label">Add Comments</label>
-                <div className="col-sm-11">
-                  <textarea
-                    className="form-control"
-                    rows="4"
-                    value={this.state.comments}
-                    onChange={this.handleFormChange}
-                  />
-                </div>
+            <div className="col-sm-8 ">
+              <InventoryList
+                items={items}
+                sortColumn={sortColumn}
+                onRowClicked={this.onRowClicked}
+                onDelete={this.handleDeleteItem}
+              />
+              {/* create an blue colored button named add items change color to dark blue in hover*/}
+              <div className="d-flex justify-content-center mt-4">
+                <button
+                  className="btn btn-primary btn-sm"
+                  onClick={() => this.handleSetPopup(true)}
+                >
+                  Add Items(s)
+                </button>
               </div>
-            </form>
-            {this.state.errors.comments && (
-              <div className="alert alert-danger">
-                {this.state.errors.comments}
+              {/* create a bootstrap form which will take multiline inputs */}
+              <form
+                className="form-horizontal m-2 "
+                onSubmit={this.handleFormSubmit}
+              >
+                <div className="form-group">
+                  <label className="col-sm-2 control-label">Add Comments</label>
+                  <div className="col-sm-11">
+                    <textarea
+                      className="form-control"
+                      rows="4"
+                      value={this.state.comments}
+                      onChange={this.handleFormChange}
+                    />
+                  </div>
+                </div>
+              </form>
+              {this.state.errors.comments && (
+                <div className="alert alert-danger">
+                  {this.state.errors.comments}
+                </div>
+              )}
+              <small>
+                <button
+                  className="btn btn-link"
+                  onClick={() => this.handleLogPopup(true)}
+                >
+                  View Logs
+                </button>
+              </small>
+              {showLogPopup && (
+                <Logs
+                  setLogPopup={this.handleLogPopup}
+                  logs={this.createLogs()}
+                />
+              )}
+              {/* create a save button at middle of the page*/}
+              <div className="d-flex justify-content-center">
+                <button className="btn btn-success" onClick={this.onSaveClick}>
+                  Save
+                </button>
+                {/* </div> */}
+              </div>
+            </div>
+            {showItemInfo && (
+              <div className="col-sm-2 d-flex flex-row-reverse">
+                <InventoryItemInfo
+                  title={title}
+                  infoHeading={inventoryInfoHeading}
+                  data={
+                    currentItem["models"] &&
+                    currentItem["models"][defaultModelNo]
+                  }
+                  leftOnClick={this.leftOnClick}
+                  rightOnClick={this.rightOnClick}
+                  handleEditModel={this.handleEditModel}
+                />
               </div>
             )}
-            {/* create a save button at middle of the page*/}
-            <div className="d-flex justify-content-center">
-              <button className="btn btn-success" onClick={this.onSaveClick}>
-                Save
-              </button>
-              {/* </div> */}
-            </div>
-          </div>
-
-          {showItemInfo && (
-            <div className="col-sm-2 d-flex flex-row-reverse">
-              <InventoryItemInfo
-                title={title}
-                infoHeading={inventoryInfoHeading}
-                data={
-                  currentItem["models"] && currentItem["models"][defaultModelNo]
-                }
-                leftOnClick={this.leftOnClick}
-                rightOnClick={this.rightOnClick}
-                handleEditModel={this.handleEditModel}
+            {showEditPopup && (
+              <AddInventoryPopup
+                allItems={items}
+                setPopup={this.handleSetPopup}
+                onSubmitEditInventory={this.onSubmitEditInventory}
               />
+            )}
+            <div className="session-creation-instruction">
+              Click on the row to view details.
             </div>
-          )}
-
-          {showEditPopup && (
-            <AddInventoryPopup
-              allItems={items}
-              setPopup={this.handleSetPopup}
-              onSubmitEditInventory={this.onSubmitEditInventory}
-            />
-          )}
-          <div className="session-creation-instruction">
-            Click on the row to view details.
           </div>
         </div>
       );

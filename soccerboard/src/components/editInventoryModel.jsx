@@ -3,6 +3,7 @@ import Form from "./commons/form";
 import Joi from "joi-browser";
 import DateTimePicker from "./commons/dateTime";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+// import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
 class EditInventoryModel extends Form {
@@ -34,31 +35,44 @@ class EditInventoryModel extends Form {
   };
 
   myhandlePurchaseDate = (e) => {
-    console.log(e);
-    const d = `${e.getFullYear()}-${
-      (e.getMonth() + 1 > 9 ? "" : "0") + (e.getMonth() + 1)
-    }-${(e.getDate() > 9 ? "" : "0") + e.getDate()}`;
-    const data = { ...this.state.data };
-    data["purchaseDate"] = d;
-    this.setState({ data });
-    console.log(data);
+    // console.log(e);
+    if (e) {
+      const d = `${e.getFullYear()}-${
+        (e.getMonth() + 1 > 9 ? "" : "0") + (e.getMonth() + 1)
+      }-${(e.getDate() > 9 ? "" : "0") + e.getDate()}`;
+      const data = { ...this.state.data };
+      data["purchaseDate"] = d;
+      this.setState({ data });
+    }
+    // console.log(data);
   };
 
   render() {
-    const { title, infoHeading, modelData, handleEditModel } = this.props;
+    const { title, infoHeading, avatar, modelData, handleEditModel } =
+      this.props;
     modelData["itemLabel"] = title;
     return (
-      <div className="sideBar" style={{ width: "300px", fontSize: "small" }}>
+      <div className="sidebar" style={{ width: "300px", fontSize: "small" }}>
         <div>
           {this.renderInput("itemLabel", "Title", "text", false, title)}
         </div>
-        <div className="image-holder m-1">
-          <img
-            src={this.state.data.avatar}
-            alt=""
-            id="img"
-            className="img-thumbnail"
-          />
+        <div className="image-holder m-1 sidebar-row">
+          {this.state.data.avatar && (
+            <img
+              src={this.state.data.avatar}
+              alt=""
+              id="img"
+              style={{ maxWidth: "100%", maxHeight: "100%" }}
+            />
+          )}
+          {!this.state.data.avatar && (
+            <img
+              src={avatar}
+              alt=""
+              id="img"
+              style={{ maxWidth: "100%", maxHeight: "100%" }}
+            />
+          )}
           <label htmlFor="image-input" className="btn btn-maroon m-1">
             Choose Model Picture
           </label>
@@ -86,21 +100,21 @@ class EditInventoryModel extends Form {
           type={"date"}
           defaultValue={modelData["last purchased date"]}
         /> */}
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <div style={{ paddingLeft: "10px" }}>Last Purchased date</div>
+        <MuiPickersUtilsProvider className="datepicker" utils={DateFnsUtils}>
           <DatePicker
+            className="datepicker"
             color="secondary"
-            style={{
-              backgroundColor: "white",
-              border: "2px solid red",
-              borderRadius: "10px",
-              paddingLeft: "10px",
-            }}
-            // autoOk
-            label="Last Purchased Date"
+            // style={{
+            //   backgroundColor: "white",
+            //   border: "2px solid white",
+            //   borderRadius: "10px",
+            //   // paddingLeft: "10px",
+            // }}
+            label=""
             // format="yyyy-MM-dd"
-            clearable
             disableFuture
-            value={modelData["last purchased date"]}
+            value={modelData["lastPurchasedDate"]}
             onChange={this.myhandlePurchaseDate}
           />
         </MuiPickersUtilsProvider>
@@ -109,14 +123,14 @@ class EditInventoryModel extends Form {
           "Quantity",
           "number",
           false,
-          modelData["last purchased qty"]
+          modelData["lastPurchasedQty"]
         )}
 
         {/* cerate a button named save onclick to handleeditmodel(this.state.data, modeldata ) */}
         <button
           className="btn btn-primary"
           onClick={() => {
-            handleEditModel(this.state.data, modelData, this.handle);
+            handleEditModel(this.state.data, modelData);
           }}
         >
           Save

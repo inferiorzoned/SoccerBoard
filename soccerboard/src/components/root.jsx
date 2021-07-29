@@ -11,7 +11,6 @@ import CreateNewSession from "../pages/createNewSession.jsx";
 import GameSquad from "./gameSquad.jsx";
 import Evaluation from "../pages/evaluation.jsx";
 import EvaluationResult from "../pages/evaluationResult.jsx";
-import Test from "../tests/test";
 import ViewTrainingSession from "../pages/ViewTrainingSession.jsx";
 import auth from "../services/authService.js";
 import ReportTable from "./reportTable.jsx";
@@ -25,7 +24,6 @@ function Root() {
       <main className="App">
         <Navbar />
         <Switch>
-          <Route path="/test" component={Test}></Route>
           <Route path="/home/inventory" component={Inventory}></Route>
           <Route path="/home" component={Home}></Route>
           <Route

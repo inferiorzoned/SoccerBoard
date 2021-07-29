@@ -31,6 +31,7 @@ class InventoryItemInfo extends Component {
         <EditInventoryModel
           title={title}
           infoHeading={infoHeading}
+          avatar={data.avatar}
           modelData={data}
           handleEditModel={handleEditModel}
         />

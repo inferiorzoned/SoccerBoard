@@ -116,7 +116,7 @@ class TraineeListPopup extends Component {
     }
     return (
       <div className="centered">
-        <LoaderSoccer />
+        <LoaderSoccer />  
       </div>
     );
   }
